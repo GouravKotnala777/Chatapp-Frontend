@@ -1,0 +1,345 @@
+@import "../utils.scss";
+
+.home_bg{
+    display: flex;
+    //border: 2px solid green;
+    height: 100%;
+    
+    .navbar_cont{
+        //border: 1px solid violet;
+        height: 100%;
+        width: 65px;
+        display: flex;
+        flex-direction: column;
+        background: $darkGray;
+        .nav_cont{
+            //border: 1px solid red;
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            .nav_icon{
+                //border: 1px solid blue;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+                display: grid;
+                place-items: center;
+                border-radius: 50%;
+                margin: 5px auto;
+                cursor: pointer;
+                color: #e1e1e1;
+                &:hover{
+                    background: $grayHover;
+
+                }
+            }
+        }
+        .setting_cont{
+            //border: 1px solid violet;
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            flex-direction:column;
+            .nav_icon{
+                //border: 1px solid blue;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+                display: grid;
+                place-items: center;
+                border-radius: 50%;
+                margin: 5px auto;
+                cursor: pointer;
+                color: #e1e1e1;
+                &:hover{
+                    background: $grayHover
+                }
+            }
+        }
+        
+    }
+    .chat_cont{
+        //border: 1px solid rgb(164, 35, 255);
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        color: #e1e1e1;
+        background: $primaryDarker;
+        .chat_section_header{
+            //border: 1px solid green;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            .heading{
+                //border: 1px solid yellow;
+                
+            }
+            .icons{
+                //border: 1px solid orange;
+                padding: 0 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 18px;
+                gap: 20px;
+                .icon{
+                    //border: 1px solid green;
+                    width: 45px;
+                    height: 45px;
+                    font-size: 1.1rem;
+                    display: grid;
+                    place-items: center;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    &:hover{
+                        background: $grayHover;
+                    }
+                }
+            }
+        }
+        .search_section{
+            //border: 1px solid red;
+            padding: 10px 5px;
+            .search_cont{
+                //border: 1px solid violet;
+                display: flex;
+                background: $darkGray;
+                padding: 6px 5px;
+                justify-content: space-between;
+                align-items: center;
+                border-radius: 8px;
+                .search_icon{
+                    //border: 1px solid blue;
+                    .BiSearch{
+                        display: grid;
+                        place-items: center;
+                    }
+                }
+                input{
+                    min-width: 90%;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    color: $grayLight;
+                }
+            }
+            .search_tags_cont{
+                //border: 1px solid violet;
+                display: flex;
+                flex-wrap: wrap;
+                //margin-top: 10px;
+
+                .tag{
+                    //border: 1px solid blue;
+                    font-size: 0.7rem;
+                    padding: 3px 10px;
+                    border-radius: 20px;
+                    margin-left: 4px;
+                    margin-top: 10px;
+                    background: $darkGray;
+                    color: $grayLight;
+                    cursor: pointer;
+                    &:hover{
+                        background: $grayHover;
+                    }
+                }
+            }
+
+        }
+        .chat_section{
+            //border: 2px solid orange;
+            flex:1;
+            overflow-y: scroll;
+            &::-webkit-scrollbar{
+                width: 3px;
+            }
+            &::-webkit-scrollbar-track{
+                background-color: #888;
+            }
+            &::-webkit-scrollbar-thumb{
+                background-color: #d0d0d0;
+                border-radius: 10px;
+            }
+            &::-webkit-scrollbar-thumb:hover{
+                background-color: #4a4a4a;
+            }
+            &::-webkit-scrollbar-corner{
+                
+            }
+        }
+    }
+    .message_cont{
+        //border: 1px solid blue;
+        height: 100%;
+        background: $darkGray;
+        .messagenger_placeholder{
+            .placeholder_img{
+                //border: 1px solid red;
+                width: 400px;
+                height: 230px;
+                margin-top: 50px;
+            }
+        }
+    }
+}
+
+@media screen and (width <= 680px) {
+    .home_bg{
+        //border: 2px solid red;
+        .chat_cont{
+            
+            .chat_section_header{
+                
+                .heading{
+                    //border: 1px solid yellow;
+                    
+                }
+                .icons{
+                }
+            }
+            .search_section{
+                .search_cont{
+                    .search_icon{
+                        //border: 1px solid blue;
+                        .BiSearch{
+                        }
+                    }
+                    input{
+                    }
+                }
+                .search_tags_cont{
+    
+                    .tag{
+                        &:hover{
+                        }
+                    }
+                }
+    
+            }
+            .chat_section{
+            }
+        }
+        .message_cont{
+            .messagenger_placeholder{
+                .placeholder_img{
+                    width: 300px;
+                    height: 180px;
+                }
+            }
+        }
+    }
+}
+@media screen and (width <= 560px) {
+    .home_bg{
+        //border: 2px solid red;
+        .chat_cont{
+            
+            .chat_section_header{
+                
+                .heading{
+                    //border: 1px solid yellow;
+                    
+                }
+                .icons{
+                }
+            }
+            .search_section{
+                .search_cont{
+                    .search_icon{
+                        //border: 1px solid blue;
+                        .BiSearch{
+                        }
+                    }
+                    input{
+                    }
+                }
+                .search_tags_cont{
+    
+                    .tag{
+                        &:hover{
+                        }
+                    }
+                }
+    
+            }
+            .chat_section{
+            }
+        }
+        .message_cont{
+            display: none;
+        }
+    }
+}
+@media screen and (width <= 360px) {
+    .home_bg{
+        //border: 2px solid red;
+        display: flex;
+        flex-direction:column;
+        flex-direction: column-reverse;
+        .navbar_cont{
+            height: max-content;
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+            height: 10%;
+            //flex: unset;
+            .nav_cont{
+                flex-direction: row;
+                .nav_icon{
+                    font-size: 1rem;
+                }
+            }
+            .setting_cont{
+                display: none;
+                .nav_icon{
+                }
+            }
+            
+        }
+        .chat_cont{
+            flex: unset;
+            height: 90%;
+            
+            .chat_section_header{
+                
+                .heading{
+                    //border: 1px solid yellow;
+                    
+                }
+                .icons{
+                    //border: 1px solid red;
+                    justify-content: space-between;
+                    gap: 20px;
+                }
+            }
+            .search_section{
+                //background: blue;
+                .search_cont{
+                    .search_icon{
+                        //border: 1px solid blue;
+                        .BiSearch{
+                        }
+                    }
+                    input{
+                    }
+                }
+                .search_tags_cont{
+                    display: none;
+    
+                    .tag{
+                        &:hover{
+                        }
+                    }
+                }
+    
+            }
+            .chat_section{
+
+            }
+        }
+        .message_cont{
+        }
+    }
+}

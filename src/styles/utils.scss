@@ -1,0 +1,47 @@
+
+$primary:#ff4b69;
+$primaryDark:#c43b52;
+$primaryDarker:#190004;
+$primaryLight:#ff8a9d;
+$PrimaryTealish:#0080805b;
+$blue:#34b7f1;
+$grayLight:#939393;
+$grayHover:#373737;
+$darkGray:#252525;
+
+
+.button_util{
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    background: $primaryDark;
+    
+    &:hover{
+        background: $primary;
+    }
+}
+.tooltip_dialog{
+    //border: 1px solid red;
+    border-radius: 8px;
+    padding: 5px 6px;
+    font-size: 0.7rem;
+    background: white;
+    color: black;
+    border: none;
+}
+
+
+
+
+
+
+//------------------------------ WhatsApp --------------------------------
+//$primary:#25d366;
+//$primaryDark:#075e54;
+//$primaryDarker:#1c1e21;
+//$primaryLight:#dcf8c6;
+//$PrimaryTealish:#128c7e;
+//$blue:#34b7f1;
+//$gray:#ece5dd;
+//$darkGray:#3b3b3b;

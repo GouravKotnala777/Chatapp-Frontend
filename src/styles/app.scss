@@ -1,7 +1,18 @@
 #root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-    font-weight: 400;
-  }
+  //border: 2px solid blue;
+  max-width: 1280px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: poppins;
+  height: 100vh;
+}
+
+*{
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+}
