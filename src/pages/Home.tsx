@@ -63,7 +63,7 @@ const chatListData:{chatName:string; lastMessage:string; date:string;}[] = [
 
 
 const Home = () => {
-    const [isTooltipActive, setIsTooltipActive] = useState<boolean>(true);
+    const [isTooltipActive, setIsTooltipActive] = useState<boolean>(false);
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
 
 
