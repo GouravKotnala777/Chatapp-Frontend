@@ -1,4 +1,4 @@
-import { BiChat, BiDotsVertical, BiMessage, BiSearch } from "react-icons/bi";
+import { BiDotsVertical, BiSearch } from "react-icons/bi";
 import "../styles/pages/home.scss";
 import { CiSettings } from "react-icons/ci";
 import photo from "../../public/vite.svg";
@@ -7,6 +7,11 @@ import ChatListItem from "../components/chatListItem";
 import { Button, Heading, Para } from "../utils/Utill";
 import { MouseEvent, useState } from "react";
 import Tooltip from "../components/Tooltip";
+import { BsChatSquareText } from "react-icons/bs";
+import { HiOutlineStatusOnline } from "react-icons/hi";
+import { IoPeopleOutline } from "react-icons/io5";
+import { MdOutlineFeedback } from "react-icons/md";
+import { LuMessageSquarePlus } from "react-icons/lu";
 
 const chatListData:{chatName:string; lastMessage:string; date:string;}[] = [
     {
@@ -65,15 +70,17 @@ const chatListData:{chatName:string; lastMessage:string; date:string;}[] = [
 const Home = () => {
     const [isTooltipActive, setIsTooltipActive] = useState<boolean>(false);
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
+    const [tooltipContent, setTooltipContent] = useState<string>("");
 
 
-    const showTooltipHandler = (e:MouseEvent<HTMLDivElement>) => {
+    const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
         //document.getElementById("aaaa")?.getBoundingClientRect
         setIsTooltipActive(true);
         const rect = e.currentTarget.getBoundingClientRect();
         console.log({x:e.currentTarget.offsetLeft, y:e.currentTarget.offsetTop, rectTop:rect.top + window.scrollY, rectLeft:rect.left + rect.width + 10});
         
         setTooltipPosition({x:e.currentTarget.offsetLeft, y:e.currentTarget.offsetTop});
+        setTooltipContent(e.currentTarget.value);
     };
     const hideTooltipHandler = () => {
         setIsTooltipActive(false);
@@ -81,25 +88,30 @@ const Home = () => {
 
     return(
         <>
-        <Tooltip content="aaaa" position={tooltipPosition} isTooltipActive={isTooltipActive} />
+        <Tooltip content={tooltipContent} position={tooltipPosition} isTooltipActive={isTooltipActive} />
         <div className="home_bg">
             <div className="navbar_cont">
                 <div className="nav_cont">
-                    <div className="nav_icon" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><BiMessage /></div>
-                    <div className="nav_icon" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><BiMessage /></div>
-                    <div className="nav_icon" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><BiMessage /></div>
-                    <div className="nav_icon" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><BiMessage /></div>
+                    <button className="nav_icon" value="Chats" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><BsChatSquareText /></button>
+                    <button className="nav_icon" value="Status" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><HiOutlineStatusOnline /></button>
+                    <button className="nav_icon" value="Community" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><IoPeopleOutline /></button>
+                    <button className="nav_icon" value="Feedback" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><MdOutlineFeedback /></button>
                 </div>
                 <div className="setting_cont">
-                    <div className="nav_icon" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><CiSettings /></div>
-                    <div className="nav_icon" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><img src={photo} alt={photo} /></div>
+                    <button className="nav_icon" value="Setting" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><CiSettings /></button>
+                    <button className="nav_icon" value="Profile" onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}><img src={photo} alt={photo} /></button>
                 </div>
             </div>
+
+
+
+
+
             <div className="chat_cont">
                 <div className="chat_section_header">
                     <div className="heading">Chats</div>
                     <div className="icons">
-                        <div className="icon"><BiChat /></div>
+                        <div className="icon"><LuMessageSquarePlus /></div>
                         <div className="icon"><BiDotsVertical /></div>
                     </div>
                 </div>
@@ -110,9 +122,9 @@ const Home = () => {
                     <div className="search_tags_cont">
                         {
                             ["All", "Unread", "Favorites", "Groups"].map((tag) => (
-                                <div className="tag">
+                                <button className="tag">
                                     {tag}
-                                </div>
+                                </button>
                             ))
                         }
                     </div>
@@ -125,6 +137,11 @@ const Home = () => {
                     }
                 </div>
             </div>
+
+
+
+
+            
             <div className="message_cont">
                 <div className="messagenger_placeholder">
                     <img className="placeholder_img" src={messangerPlaceholderImg} alt={messangerPlaceholderImg} />

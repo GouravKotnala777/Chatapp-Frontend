@@ -5,9 +5,11 @@ $primaryDarker:#190004;
 $primaryLight:#ff8a9d;
 $PrimaryTealish:#0080805b;
 $blue:#34b7f1;
+$grayLighter:#e1e1e1;
 $grayLight:#939393;
 $grayHover:#373737;
-$darkGray:#252525;
+$grayDark:#252525;
+$grayDarker:#1c1c1c;
 
 
 .button_util{
@@ -29,6 +31,9 @@ $darkGray:#252525;
     background: white;
     color: black;
     border: none;
+    transition: 0.3s;
+    opacity: 0;
+    z-index: -1;
 }
 
 
@@ -44,4 +49,4 @@ $darkGray:#252525;
 //$PrimaryTealish:#128c7e;
 //$blue:#34b7f1;
 //$gray:#ece5dd;
-//$darkGray:#3b3b3b;
+//$grayDark:#3b3b3b;
