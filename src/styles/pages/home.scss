@@ -19,17 +19,25 @@
             display: flex;
             flex-direction: column;
             .nav_icon{
-                //border: 1px solid blue;
+                //border: 1px solid rgb(47, 137, 255);
                 background: transparent;
-                color: $grayLight;
-                border-radius: 50%;
+                border: none;
                 width: 45px;
                 height: 45px;
+                border-radius: 50%;
                 margin: 5px auto;
-                border: none;
-                font-size: 1rem;
                 &:hover{
                     background: $grayHover;
+                }
+                .icon_and_name{
+                    //border: 1px solid greenyellow;
+                    color: $grayLight;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    .icon_name{
+                        //border: 1px solid palevioletred;
+                        display: none;
+                    }
                 }
             }
         }
@@ -40,120 +48,28 @@
             .nav_icon{
                 //border: 1px solid blue;
                 background: transparent;
-                color: $grayLight;
-                border-radius: 50%;
+                border: none;
+                border: 1px solid rgb(47, 137, 255);
                 width: 45px;
                 height: 45px;
+                border-radius: 50%;
                 margin: 5px auto;
-                border: none;
-                font-size: 1rem;
                 &:hover{
-                    //background: $grayHover
+                    background: $grayHover;
                 }
-            }
-        }
-        
-    }
-    .chat_cont{
-        //border: 2px solid rgb(47, 255, 120);
-        flex:1;
-        height: 100vh;
-        background: $grayDarker;
-        
-        .chat_section_header{
-            //border: 1px solid green;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 10%;
-            margin: 0 10px;
-            .heading{
-                //border: 1px solid yellow;
-                color: $grayLighter;
-                
-            }
-            .icons{
-                //border: 1px solid orange;
-                color: $grayLighter;
-                display: flex;
-                gap: 20px;
-
-                .icon{
-                    //border: 1px solid green;
-                    font-size: 1rem;
-                    &:hover{
-                        //background: $grayHover;
-                    }
-                }
-            }
-        }
-        .search_section{
-            //border: 2px solid red;
-            height: 20%;
-            display: flex;
-            flex-direction: column;
-            justify-content: stretch;
-            .search_cont{
-                //border: 2px solid violet;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                height: 50%;
-                margin: 0 10px;
-                padding: 0 10px;
-                background: $grayDark;
-                border-radius: 10px;
-                .search_icon{
-                    //border: 1px solid blue;
-                    margin-left: 4px;
-                    .BiSearch{
-                        display: grid;
-                        place-items: center;
-                        color: $grayLight;
-                    }
-                }
-                input{
-                    
-                    min-width: 90%;
-                    background: transparent;
-                    border: none;
-                    outline: none;
-                    color: $grayLighter;
-                }
-            }
-            .search_tags_cont{
-                //border: 2px solid violet;
-                display: flex;
-                flex-wrap: wrap;
-                height: 50%;
-                align-items: center;
-                margin: 0 10px;
-                .tag{
-                    //border: 1px solid blue;
-                    font-size: 0.7rem;
-                    padding: 6px 10px;
-                    border-radius: 20px;
-                    margin-left: 4px;
-                    background: $grayDark;
+                .icon_and_name{
+                    //border: 1px solid greenyellow;
                     color: $grayLight;
-                    border: none;
+                    font-size: 1rem;
                     cursor: pointer;
-                    &:hover{
-                        background: $grayHover;
+                    .icon_name{
+                        border: 1px solid palevioletred;
+                        display: none;
                     }
                 }
             }
         }
-        .chat_section{
-            //border: 2px solid orange;
-            height: 70vh;
-            overflow-y: scroll;
-            background: transparent;
-            .chat_section_scrollable{
-                //border: 2px solid rgb(0, 115, 255);
-
-            }
-        }
+        
     }
     .message_cont{
         //border: 1px solid blue;
@@ -172,8 +88,7 @@
 
 @media screen and (width <= 680px) {
     .home_bg{
-        .chat_cont{
-            
+        .chat_cont{   
             .chat_section_header{
                 
                 .heading{
@@ -263,12 +178,54 @@
             flex-direction: row;
             justify-content: space-between;
             .nav_cont{
+                //border: 1px solid greenyellow;
                 flex-direction: row;
+                flex:1;
+                justify-content: stretch;
+                align-items: center;
                 .nav_icon{
+                    //border: 1px solid blue;
+                    background: transparent;
+                    border: none;
+                    //border: 1px solid rgb(47, 137, 255);
+                    //margin: 5px auto;
+                    flex-basis: 25%;
+                    border-radius: unset;
+                    padding: 0;
+                    &:hover{
+                        background: unset;
+                    }
+                    .icon_and_name{
+                        //border: 1px solid greenyellow;
+                        color: $grayLight;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        height: 100%;
+                        .icon{
+                            font-size: 1rem;
+                            //border: 1px solid red;
+                            padding: 2px 12px;
+                            color: white;
+                            width: 40px;
+                            height: 25px;
+                            border-radius: 10px;
+                            &:hover{
+                                background: $grayHover;
+                            }
+                        }
+                        .icon_name{
+                            //border: 1px solid palevioletred;
+                            display: block;
+                            font-size: 0.7rem;
+                        }
+                    }
                 }
             }
+            
             .setting_cont{
-                flex-direction: row;
+                display: none;
                 .nav_icon{
                 }
             }

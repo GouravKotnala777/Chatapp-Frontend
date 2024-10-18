@@ -1,0 +1,164 @@
+@import "../utils.scss";
+
+.status_cont{
+    //border: 2px solid rgb(47, 255, 120);
+    flex:1;
+    height: 100vh;
+    background: $grayDarker;
+    
+    .status_section_header{
+        //border: 1px solid green;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 10%;
+        margin: 0 10px;
+        .heading{
+            //border: 1px solid yellow;
+            color: $grayLighter;
+            font-weight: 600;
+            
+        }
+        .icons{
+            //border: 1px solid orange;
+            color: $grayLighter;
+            display: flex;
+            gap: 20px;
+
+            .icon{
+                //border: 1px solid green;
+                background: transparent;
+                color: $grayLight;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                margin: 5px auto;
+                border: none;
+                font-size: 1rem;
+                cursor: pointer;
+                &:hover{
+                    background: $grayHover;
+                }
+            }
+        }
+    }
+    .my_status_section{
+        //border: 2px solid red;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        .my_status{
+            //border: 1px solid greenyellow;
+            height: 50%;
+            //padding: 0 10px;
+            position: relative;
+            .add_status_icon{
+                //border: 2px solid rgb(0, 102, 255);
+                position: absolute;
+                top: 26px;
+                left: 33px;
+                .IoAddCircleSharp{
+                    border: 2px solid black;
+                    color: $primary;
+                    background: white;
+                    font-size: 1.4rem;
+                    border-radius: 50%;
+                }
+            }
+        }
+        .viewed_heading{
+            //border: 1px solid orange;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50%;
+            padding: 0 20px;
+            color: $grayLighter;
+            font-size: 0.8rem;
+        }
+    }
+    .status_section{
+        //border: 2px solid orange;
+        height: 70vh;
+        overflow-y: scroll;
+        background: transparent;
+        //padding: 0 10px;
+        .status_section_scrollable{
+            //border: 2px solid rgb(0, 115, 255);
+
+        }
+    }
+}
+
+@media screen and (width <= 680px) {
+    .status_cont{   
+        .status_section_header{
+            
+            .heading{
+                //border: 1px solid yellow;
+                
+            }
+            .icons{
+            }
+        }
+        .my_status_section{
+            .my_status{
+            }
+            .viewed_heading{
+            }
+        }
+        .status_section{
+        }
+    }
+}
+@media screen and (width <= 560px) {
+    .status_cont{
+        
+        .status_section_header{
+            
+            .heading{
+                //border: 1px solid yellow;
+                
+            }
+            .icons{
+            }
+        }
+        .my_status_section{
+            .my_status{
+            }
+            .viewed_heading{
+            }
+
+        }
+        .status_section{
+        }
+    }
+}
+@media screen and (width <= 360px) {
+    .status_cont{
+        //border: 2px solid floralwhite;
+        height: 90vh;
+        
+        .status_section_header{
+            height: 10%;
+            
+            .heading{
+            }
+            .icons{
+            }
+        }
+        .my_status_section{
+            //border: 2px solid greenyellow;
+            //display: none;
+            .my_status{
+            }
+            .viewed_heading{
+            }
+
+        }
+        .status_section{
+            height: 90%;
+        }
+    }
+}

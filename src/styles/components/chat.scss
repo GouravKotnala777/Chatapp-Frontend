@@ -1,0 +1,216 @@
+@import "../utils.scss";
+
+.chat_cont{
+    //border: 2px solid rgb(47, 255, 120);
+    flex:1;
+    height: 100vh;
+    background: $grayDarker;
+    
+    .chat_section_header{
+        //border: 1px solid green;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 10%;
+        margin: 0 10px;
+        .heading{
+            //border: 1px solid yellow;
+            color: $grayLighter;
+            font-weight: 600;                
+        }
+        .icons{
+            //border: 1px solid orange;
+            color: $grayLighter;
+            display: flex;
+            gap: 20px;
+
+            .icon{
+                //border: 1px solid green;
+                background: transparent;
+                color: $grayLight;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                margin: 5px auto;
+                border: none;
+                font-size: 1rem;
+                cursor: pointer;
+                &:hover{
+                    background: $grayHover;
+                }
+            }
+        }
+    }
+    .search_section{
+        //border: 2px solid red;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        .search_cont{
+            //border: 2px solid violet;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50%;
+            margin: 0 10px;
+            padding: 0 10px;
+            background: $grayDark;
+            border-radius: 10px;
+            .search_icon{
+                //border: 1px solid blue;
+                margin-left: 4px;
+                .BiSearch{
+                    display: grid;
+                    place-items: center;
+                    color: $grayLight;
+                }
+            }
+            input{
+                
+                min-width: 90%;
+                background: transparent;
+                border: none;
+                outline: none;
+                color: $grayLighter;
+            }
+        }
+        .search_tags_cont{
+            //border: 2px solid violet;
+            display: flex;
+            flex-wrap: wrap;
+            height: 50%;
+            align-items: center;
+            margin: 0 10px;
+            .tag{
+                //border: 1px solid blue;
+                font-size: 0.7rem;
+                padding: 6px 10px;
+                border-radius: 20px;
+                margin-left: 4px;
+                background: $grayDark;
+                color: $grayLight;
+                border: none;
+                cursor: pointer;
+                &:hover{
+                    background: $grayHover;
+                }
+            }
+        }
+    }
+    .chat_section{
+        //border: 2px solid orange;
+        height: 70vh;
+        overflow-y: scroll;
+        background: transparent;
+        .chat_section_scrollable{
+            //border: 2px solid rgb(0, 115, 255);
+
+        }
+    }
+}
+
+@media screen and (width <= 680px) {
+    .chat_cont{   
+        .chat_section_header{
+            
+            .heading{
+                //border: 1px solid yellow;
+                
+            }
+            .icons{
+            }
+        }
+        .search_section{
+            .search_cont{
+                .search_icon{
+                    .BiSearch{
+                    }
+                }
+                input{
+                }
+            }
+            .search_tags_cont{
+
+                .tag{
+                    &:hover{
+                    }
+                }
+            }
+
+        }
+        .chat_section{
+        }
+    }
+}
+@media screen and (width <= 560px) {
+    .chat_cont{
+        
+        .chat_section_header{
+            
+            .heading{
+                //border: 1px solid yellow;
+                
+            }
+            .icons{
+            }
+        }
+        .search_section{
+            .search_cont{
+                .search_icon{
+                    //border: 1px solid blue;
+                    .BiSearch{
+                    }
+                }
+                input{
+                }
+            }
+            .search_tags_cont{
+
+                .tag{
+                    &:hover{
+                    }
+                }
+            }
+
+        }
+        .chat_section{
+        }
+    }
+}
+@media screen and (width <= 360px) {
+    .chat_cont{
+        height: 90vh;
+        
+        .chat_section_header{
+            height: 10%;
+            
+            .heading{
+            }
+            .icons{
+            }
+        }
+        .search_section{
+            display: none;
+            .search_cont{
+                .search_icon{
+                    .BiSearch{
+                    }
+                }
+                input{
+                }
+            }
+            .search_tags_cont{
+
+                .tag{
+                    &:hover{
+                    }
+                }
+            }
+
+        }
+        .chat_section{
+            height: 90%;
+        }
+    }
+}

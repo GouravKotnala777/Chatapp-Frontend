@@ -36,6 +36,22 @@ $grayDarker:#1c1c1c;
     z-index: -1;
 }
 
+@media screen and (width <= 360px) {
+    .tooltip_dialog{
+        //border: 1px solid red;
+        border-radius: 8px;
+        padding: 5px 6px;
+        font-size: 0.7rem;
+        background: white;
+        color: black;
+        border: none;
+        transition: 0.3s;
+        opacity: 0;
+        z-index: -1;
+        display: none;
+    }
+}
+
 
 
 

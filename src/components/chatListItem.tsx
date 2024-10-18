@@ -1,5 +1,5 @@
 import "../styles/components/chat_list_cont.scss";
-import photo from "../../public/vite.svg";
+import photo from "../../public/user_placeholder.png";
 
 const ChatListItem = ({chatName, lastMessage, date}:{chatName:string; lastMessage:string; date:string;}) => {
 
