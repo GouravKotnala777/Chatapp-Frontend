@@ -8,7 +8,6 @@ import Tooltip from "../components/Tooltip";
 import { BsChatSquareText } from "react-icons/bs";
 import { HiOutlineStatusOnline } from "react-icons/hi";
 import { IoCall, IoPeopleOutline } from "react-icons/io5";
-import { MdOutlineFeedback } from "react-icons/md";
 import Status from "../components/Status";
 import Chats from "../components/Chats";
 
