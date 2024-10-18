@@ -130,11 +130,13 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="chat_section">
-                    {
-                        chatListData.map((chat) => (
-                            <ChatListItem chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
-                        ))
-                    }
+                    <div className="chat_section_scrollable">
+                        {
+                            chatListData.map((chat) => (
+                                <ChatListItem chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
 
