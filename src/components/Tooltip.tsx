@@ -4,16 +4,6 @@ import "../styles/utils.scss";
 const Tooltip = ({content, position, isTooltipActive}:{content:string; position:{x:number; y:number;}; isTooltipActive:boolean;}) => {
     const tooltipRef = useRef<HTMLDialogElement>(null);
 
-    //const tooltipPositionHandler = () => {
-    //    const tooltipDialog = tooltipRef.current;
-
-    //    if (tooltipDialog) {
-    //        tooltipDialog.style.position = ""
-    //    }
-    //};
-
-
-
     return(
         <dialog id="tooltip_dialog" className="tooltip_dialog" ref={tooltipRef} open={true} style={{
             top:position.y+10+"px",

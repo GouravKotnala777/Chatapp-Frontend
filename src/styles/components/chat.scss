@@ -60,19 +60,53 @@
             .search_icon{
                 //border: 1px solid blue;
                 margin-left: 4px;
+                position: relative;
+
                 .BiSearch{
+                    //border: 1px solid white;
+                    position: absolute;
                     display: grid;
                     place-items: center;
                     color: $grayLight;
+                    top: -8px;
+                    left: 4px;
+                    transition: 0.5s;
+                }
+                .FaArrowLeftLong{
+                    position: absolute;
+                    display: grid;
+                    place-items: center;
+                    color: $primary;
+                    top: -8px;
+                    left: 4px;
+                    transition: 0.5s;
+                    opacity: 0;
+                    rotate: 180deg;
                 }
             }
             input{
-                
-                min-width: 90%;
+                min-width: 70%;
                 background: transparent;
                 border: none;
+                //border: 1px solid greenyellow;
                 outline: none;
                 color: $grayLighter;
+            }
+            .search_icon{
+                //border: 1px solid blue;
+                margin-left: 4px;
+                position: relative;
+                .IoMdClose{
+                    //border: 1px solid white;
+                    position: absolute;
+                    display: grid;
+                    place-items: center;
+                    color: $grayLight;
+                    top: -8px;
+                    right: 4px;
+                    transition: 0.5s;
+                    opacity: 0;
+                }
             }
         }
         .search_tags_cont{

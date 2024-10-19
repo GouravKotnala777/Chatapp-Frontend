@@ -1,12 +1,12 @@
 @import "../utils.scss";
 
-.status_cont{
+.communities_cont{
     //border: 2px solid rgb(47, 255, 120);
     flex:1;
     height: 100vh;
     background: $grayDarker;
     
-    .status_section_header{
+    .communities_section_header{
         //border: 1px solid green;
         display: flex;
         justify-content: space-between;
@@ -42,34 +42,29 @@
             }
         }
     }
-    .my_status_section{
-        //border: 2px solid red;
+
+
+    .my_community_section_placeholder{
+        //border: 2px solid greenyellow;
+        img{
+            width: 40%;
+            margin: 0 20%;
+        }
+    }
+
+
+
+
+
+    .my_community_section{
+        border: 2px solid red;
         height: 15%;
         display: flex;
         flex-direction: column;
         justify-content: stretch;
-        .my_status{
-            //border: 1px solid greenyellow;
-            height: 100%;
-            //padding: 0 10px;
-            position: relative;
-            .add_status_icon{
-                //border: 2px solid rgb(0, 102, 255);
-                position: absolute;
-                top: 26px;
-                left: 33px;
-                .IoAddCircleSharp{
-                    border: 2px solid black;
-                    color: $primary;
-                    background: white;
-                    font-size: 1.4rem;
-                    border-radius: 50%;
-                }
-            }
-        }
     }
-    .status_section{
-        //border: 2px solid orange;
+    .communities_section{
+        border: 2px solid orange;
         height: 75%;
         overflow-y: scroll;
         background: transparent;
@@ -84,7 +79,7 @@
             color: $grayLighter;
             font-size: 0.8rem;
         }
-        .status_section_scrollable{
+        .communities_section_scrollable{
             //border: 2px solid rgb(0, 115, 255);
 
         }
@@ -92,8 +87,8 @@
 }
 
 @media screen and (width <= 680px) {
-    .status_cont{   
-        .status_section_header{
+    .communities_cont{   
+        .communities_section_header{
             
             .heading{
                 //border: 1px solid yellow;
@@ -102,20 +97,16 @@
             .icons{
             }
         }
-        .my_status_section{
-            .my_status{
-            }
-            .viewed_heading{
-            }
+        .my_community_section{
         }
-        .status_section{
+        .communities_section{
         }
     }
 }
 @media screen and (width <= 560px) {
-    .status_cont{
+    .communities_cont{
         
-        .status_section_header{
+        .communities_section_header{
             
             .heading{
                 //border: 1px solid yellow;
@@ -124,23 +115,18 @@
             .icons{
             }
         }
-        .my_status_section{
-            .my_status{
-            }
-            .viewed_heading{
-            }
-
+        .my_community_section{
         }
-        .status_section{
+        .communities_section{
         }
     }
 }
 @media screen and (width <= 360px) {
-    .status_cont{
+    .communities_cont{
         //border: 2px solid floralwhite;
         height: 90vh;
         
-        .status_section_header{
+        .communities_section_header{
             height: 10%;
             
             .heading{
@@ -148,17 +134,10 @@
             .icons{
             }
         }
-        .my_status_section{
-            //border: 2px solid greenyellow;
-            //display: none;
-            .my_status{
-            }
-            .viewed_heading{
-                border: 1px solid silver;
-            }
+        .my_community_section{
 
         }
-        .status_section{
+        .communities_section{
         }
     }
 }

@@ -75,9 +75,17 @@ const Status = () => {
                         <IoAddCircleSharp className="IoAddCircleSharp" />
                     </div>
                 </div>
-                <div className="viewed_heading">VIEWED</div>
             </div>
             <div className="status_section">
+                <div className="viewed_heading">VIEWED</div>
+                <div className="status_section_scrollable">
+                    {
+                        statusListData.map((status) => (
+                            <ChatListItem chatName={status.chatName} date={status.date} lastMessage={status.lastMessage} />
+                        ))
+                    }
+                </div>
+                <div className="viewed_heading">RECENT UPDATES</div>
                 <div className="status_section_scrollable">
                     {
                         statusListData.map((status) => (

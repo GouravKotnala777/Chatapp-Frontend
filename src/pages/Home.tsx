@@ -1,15 +1,18 @@
 import "../styles/pages/home.scss";
 import { CiSettings } from "react-icons/ci";
 import photo from "../../public/vite.svg";
-import messangerPlaceholderImg from "../../public/hero_img.png";
+import messangerPlaceholderImg from "../../public/hero_img1.png";
 import { Button, Heading, Para } from "../utils/Utill";
 import { MouseEvent, useState } from "react";
 import Tooltip from "../components/Tooltip";
 import { BsChatSquareText } from "react-icons/bs";
 import { HiOutlineStatusOnline } from "react-icons/hi";
-import { IoCall, IoPeopleOutline } from "react-icons/io5";
+import { IoPeopleOutline } from "react-icons/io5";
 import Status from "../components/Status";
 import Chats from "../components/Chats";
+import Communities from "../components/Communities";
+import { GrChannel } from "react-icons/gr";
+import Channels from "../components/Channels";
 
 
 
@@ -18,7 +21,7 @@ const Home = () => {
     const [isTooltipActive, setIsTooltipActive] = useState<boolean>(false);
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [tooltipContent, setTooltipContent] = useState<string>("");
-    const [activeNavigation, setActiveNavigation] = useState<string>("");
+    const [activeNavigation, setActiveNavigation] = useState<string>("Chats");
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -57,17 +60,17 @@ const Home = () => {
                         </div>
                     </button>
 
-                    <button className="nav_icon" value="Community" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                    <button className="nav_icon" value="Communities" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
                         <div className="icon_and_name">
                             <IoPeopleOutline className="icon" />
                             <div className="icon_name">Communities</div>
                         </div>
                     </button>
 
-                    <button className="nav_icon" value="Call" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                    <button className="nav_icon" value="Channels" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
                         <div className="icon_and_name">
-                            <IoCall className="icon" />
-                            <div className="icon_name">Call</div>
+                            <GrChannel className="icon" />
+                            <div className="icon_name">Channels</div>
                         </div>
                     </button>
                 </div>
@@ -97,7 +100,13 @@ const Home = () => {
                     activeNavigation === "Status" ?
                         <Status />
                         :
-                        <h1>Hello</h1>
+                        activeNavigation === "Communities" ?
+                            <Communities />
+                            :
+                            activeNavigation === "Channels" ?
+                                <Channels />
+                                :
+                                <h1>From Home Page...</h1>
             }
 
 

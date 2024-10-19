@@ -2,6 +2,8 @@ import "../styles/components/chat.scss";
 import { BiDotsVertical, BiSearch } from "react-icons/bi";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import ChatListItem from "./chatListItem";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 
 const chatListData:{chatName:string; lastMessage:string; date:string;}[] = [
     {
@@ -58,6 +60,44 @@ const chatListData:{chatName:string; lastMessage:string; date:string;}[] = [
 
 const Chats = () => {
 
+    const onFocusHandler = () => {
+        const BiSearch = document.getElementById("BiSearch");
+        const FaArrowLeftLong = document.getElementById("FaArrowLeftLong");
+        const IoMdClose = document.getElementById("IoMdClose");
+
+        if (BiSearch && FaArrowLeftLong && IoMdClose) {
+            BiSearch.style.rotate = "-180deg";
+            BiSearch.style.opacity = "0";
+            FaArrowLeftLong.style.rotate = "0deg";
+            FaArrowLeftLong.style.opacity = "1";
+            IoMdClose.style.rotate = "0deg";
+            IoMdClose.style.opacity = "1";
+        }
+    };
+    const onBlurHandler = () => {
+        const BiSearch = document.getElementById("BiSearch");
+        const FaArrowLeftLong = document.getElementById("FaArrowLeftLong");
+        const IoMdClose = document.getElementById("IoMdClose");
+
+        if (BiSearch && FaArrowLeftLong && IoMdClose) {
+            BiSearch.style.rotate = "0deg";
+            BiSearch.style.opacity = "1";
+            FaArrowLeftLong.style.rotate = "180deg";
+            FaArrowLeftLong.style.opacity = "0";
+            IoMdClose.style.rotate = "180deg";
+            IoMdClose.style.opacity = "0";
+            
+        }
+    };
+
+    const searchInputClearHandler = () => {
+        const searchChatInp = document.getElementById("search_chat_inp") as HTMLInputElement;
+
+        if (searchChatInp) {
+            searchChatInp.value = "";
+        }
+    };
+
     return(
         <div className="chat_cont">
             <div className="chat_section_header">
@@ -69,7 +109,14 @@ const Chats = () => {
             </div>
             <div className="search_section">
                 <div className="search_cont">
-                    <div className="search_icon"><BiSearch className="BiSearch" /></div><input type="text" name="search" placeholder="Search" />
+                    <div className="search_icon" onClick={searchInputClearHandler}>
+                        <BiSearch id="BiSearch" className="BiSearch" />
+                        <FaArrowLeftLong id="FaArrowLeftLong" className="FaArrowLeftLong" />
+                    </div>
+                    <input type="text" name="search" placeholder="Search" id="search_chat_inp" onFocus={onFocusHandler} onBlur={onBlurHandler} />
+                    <div className="search_icon" onClick={searchInputClearHandler}>
+                        <IoMdClose id="IoMdClose" className="IoMdClose" />
+                    </div>
                 </div>
                 <div className="search_tags_cont">
                     {
