@@ -1,23 +1,23 @@
 @import "../utils.scss";
 
-.channels_cont{
+.profile_cont{
     //border: 2px solid rgb(47, 255, 120);
     flex:1;
     height: 100vh;
     background: $grayDarker;
     
-    .channel_section_header{
+    .profile_section_header{
         //border: 1px solid green;
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 10%;
+        //margin: 0 10px;
         padding: 0 10px;
         .heading{
             //border: 1px solid yellow;
             color: $grayLighter;
-            font-weight: 600;
-            
+            font-weight: 600;                
         }
         .icons{
             //border: 1px solid orange;
@@ -42,41 +42,58 @@
             }
         }
     }
-    .my_channel_section{
+    .search_section{
         //border: 2px solid red;
-        height: 15%;
-        
-        .my_channel{
-            //border: 1px solid orange;
-            color: $grayLighter;
+        height: 38%;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        .my_dp_cont{
+            //border: 1px solid greenyellow;
+            height: 170px;
+            width: 170px;
+            margin: 0 auto;
+            border-radius: 50%;
+            img{
+                height: 100%;
+                width: 100%;
+            }
         }
     }
-    .channel_section{
+    .profile_section{
         //border: 2px solid orange;
-        height: 75%;
+        height: 52%;
         overflow-y: scroll;
         background: transparent;
-        //padding: 0 10px;
-        .viewed_heading{
-            //border: 1px solid orange;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 10%;
-            padding: 0 20px;
-            color: $grayLighter;
-            font-size: 0.8rem;
-        }
-        .channel_section_scrollable{
+        .profile_section_scrollable{
             //border: 2px solid rgb(0, 115, 255);
-
+            padding:5px 15px;
+            .profile_info{
+                //border: 1px solid seagreen;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                .profile_name_value{
+                    //border: 1px solid purple;
+                    width:80%;
+                    
+                }
+                .profile_edit_icon{
+                    //border: 1px solid orange;
+                    .MdEdit{
+                        color: $primary;
+                        font-size: 1.1rem;
+                        margin-top:4px;
+                    }
+                }
+            }
         }
     }
 }
 
 @media screen and (width <= 680px) {
-    .channels_cont{   
-        .channel_section_header{
+    .profile_cont{   
+        .profile_section_header{
             
             .heading{
                 //border: 1px solid yellow;
@@ -85,20 +102,16 @@
             .icons{
             }
         }
-        .my_channel_section{
-            .my_status{
-            }
-            .viewed_heading{
-            }
+        .search_section{
         }
-        .channel_section{
+        .profile_section{
         }
     }
 }
 @media screen and (width <= 560px) {
-    .channels_cont{
+    .profile_cont{
         
-        .channel_section_header{
+        .profile_section_header{
             
             .heading{
                 //border: 1px solid yellow;
@@ -107,23 +120,17 @@
             .icons{
             }
         }
-        .my_channel_section{
-            .my_status{
-            }
-            .viewed_heading{
-            }
-
+        .search_section{
         }
-        .channel_section{
+        .profile_section{
         }
     }
 }
 @media screen and (width <= 360px) {
-    .channels_cont{
-        //border: 2px solid floralwhite;
+    .profile_cont{
         height: 90vh;
         
-        .channel_section_header{
+        .profile_section_header{
             height: 10%;
             
             .heading{
@@ -131,17 +138,11 @@
             .icons{
             }
         }
-        .my_channel_section{
-            //border: 2px solid greenyellow;
-            //display: none;
-            .my_status{
-            }
-            .viewed_heading{
-                border: 1px solid silver;
-            }
-
+        .search_section{
         }
-        .channel_section{
+        .profile_section{
+            height: 60%;
+            font-size: 0.8rem;
         }
     }
 }

@@ -8,8 +8,6 @@
     padding: 5px;
     .image_cont{
         //border: 1px solid violet;
-        width: 50px;
-        height: 50px;
         display: grid;
         place-items: center;
         border-radius: 50%;
@@ -44,6 +42,16 @@
             margin-right: 5px;
             font-size: 0.6rem;
             color: $grayLight;
+        }
+        .icons_cont{
+            //border: 1px solid blueviolet;
+            display: flex;
+
+            .icon{
+                font-size: 1rem;
+                color: $grayLight;       
+                margin-right: 10px;
+            }
         }
     }
 }

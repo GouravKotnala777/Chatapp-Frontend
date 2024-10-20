@@ -1,12 +1,12 @@
 @import "../utils.scss";
 
-.chat_cont{
+.settings_cont{
     //border: 2px solid rgb(47, 255, 120);
     flex:1;
     height: 100vh;
     background: $grayDarker;
     
-    .chat_section_header{
+    .settings_section_header{
         //border: 1px solid green;
         display: flex;
         justify-content: space-between;
@@ -43,57 +43,54 @@
     }
     .search_section{
         //border: 2px solid red;
-        height: 20%;
+        height: 30%;
         display: flex;
         flex-direction: column;
         justify-content: stretch;
 
         .search_cont_outer{
             //border: 2px solid greenyellow;
-            height: 50%;
+            height: 30%;
         }
         .search_tags_cont{
             //border: 2px solid violet;
             display: flex;
             flex-wrap: wrap;
-            height: 50%;
+            height: 70%;
             align-items: center;
             margin: 0 10px;
-            .tag{
-                //border: 1px solid blue;
-                font-size: 0.7rem;
-                padding: 6px 10px;
-                border-radius: 20px;
-                margin-left: 4px;
-                background: $grayDark;
-                color: $grayLight;
-                border: none;
-                cursor: pointer;
-                &:hover{
-                    background: $grayHover;
-                }
-            }
         }
     }
-    .chat_section{
+    .setting_section{
         //border: 2px solid orange;
-        height: 70vh;
+        height: 60%;
         overflow-y: scroll;
         background: transparent;
-        .chat_section_scrollable{
+        .setting_section_scrollable{
             //border: 2px solid rgb(0, 115, 255);
-
-            .single_chat_outer{
-                //border: 2px solid greenyellow;
+            padding:5px 15px;
+            .setting_list{
+                //border: 2px solid rgb(0, 115, 255);
+                display: flex;
+                gap: 20px;
+                padding: 10px;
+                margin-top: 10px;
+                .setting_icon{
+                    font-size: 1.1rem;
+                }
+                .setting_name{
+                    border-bottom: 1px solid $grayDark;
+                    flex: 1;
+                    text-align: left;
+                }
             }
-
         }
     }
 }
 
 @media screen and (width <= 680px) {
-    .chat_cont{   
-        .chat_section_header{
+    .settings_cont{   
+        .settings_section_header{
             
             .heading{
                 //border: 1px solid yellow;
@@ -120,14 +117,14 @@
             }
 
         }
-        .chat_section{
+        .setting_section{
         }
     }
 }
 @media screen and (width <= 560px) {
-    .chat_cont{
+    .settings_cont{
         
-        .chat_section_header{
+        .settings_section_header{
             
             .heading{
                 //border: 1px solid yellow;
@@ -155,15 +152,15 @@
             }
 
         }
-        .chat_section{
+        .setting_section{
         }
     }
 }
 @media screen and (width <= 360px) {
-    .chat_cont{
+    .settings_cont{
         height: 90vh;
         
-        .chat_section_header{
+        .settings_section_header{
             height: 10%;
             
             .heading{
@@ -172,7 +169,6 @@
             }
         }
         .search_section{
-            display: none;
             .search_cont{
                 .search_icon{
                     .BiSearch{
@@ -190,8 +186,10 @@
             }
 
         }
-        .chat_section{
-            height: 90%;
+        .setting_section{
+            height: 60%;
+            font-size: 0.8rem;
+
         }
     }
 }

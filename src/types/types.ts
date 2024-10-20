@@ -1,0 +1,1 @@
+export type textAlign = 'left' | 'right' | 'center' | 'justify';

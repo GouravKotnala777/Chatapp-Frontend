@@ -2,17 +2,25 @@ import "../styles/pages/home.scss";
 import { CiSettings } from "react-icons/ci";
 import photo from "../../public/vite.svg";
 import messangerPlaceholderImg from "../../public/hero_img1.png";
-import { Button, Heading, Para } from "../utils/Utill";
+import { Button, Heading, Input, Para } from "../utils/Utill";
 import { MouseEvent, useState } from "react";
 import Tooltip from "../components/Tooltip";
 import { BsChatSquareText } from "react-icons/bs";
 import { HiOutlineStatusOnline } from "react-icons/hi";
-import { IoPeopleOutline } from "react-icons/io5";
+import { IoPeopleOutline, IoVideocam } from "react-icons/io5";
 import Status from "../components/Status";
 import Chats from "../components/Chats";
 import Communities from "../components/Communities";
 import { GrChannel } from "react-icons/gr";
 import Channels from "../components/Channels";
+import Settings from "../components/Settings";
+import Profile from "../components/Profile";
+import ChatListItem from "../components/chatListItem";
+import { BiDotsVertical, BiSearch } from "react-icons/bi";
+import { FaRegLaughBeam } from "react-icons/fa";
+import { MdKeyboardVoice } from "react-icons/md";
+import { FaCamera, FaPlus } from "react-icons/fa6";
+
 
 
 
@@ -22,6 +30,7 @@ const Home = () => {
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [tooltipContent, setTooltipContent] = useState<string>("");
     const [activeNavigation, setActiveNavigation] = useState<string>("Chats");
+    const [isMessangerActive, setIsMessangerActive] = useState<{chatName:string; lastMessage:string; date:string;}>();
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -75,13 +84,13 @@ const Home = () => {
                     </button>
                 </div>
                 <div className="setting_cont">
-                    <button className="nav_icon" value="Chats" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                    <button className="nav_icon" value="Settings" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
                         <div className="icon_and_name">
                             <CiSettings className="icon" />
                             <div className="icon_name">Setting</div>
                         </div>
                     </button>
-                    <button className="nav_icon" value="Chats" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                    <button className="nav_icon" value="Profile" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
                         <div className="icon_and_name">
                             <img src={photo} alt={photo} />
                             <div className="icon_name">Profile</div>
@@ -95,7 +104,7 @@ const Home = () => {
 
             {
                 activeNavigation === "Chats" ?
-                    <Chats />
+                    <Chats setIsMessangerActive={setIsMessangerActive} />
                     :
                     activeNavigation === "Status" ?
                         <Status />
@@ -106,7 +115,13 @@ const Home = () => {
                             activeNavigation === "Channels" ?
                                 <Channels />
                                 :
-                                <h1>From Home Page...</h1>
+                                activeNavigation === "Settings" ?
+                                    <Settings />
+                                    :
+                                    activeNavigation === "Profile" ?
+                                        <Profile />
+                                        :
+                                        <h1>From Home Page...</h1>
             }
 
 
@@ -115,12 +130,81 @@ const Home = () => {
 
             
             <div className="message_cont">
-                <div className="messagenger_placeholder">
-                    <img className="placeholder_img" src={messangerPlaceholderImg} alt={messangerPlaceholderImg} />
-                    <Heading value="Download WhatsApp for Windows" color="#e1e1e1" />
-                    <Para value="make calls, share your screen and get a faster experience when you download the Windows app." />
-                    <Button value="Get from Microsoft Store" color="white" />
-                </div>
+                {
+                    isMessangerActive ? 
+                        <div className="messagenger">
+                            <div className="upper_part">
+                                <ChatListItem chatName="Didi" lastMessage="last seen today at 8:06 am" date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
+                            </div>
+                            <div className="middle_part">
+                                <div className="messages_cont">
+                                    
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+                                    <div className="message_cont">
+                                        <div className="content">Hello my name is gourav</div>
+                                        <div className="date">8:05 am</div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                            <div className="lower_part">
+                                <div className="icon"><FaRegLaughBeam /></div>
+                                <div className="icon"><FaPlus /></div>
+                                <div className="search_cont_outer">
+                                    <Input biSearchID="seachIconForMessanger" faArrowLeftLongID="leftArrowIconForMessanger" inputID="inputForMessanger" ioMdCloseID="closeIconForMessanger" />
+                                </div>
+                                <div className="icon"><MdKeyboardVoice /></div>
+                            </div>
+                        </div>
+                        :
+                        <div className="messagenger_placeholder">
+                            <img className="placeholder_img" src={messangerPlaceholderImg} alt={messangerPlaceholderImg} />
+                            <Heading value="Download WhatsApp for Windows" color="#e1e1e1" />
+                            <Para value="make calls, share your screen and get a faster experience when you download the Windows app." />
+                            <Button value="Get from Microsoft Store" color="white" />
+                        </div>
+                }
             </div>
         </div>
         </>
