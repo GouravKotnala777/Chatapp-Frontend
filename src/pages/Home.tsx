@@ -20,6 +20,8 @@ import { BiDotsVertical, BiSearch } from "react-icons/bi";
 import { FaRegLaughBeam } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaCamera, FaPlus } from "react-icons/fa6";
+import Messages from "../components/Messages";
+import { ChatTypes } from "../types/types";
 
 
 
@@ -30,7 +32,7 @@ const Home = () => {
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [tooltipContent, setTooltipContent] = useState<string>("");
     const [activeNavigation, setActiveNavigation] = useState<string>("Chats");
-    const [isMessangerActive, setIsMessangerActive] = useState<{chatName:string; lastMessage:string; date:string;}>();
+    const [selectedChat, setSelectedChat] = useState<ChatTypes>();
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -104,7 +106,7 @@ const Home = () => {
 
             {
                 activeNavigation === "Chats" ?
-                    <Chats isMessangerActive={isMessangerActive} setIsMessangerActive={setIsMessangerActive} />
+                    <Chats selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
                     :
                     activeNavigation === "Status" ?
                         <Status />
@@ -131,74 +133,13 @@ const Home = () => {
             
             <div className="message_cont">
                 {
-                    isMessangerActive ? 
+                    selectedChat ? 
                         <div className="messagenger">
                             <div className="upper_part">
-                                <ChatListItem chatName="Didi" lastMessage="last seen today at 8:06 am" date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
+                                <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${selectedChat.date} am`} date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
                             </div>
                             <div className="middle_part">
-                                <div className="messages_cont">
-                                    
-                                    <div className="incomming_message_cont">
-                                        <div className="content">H</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">He</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="default_message_cont">
-                                        <div className="content">Hello</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="outgoing_message_cont">
-                                        <div className="content">Hello</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello my</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello my name</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="outgoing_message_cont">
-                                        <div className="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore accusantium obcaecati distinctio odit facilis fugiat, omnis quia voluptas. Deleniti modi unde aspernatur similique excepturi dolorum commodi adipisci voluptas quasi.</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello my name is gourav</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello my name is gourav skdjsdaj sdkoajsd sakdjkajssn dsdjkasd ksjdkas ksjdkl lkjsdkaj asfhuhdc w wcjwenkmdniois dashdnsma</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello my name is gourav</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello my name is gourav</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello my name is gourav</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-                                    <div className="incomming_message_cont">
-                                        <div className="content">Hello my name is gourav</div>
-                                        <div className="date">8:05 am</div>
-                                    </div>
-
-
-
-                                </div>
+                                <Messages />
                             </div>
                             <div className="lower_part">
                                 <div className="icon"><FaRegLaughBeam /></div>
@@ -212,7 +153,7 @@ const Home = () => {
                         :
                         <div className="messagenger_placeholder">
                             <img className="placeholder_img" src={messangerPlaceholderImg} alt={messangerPlaceholderImg} />
-                            <Heading value="Download WhatsApp for Windows" color="#e1e1e1" />
+                            <Heading value="Download WhatsApp for Windows" color="#e1e1e1" fontSize="1.2rem" />
                             <Para value="make calls, share your screen and get a faster experience when you download the Windows app." />
                             <Button value="Get from Microsoft Store" color="white" />
                         </div>
