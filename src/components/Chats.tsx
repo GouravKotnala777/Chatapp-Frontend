@@ -6,6 +6,7 @@ import { Input } from "../utils/Utill";
 import { Dispatch, SetStateAction } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { ChatTypes } from "../types/types";
+import { Link } from "react-router-dom";
 
 const chatListData:{_id:string; chatName:string; lastMessage:string; date:string;}[] = [
     {
@@ -77,46 +78,88 @@ const Chats = ({selectedChat, setSelectedChat}:{selectedChat:ChatTypes|undefined
     };
 
     return(
-        <div className="chat_cont">
-            <div className="chat_section_header">
-                <div className="heading">Chats</div>
-                <div className="icons">
-                    <button className="icon"><LuMessageSquarePlus /></button>
-                    <button className="icon"><BiDotsVertical /></button>
+        <>
+            <div className="chat_cont">
+                <div className="chat_section_header">
+                    <div className="heading">Chats</div>
+                    <div className="icons">
+                        <button className="icon"><LuMessageSquarePlus /></button>
+                        <button className="icon"><BiDotsVertical /></button>
+                    </div>
                 </div>
-            </div>
-            <div className="search_section">
-                <div className="search_cont_outer">
-                    <Input biSearchID="seachIconForChat" faArrowLeftLongID="leftArrowIconForChat" inputID="inputForChat" ioMdCloseID="closeIconForChat" />
+                <div className="search_section">
+                    <div className="search_cont_outer">
+                        <Input biSearchID="seachIconForChat" faArrowLeftLongID="leftArrowIconForChat" inputID="inputForChat" ioMdCloseID="closeIconForChat" />
+                    </div>
+                    <div className="search_tags_cont">
+                        {
+                            ["All", "Unread", "Favorites", "Groups"].map((tag) => (
+                                <button className="tag">
+                                    {tag}
+                                </button>
+                            ))
+                        }
+                    </div>
                 </div>
-                <div className="search_tags_cont">
-                    {
-                        ["All", "Unread", "Favorites", "Groups"].map((tag) => (
-                            <button className="tag">
-                                {tag}
-                            </button>
-                        ))
-                    }
-                </div>
-            </div>
-            <div className="chat_section">
-                <div className="chat_section_scrollable">
+                <div className="chat_section">
+                    <div className="chat_section_scrollable">
 
-                    {
-                        chatListData.map((chat) => (
-                            <div className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
-                                background:selectedChat?._id === chat._id ?
-                                    PRIMARY_LIGHT
-                                    :
-                                    "unset"
-                            }}>
-                                <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
-                            </div>
-                        ))
-                    }
+                        {
+                            chatListData.map((chat) => (
+                                <div className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
+                                    background:selectedChat?._id === chat._id ?
+                                        PRIMARY_LIGHT
+                                        :
+                                        "unset"
+                                }}>
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
+            <div className="chat_cont_mobile">
+                <div className="chat_section_header">
+                    <div className="heading">Chats</div>
+                    <div className="icons">
+                        <button className="icon"><LuMessageSquarePlus /></button>
+                        <button className="icon"><BiDotsVertical /></button>
+                    </div>
+                </div>
+                <div className="search_section">
+                    <div className="search_cont_outer">
+                        <Input biSearchID="seachIconForChat" faArrowLeftLongID="leftArrowIconForChat" inputID="inputForChat" ioMdCloseID="closeIconForChat" />
+                    </div>
+                    <div className="search_tags_cont">
+                        {
+                            ["All", "Unread", "Favorites", "Groups"].map((tag) => (
+                                <button className="tag">
+                                    {tag}
+                                </button>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className="chat_section">
+                    <div className="chat_section_scrollable">
+
+                        {
+                            chatListData.map((chat) => (
+                                <Link to="/chat/single" className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
+                                    background:selectedChat?._id === chat._id ?
+                                        PRIMARY_LIGHT
+                                        :
+                                        "unset"
+                                }}>
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
+                                </Link>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 
