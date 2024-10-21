@@ -4,6 +4,7 @@ import { LuMessageSquarePlus } from "react-icons/lu";
 import ChatListItem from "./chatListItem";
 import { Input } from "../utils/Utill";
 import { Dispatch, SetStateAction } from "react";
+import { PRIMARY_LIGHT } from "../constants/constants";
 
 const chatListData:{chatName:string; lastMessage:string; date:string;}[] = [
     {
@@ -58,7 +59,7 @@ const chatListData:{chatName:string; lastMessage:string; date:string;}[] = [
     },
 ];
 
-const Chats = ({setIsMessangerActive}:{setIsMessangerActive:Dispatch<SetStateAction<{chatName:string; lastMessage:string; date:string;}|undefined>>;}) => {
+const Chats = ({isMessangerActive, setIsMessangerActive}:{isMessangerActive:{chatName:string; lastMessage:string; date:string;}|undefined; setIsMessangerActive:Dispatch<SetStateAction<{chatName:string; lastMessage:string; date:string;}|undefined>>;}) => {
 
     const onSelectChatHandler = (data:{chatName:string; lastMessage:string; date:string;}) => {
         setIsMessangerActive(data);
@@ -92,8 +93,13 @@ const Chats = ({setIsMessangerActive}:{setIsMessangerActive:Dispatch<SetStateAct
 
                     {
                         chatListData.map((chat) => (
-                            <div className="single_chat_outer" onClick={() => onSelectChatHandler(chat)}>
-                                <ChatListItem chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
+                            <div className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
+                                background:isMessangerActive?.chatName === chat.chatName ?
+                                    PRIMARY_LIGHT
+                                    :
+                                    "unset"
+                            }}>
+                                <ChatListItem isSelected={isMessangerActive?.chatName === chat.chatName} chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
                             </div>
                         ))
                     }

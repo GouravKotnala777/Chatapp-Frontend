@@ -104,7 +104,7 @@ const Home = () => {
 
             {
                 activeNavigation === "Chats" ?
-                    <Chats setIsMessangerActive={setIsMessangerActive} />
+                    <Chats isMessangerActive={isMessangerActive} setIsMessangerActive={setIsMessangerActive} />
                     :
                     activeNavigation === "Status" ?
                         <Status />
