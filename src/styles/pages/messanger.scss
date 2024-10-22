@@ -1,0 +1,155 @@
+@import "../utils.scss";
+
+.message_cont{
+    //border: 1px solid blue;
+    flex:1;
+    background: $grayDark;
+    .messagenger_placeholder{
+        width: 100%;
+        padding: 20px;
+        .placeholder_img{
+            //border: 1px solid red;
+            width: 100%;
+        }
+    }
+    .messagenger{
+        //border: 1px solid violet;
+        height: 100vh;
+        .upper_part{
+            //border: 1px solid indigo;
+            height: 13%;
+        }
+        .middle_part{
+            //border: 1px solid rgb(113, 159, 113);
+            height: 75%;
+            background: $grayDarker;
+            overflow-y: scroll;
+        }
+        .lower_part{
+            border: 1px solid yellow;
+            height: 12%;
+            display: flex;
+            color: $grayLight;
+
+            .icon{
+                border: 1px solid rgb(0, 255, 191);
+                font-size: 1.1rem;
+                padding: 12px;
+            }
+            .search_cont_outer{
+                border: 1px solid rgb(255, 213, 0);
+                flex: 1;
+            }
+        }
+    }
+}
+
+
+@media screen and (width <= 360px) {
+    .home_bg{
+        //border: 2px solid red;
+        flex-direction: column-reverse;
+        .navbar_cont{
+            height: 10vh;
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+            .nav_cont{
+                //border: 1px solid greenyellow;
+                flex-direction: row;
+                flex:1;
+                justify-content: stretch;
+                align-items: center;
+                .nav_icon{
+                    //border: 1px solid blue;
+                    background: transparent;
+                    border: none;
+                    //border: 1px solid rgb(47, 137, 255);
+                    //margin: 5px auto;
+                    flex-basis: 25%;
+                    border-radius: unset;
+                    padding: 0;
+                    &:hover{
+                        background: unset;
+                    }
+                    .icon_and_name{
+                        //border: 1px solid greenyellow;
+                        color: $grayLight;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        height: 100%;
+                        .icon{
+                            font-size: 1rem;
+                            //border: 1px solid red;
+                            padding: 2px 12px;
+                            color: white;
+                            width: 40px;
+                            height: 25px;
+                            border-radius: 10px;
+                            &:hover{
+                                background: $grayHover;
+                            }
+                        }
+                        .icon_name{
+                            //border: 1px solid palevioletred;
+                            display: block;
+                            font-size: 0.7rem;
+                        }
+                    }
+                }
+            }
+            
+            .setting_cont{
+                display: none;
+                .nav_icon{
+                }
+            }
+            
+        }
+        .messagenger_mobile{
+            //border: 1px solid violet;
+            height: 100vh;
+            display: block;
+            .upper_part{
+                //border: 1px solid indigo;
+                height: 13%;
+                display: flex;
+                align-items: center;
+                .BiLeftArrow{
+                    //border: 1px solid blanchedalmond;
+                    color: $grayLighter;
+                    height: 100%;
+                }
+            }
+            .middle_part{
+                //border: 1px solid rgb(113, 159, 113);
+                height: 75%;
+                background: $grayDarker;
+                overflow-y: scroll;
+            }
+            .lower_part{
+                //border: 1px solid yellow;
+                height: 12%;
+                display: flex;
+                color: $grayLight;
+    
+                .icon{
+                    //border: 1px solid rgb(0, 255, 191);
+                    font-size: 1.1rem;
+                    //padding: 12px;
+                    width: 9%;
+                    display: grid;
+                    place-items: center;
+                    font-size: 0.9rem;
+                }
+                .search_cont_outer{
+                    //border: 1px solid rgb(255, 213, 0);
+                    //flex: 1;
+                    width: 73%;
+                }
+            }
+        }
+    }
+}

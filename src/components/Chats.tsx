@@ -2,11 +2,10 @@ import "../styles/components/chat.scss";
 import { BiDotsVertical } from "react-icons/bi";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import ChatListItem from "./chatListItem";
-import { Input } from "../utils/Utill";
-import { Dispatch, SetStateAction } from "react";
-import { PRIMARY_LIGHT } from "../constants/constants";
+import { Input, Para } from "../utils/Utill";
+import { Dispatch, SetStateAction, useState } from "react";
+import { GRAY_DARK, PRIMARY_LIGHT } from "../constants/constants";
 import { ChatTypes } from "../types/types";
-import { Link } from "react-router-dom";
 
 const chatListData:{_id:string; chatName:string; lastMessage:string; date:string;}[] = [
     {
@@ -70,11 +69,17 @@ const chatListData:{_id:string; chatName:string; lastMessage:string; date:string
         date:"5 days ago"
     },
 ];
+const contentArray:string[] = ["Newgroup", "Newbroadcast", "Linkeddevices", "Starredmessages", "Payments", "Settings"];
 
-const Chats = ({selectedChat, setSelectedChat}:{selectedChat:ChatTypes|undefined; setSelectedChat:Dispatch<SetStateAction<ChatTypes|undefined>>;}) => {
+const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; selectedChat:ChatTypes|undefined; setSelectedChat:Dispatch<SetStateAction<ChatTypes|undefined>>;}) => {
+    //const [optionsDialogPosition, setOptionsDialogPosition] = useState<{x:number; y:number;}>({x:0, y:0});
+    const [isOptionsDialogActive, setIsOptionsDialogActive] = useState<boolean>(false);
 
     const onSelectChatHandler = (data:ChatTypes) => {
         setSelectedChat(data);
+    };
+    const onClickOptionsHandler = () => {
+        setIsOptionsDialogActive(!isOptionsDialogActive);
     };
 
     return(
@@ -84,7 +89,10 @@ const Chats = ({selectedChat, setSelectedChat}:{selectedChat:ChatTypes|undefined
                     <div className="heading">Chats</div>
                     <div className="icons">
                         <button className="icon"><LuMessageSquarePlus /></button>
-                        <button className="icon"><BiDotsVertical /></button>
+                        <button className="icon" onClick={onClickOptionsHandler}>
+                            <BiDotsVertical />
+                            <SpreadOptions contentArray={contentArray} isOpen={isOptionsDialogActive} />
+                        </button>
                     </div>
                 </div>
                 <div className="search_section">
@@ -103,7 +111,6 @@ const Chats = ({selectedChat, setSelectedChat}:{selectedChat:ChatTypes|undefined
                 </div>
                 <div className="chat_section">
                     <div className="chat_section_scrollable">
-
                         {
                             chatListData.map((chat) => (
                                 <div className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
@@ -122,9 +129,12 @@ const Chats = ({selectedChat, setSelectedChat}:{selectedChat:ChatTypes|undefined
             <div className="chat_cont_mobile">
                 <div className="chat_section_header">
                     <div className="heading">Chats</div>
-                    <div className="icons">
+                    <div className="icons">                        
                         <button className="icon"><LuMessageSquarePlus /></button>
-                        <button className="icon"><BiDotsVertical /></button>
+                        <button className="icon" onClick={onClickOptionsHandler}>
+                            <BiDotsVertical />
+                            <SpreadOptions contentArray={contentArray} isOpen={isOptionsDialogActive} />
+                        </button>
                     </div>
                 </div>
                 <div className="search_section">
@@ -143,17 +153,24 @@ const Chats = ({selectedChat, setSelectedChat}:{selectedChat:ChatTypes|undefined
                 </div>
                 <div className="chat_section">
                     <div className="chat_section_scrollable">
-
                         {
                             chatListData.map((chat) => (
-                                <Link to="/chat/single" className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
+                                <div className="single_chat_outer" onClick={() => {onSelectChatHandler(chat); setIsMessangerForMobileActive(true);}} style={{
                                     background:selectedChat?._id === chat._id ?
                                         PRIMARY_LIGHT
                                         :
                                         "unset"
                                 }}>
                                     <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
-                                </Link>
+                                </div>
+                                //<Link to="/chat/single" className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
+                                //    background:selectedChat?._id === chat._id ?
+                                //        PRIMARY_LIGHT
+                                //        :
+                                //        "unset"
+                                //}}>
+                                //    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
+                                //</Link>
                             ))
                         }
                     </div>
@@ -163,4 +180,23 @@ const Chats = ({selectedChat, setSelectedChat}:{selectedChat:ChatTypes|undefined
     )
 }
 
+
+const SpreadOptions = ({contentArray, isOpen}:{contentArray:string[]; isOpen:boolean;}) => {
+
+    return(
+        <div className="spread_option_dialog_cont" style={{
+            top:"40px",
+            right:"30px",
+            height:isOpen?"210px":"1px",
+            zIndex:isOpen?"21":"-1",
+            position:"absolute"
+        }}>
+            {
+                contentArray.map((optionName) => (
+                    <Para value={optionName} fontSize="0.8rem" color={GRAY_DARK} />
+                ))
+            }
+        </div>
+    )
+}
 export default Chats;

@@ -22,8 +22,7 @@
             //border: 1px solid orange;
             color: $grayLighter;
             display: flex;
-            gap: 20px;
-
+            gap: 20px;            
             .icon{
                 //border: 1px solid green;
                 background: transparent;
@@ -35,6 +34,18 @@
                 border: none;
                 font-size: 1rem;
                 cursor: pointer;
+                position: relative;
+                .spread_option_dialog_cont{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    width:max-content;
+                    background: $grayLighter;
+                    border-radius: 8px;
+                    transition: 0.3s;
+                }
+
+                
                 &:hover{
                     background: $grayHover;
                 }
@@ -82,7 +93,6 @@
         background: transparent;
         .chat_section_scrollable{
             //border: 2px solid rgb(0, 115, 255);
-
             .single_chat_outer{
                 //border: 2px solid greenyellow;
 
@@ -127,6 +137,17 @@
                 border: none;
                 font-size: 1rem;
                 cursor: pointer;
+                position: relative;
+                .spread_option_dialog_cont{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    width:max-content;
+                    background: $grayLighter;
+                    border-radius: 8px;
+                    transition: 0.3s;
+
+                }
                 &:hover{
                     background: $grayHover;
                 }
@@ -174,7 +195,6 @@
         background: transparent;
         .chat_section_scrollable{
             //border: 2px solid rgb(0, 115, 255);
-
             .single_chat_outer{
                 //border: 2px solid greenyellow;
                 text-decoration: none;

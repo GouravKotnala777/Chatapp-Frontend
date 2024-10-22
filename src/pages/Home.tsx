@@ -22,6 +22,7 @@ import { MdKeyboardVoice } from "react-icons/md";
 import { FaCamera, FaPlus } from "react-icons/fa6";
 import Messages from "../components/Messages";
 import { ChatTypes } from "../types/types";
+import Messanger from "./Messanger";
 
 
 
@@ -32,7 +33,8 @@ const Home = () => {
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [tooltipContent, setTooltipContent] = useState<string>("");
     const [activeNavigation, setActiveNavigation] = useState<string>("Chats");
-    const [selectedChat, setSelectedChat] = useState<ChatTypes>();
+    const [selectedChat, setSelectedChat] = useState<ChatTypes|undefined>();
+    const [isMessangerForMobileActive, setIsMessangerForMobileActive] = useState<boolean>(false);
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -49,81 +51,87 @@ const Home = () => {
     };
     const navigationHandler = (e:MouseEvent<HTMLButtonElement>) => {
         setActiveNavigation(e.currentTarget.value);
-    }
+    };
 
     return(
         <>
         <Tooltip content={tooltipContent} position={tooltipPosition} isTooltipActive={isTooltipActive} />
         <div className="home_bg">
-            <div className="navbar_cont">
-                <div className="nav_cont">
-                    <button className="nav_icon" value="Chats" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
-                        <div className="icon_and_name">
-                            <BsChatSquareText className="icon" />
-                            <div className="icon_name">Chats</div>
-                        </div>
-                    </button>
+            {
+                !isMessangerForMobileActive &&
+                    <div className="navbar_cont">
+                        <div className="nav_cont">
+                            <button className="nav_icon" value="Chats" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                                <div className="icon_and_name">
+                                    <BsChatSquareText className="icon" />
+                                    <div className="icon_name">Chats</div>
+                                </div>
+                            </button>
 
-                    <button className="nav_icon" value="Status" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
-                        <div className="icon_and_name">
-                            <HiOutlineStatusOnline className="icon" />
-                            <div className="icon_name">Status</div>
-                        </div>
-                    </button>
+                            <button className="nav_icon" value="Status" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                                <div className="icon_and_name">
+                                    <HiOutlineStatusOnline className="icon" />
+                                    <div className="icon_name">Status</div>
+                                </div>
+                            </button>
 
-                    <button className="nav_icon" value="Communities" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
-                        <div className="icon_and_name">
-                            <IoPeopleOutline className="icon" />
-                            <div className="icon_name">Communities</div>
-                        </div>
-                    </button>
+                            <button className="nav_icon" value="Communities" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                                <div className="icon_and_name">
+                                    <IoPeopleOutline className="icon" />
+                                    <div className="icon_name">Communities</div>
+                                </div>
+                            </button>
 
-                    <button className="nav_icon" value="Channels" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
-                        <div className="icon_and_name">
-                            <GrChannel className="icon" />
-                            <div className="icon_name">Channels</div>
+                            <button className="nav_icon" value="Channels" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                                <div className="icon_and_name">
+                                    <GrChannel className="icon" />
+                                    <div className="icon_name">Channels</div>
+                                </div>
+                            </button>
                         </div>
-                    </button>
-                </div>
-                <div className="setting_cont">
-                    <button className="nav_icon" value="Settings" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
-                        <div className="icon_and_name">
-                            <CiSettings className="icon" />
-                            <div className="icon_name">Setting</div>
+                        <div className="setting_cont">
+                            <button className="nav_icon" value="Settings" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                                <div className="icon_and_name">
+                                    <CiSettings className="icon" />
+                                    <div className="icon_name">Setting</div>
+                                </div>
+                            </button>
+                            <button className="nav_icon" value="Profile" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
+                                <div className="icon_and_name">
+                                    <img src={photo} alt={photo} />
+                                    <div className="icon_name">Profile</div>
+                                </div>
+                            </button>
                         </div>
-                    </button>
-                    <button className="nav_icon" value="Profile" onClick={(e) => navigationHandler(e)} onMouseOver={(e) => showTooltipHandler(e)}  onMouseOut={hideTooltipHandler}>
-                        <div className="icon_and_name">
-                            <img src={photo} alt={photo} />
-                            <div className="icon_name">Profile</div>
-                        </div>
-                    </button>
-                </div>
-            </div>
+                    </div>
+            }
 
 
 
 
             {
-                activeNavigation === "Chats" ?
-                    <Chats selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
+                activeNavigation === "Chats" && isMessangerForMobileActive ?
+                    <Messanger selectedChat={selectedChat as ChatTypes} setIsMessangerForMobileActive={setIsMessangerForMobileActive} />
                     :
-                    activeNavigation === "Status" ?
-                        <Status />
+                    activeNavigation === "Chats" && !isMessangerForMobileActive ?
+                        <Chats setIsMessangerForMobileActive={setIsMessangerForMobileActive} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
                         :
-                        activeNavigation === "Communities" ?
-                            <Communities />
+                        activeNavigation === "Status" ?
+                            <Status />
                             :
-                            activeNavigation === "Channels" ?
-                                <Channels />
+                            activeNavigation === "Communities" ?
+                                <Communities />
                                 :
-                                activeNavigation === "Settings" ?
-                                    <Settings />
+                                activeNavigation === "Channels" ?
+                                    <Channels />
                                     :
-                                    activeNavigation === "Profile" ?
-                                        <Profile />
+                                    activeNavigation === "Settings" ?
+                                        <Settings />
                                         :
-                                        <h1>From Home Page...</h1>
+                                        activeNavigation === "Profile" ?
+                                            <Profile />
+                                            :
+                                            <h1>From Home Page...</h1>
             }
 
 
