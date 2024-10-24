@@ -2,10 +2,12 @@ import "../styles/components/chat.scss";
 import { BiDotsVertical } from "react-icons/bi";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import ChatListItem from "./chatListItem";
-import { Input, Para } from "../utils/Utill";
+import { Input, SpreadOptions } from "../utils/Utill";
 import { Dispatch, SetStateAction, useState } from "react";
-import { GRAY_DARK, PRIMARY_LIGHT } from "../constants/constants";
-import { ChatTypes } from "../types/types";
+import { PRIMARY_LIGHT } from "../constants/constants";
+import { ChatTypes, NaviagationTypes } from "../types/types";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+//import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
 
 const chatListData:{_id:string; chatName:string; lastMessage:string; date:string;}[] = [
     {
@@ -69,16 +71,16 @@ const chatListData:{_id:string; chatName:string; lastMessage:string; date:string
         date:"5 days ago"
     },
 ];
-const contentArray:string[] = ["Newgroup", "Newbroadcast", "Linkeddevices", "Starredmessages", "Payments", "Settings"];
+const contentArray:NaviagationTypes[] = ["New group", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
 
-const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; selectedChat:ChatTypes|undefined; setSelectedChat:Dispatch<SetStateAction<ChatTypes|undefined>>;}) => {
+const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; selectedChat:ChatTypes|null; setSelectedChat:ActionCreatorWithPayload<ChatTypes|null>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;}) => {
     //const [optionsDialogPosition, setOptionsDialogPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [isOptionsDialogActive, setIsOptionsDialogActive] = useState<boolean>(false);
 
     const onSelectChatHandler = (data:ChatTypes) => {
         setSelectedChat(data);
     };
-    const onClickOptionsHandler = () => {
+    const onClickThreeDotsHandler = () => {
         setIsOptionsDialogActive(!isOptionsDialogActive);
     };
 
@@ -89,9 +91,9 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
                     <div className="heading">Chats</div>
                     <div className="icons">
                         <button className="icon"><LuMessageSquarePlus /></button>
-                        <button className="icon" onClick={onClickOptionsHandler}>
+                        <button className="icon" onClick={onClickThreeDotsHandler}>
                             <BiDotsVertical />
-                            <SpreadOptions contentArray={contentArray} isOpen={isOptionsDialogActive} />
+                            <SpreadOptions contentArray={contentArray} isOpen={isOptionsDialogActive} setIsOpen={setIsOptionsDialogActive} />
                         </button>
                     </div>
                 </div>
@@ -102,7 +104,7 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
                     <div className="search_tags_cont">
                         {
                             ["All", "Unread", "Favorites", "Groups"].map((tag) => (
-                                <button className="tag">
+                                <button key={tag} className="tag">
                                     {tag}
                                 </button>
                             ))
@@ -131,9 +133,9 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
                     <div className="heading">Chats</div>
                     <div className="icons">                        
                         <button className="icon"><LuMessageSquarePlus /></button>
-                        <button className="icon" onClick={onClickOptionsHandler}>
+                        <button className="icon" onClick={onClickThreeDotsHandler}>
                             <BiDotsVertical />
-                            <SpreadOptions contentArray={contentArray} isOpen={isOptionsDialogActive} />
+                            <SpreadOptions contentArray={contentArray} isOpen={isOptionsDialogActive} setIsOpen={setIsOptionsDialogActive} />
                         </button>
                     </div>
                 </div>
@@ -155,7 +157,7 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
                     <div className="chat_section_scrollable">
                         {
                             chatListData.map((chat) => (
-                                <div className="single_chat_outer" onClick={() => {onSelectChatHandler(chat); setIsMessangerForMobileActive(true);}} style={{
+                                <div key={chat._id} className="single_chat_outer" onClick={() => {onSelectChatHandler(chat); setIsMessangerForMobileActive(true);}} style={{
                                     background:selectedChat?._id === chat._id ?
                                         PRIMARY_LIGHT
                                         :
@@ -180,23 +182,4 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
     )
 }
 
-
-const SpreadOptions = ({contentArray, isOpen}:{contentArray:string[]; isOpen:boolean;}) => {
-
-    return(
-        <div className="spread_option_dialog_cont" style={{
-            top:"40px",
-            right:"30px",
-            height:isOpen?"210px":"1px",
-            zIndex:isOpen?"21":"-1",
-            position:"absolute"
-        }}>
-            {
-                contentArray.map((optionName) => (
-                    <Para value={optionName} fontSize="0.8rem" color={GRAY_DARK} />
-                ))
-            }
-        </div>
-    )
-}
 export default Chats;

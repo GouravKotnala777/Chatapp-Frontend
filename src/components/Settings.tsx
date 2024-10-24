@@ -1,7 +1,7 @@
 import "../styles/components/settings.scss";
 import { BiDotsVertical } from "react-icons/bi";
 import { LuMessageSquarePlus } from "react-icons/lu";
-import { Input } from "../utils/Utill";
+import { Input, SpreadOptions } from "../utils/Utill";
 import ChatListItem from "./chatListItem";
 import { MdAccountCircle } from "react-icons/md";
 import { IoIosLock, IoMdHelpCircle, IoMdNotifications } from "react-icons/io";
@@ -9,6 +9,8 @@ import { BsChatSquareTextFill } from "react-icons/bs";
 import { FaKeyboard } from "react-icons/fa6";
 import { IoLogOutOutline } from "react-icons/io5";
 import { GRAY_LIGHTER, PRIMARY } from "../constants/constants";
+import { Dispatch, SetStateAction } from "react";
+import { NaviagationTypes } from "../types/types";
 
 const settingList = [
     {settingName:"Account", settingIcon:<MdAccountCircle />},
@@ -18,11 +20,12 @@ const settingList = [
     {settingName:"Keyboard Shortcuts", settingIcon:<FaKeyboard />},
     {settingName:"Help", settingIcon:<IoMdHelpCircle />},
     {settingName:"Logout", settingIcon:<IoLogOutOutline />}
-]
+];
+const contentArray:NaviagationTypes[] = ["New group", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
 
 
-const Settings = () => {
-    
+const Settings = ({isOptionsDialogActive, setIsOptionsDialogActive}:{isOptionsDialogActive:boolean; setIsOptionsDialogActive:Dispatch<SetStateAction<boolean>>;}) => {
+    //const dispatch = useDispatch();
 
     return(
         <div className="settings_cont">
@@ -31,6 +34,7 @@ const Settings = () => {
                 <div className="icons">
                     <button className="icon"><LuMessageSquarePlus /></button>
                     <button className="icon"><BiDotsVertical /></button>
+                    <SpreadOptions contentArray={contentArray} isOpen={isOptionsDialogActive} setIsOpen={setIsOptionsDialogActive} />
                 </div>
             </div>
             <div className="search_section">
@@ -38,14 +42,14 @@ const Settings = () => {
                 <Input biSearchID="seachIconForSetting" faArrowLeftLongID="leftArrowIconForSetting" inputID="inputForSetting" ioMdCloseID="closeIconForSetting" />
                 </div>
                 <div className="search_tags_cont">
-                    <ChatListItem chatName="Gourav" lastMessage="Honesty is the best policy" date="" imgHeight="80%" imgWidth="80px" />
+                    <ChatListItem chatName="Gourav" lastMessage="Honesty is the best policy" date="aaa" imgHeight="80%" imgWidth="80px" />
                 </div>
             </div>
             <div className="setting_section">
                 <div className="setting_section_scrollable">
                     {
-                        settingList.map((setting) => (
-                            <div className="setting_list" style={{color:setting.settingName === "Logout" ? PRIMARY : GRAY_LIGHTER}}>
+                        settingList.map((setting, index) => (
+                            <div className="setting_list" key={index} style={{color:setting.settingName === "Logout" ? PRIMARY : GRAY_LIGHTER}}>
                                 <div className="setting_icon">{setting.settingIcon}</div>
                                 <div className="setting_name">{setting.settingName}</div>
                             </div>

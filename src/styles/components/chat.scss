@@ -34,17 +34,6 @@
                 border: none;
                 font-size: 1rem;
                 cursor: pointer;
-                position: relative;
-                .spread_option_dialog_cont{
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    width:max-content;
-                    background: $grayLighter;
-                    border-radius: 8px;
-                    transition: 0.3s;
-                }
-
                 
                 &:hover{
                     background: $grayHover;
@@ -137,17 +126,6 @@
                 border: none;
                 font-size: 1rem;
                 cursor: pointer;
-                position: relative;
-                .spread_option_dialog_cont{
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    width:max-content;
-                    background: $grayLighter;
-                    border-radius: 8px;
-                    transition: 0.3s;
-
-                }
                 &:hover{
                     background: $grayHover;
                 }

@@ -21,8 +21,11 @@ import { FaRegLaughBeam } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaCamera, FaPlus } from "react-icons/fa6";
 import Messages from "../components/Messages";
-import { ChatTypes } from "../types/types";
+import { ChatTypes, NaviagationTypes } from "../types/types";
 import Messanger from "./Messanger";
+import { MiscReducerTypes, setSelectedChat, setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { useDispatch, useSelector } from "react-redux";
+import NewGroup from "./NewGroup";
 
 
 
@@ -32,9 +35,9 @@ const Home = () => {
     const [isTooltipActive, setIsTooltipActive] = useState<boolean>(false);
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [tooltipContent, setTooltipContent] = useState<string>("");
-    const [activeNavigation, setActiveNavigation] = useState<string>("Chats");
-    const [selectedChat, setSelectedChat] = useState<ChatTypes|undefined>();
     const [isMessangerForMobileActive, setIsMessangerForMobileActive] = useState<boolean>(false);
+    const {selectedNavigation, selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes;}) => state.miscReducer);
+    const dispatch = useDispatch();
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -50,12 +53,13 @@ const Home = () => {
         setIsTooltipActive(false);
     };
     const navigationHandler = (e:MouseEvent<HTMLButtonElement>) => {
-        setActiveNavigation(e.currentTarget.value);
+        dispatch(setSelectedNavigation(e.currentTarget.value as NaviagationTypes));
     };
 
     return(
         <>
         <Tooltip content={tooltipContent} position={tooltipPosition} isTooltipActive={isTooltipActive} />
+        {/*{selectedNavigation}*/}
         <div className="home_bg">
             {
                 !isMessangerForMobileActive &&
@@ -110,28 +114,31 @@ const Home = () => {
 
 
             {
-                activeNavigation === "Chats" && isMessangerForMobileActive ?
+                selectedNavigation === "Chats" && isMessangerForMobileActive ?
                     <Messanger selectedChat={selectedChat as ChatTypes} setIsMessangerForMobileActive={setIsMessangerForMobileActive} />
                     :
-                    activeNavigation === "Chats" && !isMessangerForMobileActive ?
-                        <Chats setIsMessangerForMobileActive={setIsMessangerForMobileActive} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
+                    selectedNavigation === "Chats" && !isMessangerForMobileActive ?
+                        <Chats setIsMessangerForMobileActive={setIsMessangerForMobileActive} selectedChat={selectedChat} setSelectedChat={setSelectedChat} setSelectedNavigation={setSelectedNavigation} />
                         :
-                        activeNavigation === "Status" ?
+                        selectedNavigation === "Status" ?
                             <Status />
                             :
-                            activeNavigation === "Communities" ?
+                            selectedNavigation === "Communities" ?
                                 <Communities />
                                 :
-                                activeNavigation === "Channels" ?
+                                selectedNavigation === "Channels" ?
                                     <Channels />
                                     :
-                                    activeNavigation === "Settings" ?
-                                        <Settings />
+                                    selectedNavigation === "Settings" ?
+                                        <Settings isOptionsDialogActive={false} setIsOptionsDialogActive={setIsMessangerForMobileActive} />
                                         :
-                                        activeNavigation === "Profile" ?
-                                            <Profile />
+                                        selectedNavigation === "New group" ?
+                                            <NewGroup />
                                             :
-                                            <h1>From Home Page...</h1>
+                                            selectedNavigation === "Profile" ?
+                                                <Profile />
+                                                :
+                                                <h1>From Home Page...</h1>
             }
 
 

@@ -97,6 +97,44 @@ $grayDarker:#1c1c1c;
     opacity: 0;
     z-index: -1;
 }
+.spread_option_dialog_disable_bg{
+    border: 2px solid greenyellow;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+.spread_option_dialog_cont_outer{
+    //border: 2px solid rgb(195, 255, 0);
+    position: relative;
+    .spread_option_dialog_cont{
+        //border: 2px solid rgb(0, 251, 255);
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width:max-content;
+        background: $grayLighter;
+        border-radius: 8px;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+        .option{
+            display: block;
+            border: none;
+            background: transparent;
+            //border: 1px solid red;
+            flex: 1;
+            width: 100%;
+            text-align: left;
+            padding: 0 10px;
+            cursor: pointer;
+            &:hover{
+                background: $primaryLight;
+            }
+        }
+    }
+}
 
 @media screen and (width <= 360px) {
     .tooltip_dialog{

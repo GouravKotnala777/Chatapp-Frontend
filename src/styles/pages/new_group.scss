@@ -1,0 +1,136 @@
+@import "../utils.scss";
+
+.new_group_cont{
+    //border: 1px solid violet;
+    flex:1;
+    height: 100vh;
+    background: $grayDarker;
+    
+    .new_group_section_header{
+        //border: 1px solid indigo;
+        height: 10%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        .back_btn{
+            //border: 1px solid red;
+            background: transparent;
+            border: none;
+            margin-left: 10px;
+            .FaArrowLeftLong{
+                color: $grayLight;
+            }
+        }
+        .heading{
+            //border: 1px solid blue;
+            color: $grayLight;
+            
+        }
+    }
+    //.search_section{
+    //    height: 0%;
+    //    //border: 1px solid green;
+    //}
+    .new_group_section{
+        height: 85%;
+        //border: 1px solid yellow;
+        .group_image_cont{
+            //border: 1px solid pink;
+            width: 200px;
+            height: 200px;
+            background-image: url("../../../public/user_placeholder.png");
+            background-color: $grayDark;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 20px auto;
+            display: grid;
+            place-items: center;
+            color: white;
+            position: relative;
+            border-radius: 30%;
+            p{
+                //border:2px solid red;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                translate: -50% -50%;
+                font-weight: 500;
+                z-index: 21;
+            }
+            .BiRefresh{
+                font-size: 2rem;
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                background: $primary;
+                border-radius: 50%;
+                z-index: 22;
+            }
+            input{
+                //border:2px solid rgb(128, 255, 103);
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 23;
+                border-radius: 30%;
+                cursor: pointer;
+            }
+        }
+        .new_group_name_field{
+            //border: 1px solid violet;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            //gap:10px;
+            margin-top: 10px;
+            //border-bottom: 2px solid $primary;
+            gap: 10px;
+            input{
+                //border: 1px solid indigo;
+                padding: 10px;
+                border: none;
+                background: transparent;
+                width: 70%;
+                color: $grayLighter;
+                outline: none;
+                transition: 0.3s;
+                border-bottom: 2px solid transparent;
+                &:focus{
+                    border-bottom: 2px solid $primary;
+                }
+            }
+            .BiSmile{
+                font-size: 1.6rem;
+                color: $primary;
+            }
+        }
+        .new_group_description_field{
+            //border: 1px solid blue;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            background: $grayDark;
+            width: 80%;
+            margin-left: 10%;
+
+            .text_area{
+                //border: 1px solid chartreuse;
+                padding: 10px;
+                border: none;
+                background: transparent;
+                color: $grayLighter;
+                width: 88%;
+                outline: none;
+                
+            }
+            .BiSmile{
+                font-size: 1.6rem;
+                color: $primary;
+                margin-top: 5px;
+            }
+        }
+    }
+}

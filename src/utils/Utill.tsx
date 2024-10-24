@@ -3,7 +3,11 @@ import { GRAY_LIGHT } from "../constants/constants";
 import "../styles/utils.scss";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
-import { textAlign } from "../types/types";
+import { NaviagationTypes, textAlign } from "../types/types";
+import { Dispatch, SetStateAction } from "react";
+//import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
+import { useDispatch } from "react-redux";
+import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 
 export const Heading = ({value, color, fontSize, padding, margin, textAlign}:{value:string; color?:string; fontSize?:string; padding?:string; margin?:string; textAlign?:textAlign;}) => {
     return(
@@ -78,3 +82,44 @@ export const Button = ({value, color, fontSize, padding}:{value:string; color?:s
         <button className="button_util" style={{color:color?color:"black", fontSize:fontSize?fontSize:"0.7rem", padding:padding?padding:"10px"}}>{value}</button>
     )
 };
+//ActionCreatorWithPayload<MiscReducerTypes, "miscReducer/setSelectedNavigation">
+export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:NaviagationTypes[]; isOpen:boolean; setIsOpen:Dispatch<SetStateAction<boolean>>;}) => {
+    const dispatch = useDispatch();
+
+
+    const onClickOptionsHandler = (optionName:NaviagationTypes) => {
+        setIsOpen(false);
+        dispatch(setSelectedNavigation(optionName));
+    }
+    const onClickOptionsBGHandler = () => {
+        setIsOpen(false);
+    }
+
+    return(
+        <>
+            <div className="spread_option_dialog_disable_bg" style={{
+                zIndex:isOpen?"21":"-1"
+            }} onClick={() => onClickOptionsBGHandler()}>
+            </div>
+            <div className="spread_option_dialog_cont_outer" style={{
+                opacity:isOpen?"1":"0",
+                zIndex:isOpen?"21":"-1"
+            }}>
+                <div className="spread_option_dialog_cont" style={{
+                    top:"40px",
+                    right:"30px",
+                    height:isOpen?"210px":"1px",
+                    opacity:isOpen?"1":"0",
+                    zIndex:isOpen?"21":"-1",
+                    position:"absolute"
+                }}>
+                    {
+                        contentArray.map((optionName, index) => (
+                            <button key={index} className="option" onClick={() => onClickOptionsHandler(optionName as NaviagationTypes)} >{optionName}</button>
+                        ))
+                    }
+                </div>
+            </div>
+        </>
+    )
+}
