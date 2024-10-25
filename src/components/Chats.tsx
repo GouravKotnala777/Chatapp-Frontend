@@ -1,5 +1,5 @@
 import "../styles/components/chat.scss";
-import { BiDotsVertical, BiLogIn } from "react-icons/bi";
+import { BiDotsVertical, BiLogIn, BiRegistered } from "react-icons/bi";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import ChatListItem from "./chatListItem";
 import { Input, SpreadOptions } from "../utils/Utill";
@@ -120,6 +120,7 @@ const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Di
                     <div className="heading">Chats</div>
                     <div className="icons">
                         <button className="icon" onClick={() => navigate("/login")} ><BiLogIn /></button>
+                        <button className="icon" onClick={() => navigate("/register")} ><BiRegistered /></button>
                         <button className="icon"><LuMessageSquarePlus /></button>
                         <button className="icon" onClick={onClickThreeDotsHandler}>
                             <BiDotsVertical />
