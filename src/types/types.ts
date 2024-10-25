@@ -25,6 +25,11 @@ export interface UserTypes {
 export interface ChatTypes {
     _id:string;
     chatName:string;
-    lastMessage:string;
-    date:string;
+    admin:string[];
+    members:string[];
+    description:string;
+    isGroupChat:boolean;
+    createdBy:string;
+    createdAt:Date;
+    updatedAt:Date;
 };

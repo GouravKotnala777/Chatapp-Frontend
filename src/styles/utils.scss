@@ -123,11 +123,12 @@ $grayDarker:#1c1c1c;
             display: block;
             border: none;
             background: transparent;
-            //border: 1px solid red;
             flex: 1;
             width: 100%;
             text-align: left;
-            padding: 0 10px;
+            font-size: 0.8rem;
+            padding: 10px;
+            color: $grayDark;
             cursor: pointer;
             &:hover{
                 background: $primaryLight;

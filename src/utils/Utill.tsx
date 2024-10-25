@@ -108,7 +108,6 @@ export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:Na
                 <div className="spread_option_dialog_cont" style={{
                     top:"40px",
                     right:"30px",
-                    height:isOpen?"210px":"1px",
                     opacity:isOpen?"1":"0",
                     zIndex:isOpen?"21":"-1",
                     position:"absolute"

@@ -23,7 +23,7 @@ import { FaCamera, FaPlus } from "react-icons/fa6";
 import Messages from "../components/Messages";
 import { ChatTypes, NaviagationTypes, UserTypes } from "../types/types";
 import Messanger from "./Messanger";
-import { MiscReducerTypes, setSelectedChat, setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
 import { myProfile } from "../redux/api/api";
@@ -137,7 +137,7 @@ const Home = () => {
                     <Messanger selectedChat={selectedChat as ChatTypes} setIsMessangerForMobileActive={setIsMessangerForMobileActive} />
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
-                        <Chats setIsMessangerForMobileActive={setIsMessangerForMobileActive} selectedChat={selectedChat} setSelectedChat={setSelectedChat} setSelectedNavigation={setSelectedNavigation} />
+                        <Chats setIsMessangerForMobileActive={setIsMessangerForMobileActive} setSelectedNavigation={setSelectedNavigation} />
                         :
                         selectedNavigation === "Status" ?
                             <Status />
@@ -170,7 +170,7 @@ const Home = () => {
                     selectedChat ? 
                         <div className="messagenger">
                             <div className="upper_part">
-                                <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${selectedChat.date} am`} date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
+                                <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
                             </div>
                             <div className="middle_part">
                                 <Messages />
