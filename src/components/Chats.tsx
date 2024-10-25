@@ -93,15 +93,15 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
         const fetchMyAllChats = getMyChats();
 
         fetchMyAllChats.then((data) => {
-            console.log("from Home.tsx ))))))))))");
+            console.log("from Chat.tsx ))))))))))");
             setMyChats(data.message as ChatTypes[]);
-            console.log("from Home.tsx ))))))))))");
+            console.log("from Chat.tsx ))))))))))");
             
         })
         .catch((err) => {
-            console.log("from Home.tsx--------------");
+            console.log("from Chat.tsx--------------");
             console.log(err);
-            console.log("from Home.tsx--------------");
+            console.log("from Chat.tsx--------------");
         })
     }, []);
 

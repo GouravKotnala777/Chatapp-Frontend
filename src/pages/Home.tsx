@@ -3,7 +3,7 @@ import { CiSettings } from "react-icons/ci";
 import photo from "../../public/vite.svg";
 import messangerPlaceholderImg from "../../public/hero_img1.png";
 import { Button, Heading, Input, Para } from "../utils/Utill";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import Tooltip from "../components/Tooltip";
 import { BsChatSquareText } from "react-icons/bs";
 import { HiOutlineStatusOnline } from "react-icons/hi";
@@ -21,11 +21,13 @@ import { FaRegLaughBeam } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaCamera, FaPlus } from "react-icons/fa6";
 import Messages from "../components/Messages";
-import { ChatTypes, NaviagationTypes } from "../types/types";
+import { ChatTypes, NaviagationTypes, UserTypes } from "../types/types";
 import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedChat, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
+import { myProfile } from "../redux/api/api";
+import { setLoginUser } from "../redux/reducers/loginUserReducer";
 
 
 
@@ -57,21 +59,21 @@ const Home = () => {
         dispatch(setSelectedNavigation(e.currentTarget.value as NaviagationTypes));
     };
 
-    //useEffect(() => {
-    //    const fetchMyAllChats = getMyChats();
+    useEffect(() => {
+        const fetchMyProfile = myProfile();
 
-    //    fetchMyAllChats.then((data) => {
-    //        console.log("from Home.tsx ))))))))))");
-    //        setMyChats(data.message as ChatTypes[]);
-    //        console.log("from Home.tsx ))))))))))");
+        fetchMyProfile.then((data) => {
+            console.log("from Home.tsx ))))))))))");
+            dispatch(setLoginUser({isLoading:false, user:data.message as UserTypes, isError:false}))
+            console.log("from Home.tsx ))))))))))");
             
-    //    })
-    //    .catch((err) => {
-    //        console.log("from Home.tsx--------------");
-    //        console.log(err);
-    //        console.log("from Home.tsx--------------");
-    //    })
-    //}, []);
+        })
+        .catch((err) => {
+            console.log("from Home.tsx--------------");
+            console.log(err);
+            console.log("from Home.tsx--------------");
+        })
+    }, []);
 
     return(
         <>

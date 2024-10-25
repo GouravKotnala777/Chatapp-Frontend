@@ -46,3 +46,23 @@ export const login = async(loginFormData:{email:string; password:string;}):Promi
         return error as ResponseType<Error>;
     }
 };
+export const myProfile = async() => {
+    try {
+        const myProfileRes = await fetch("http://localhost:8000/api/v1/user/me", {
+            method:"GET",
+            credentials:"include"
+        });
+
+        const myProfileData = await myProfileRes.json();
+
+        console.log("----- getMyProfile  api.ts");
+        console.log(myProfileData);
+        console.log("----- getMyProfile  api.ts");
+        return myProfileData as ResponseType<UserTypes>;
+    } catch (error) {
+        console.log("----- getMyProfile  api.ts");
+        console.log(error);
+        console.log("----- getMyProfile  api.ts");
+        return error as ResponseType<Error>;
+    }
+};
