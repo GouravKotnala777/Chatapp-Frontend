@@ -22,6 +22,30 @@ export const getMyChats = async() => {
         return error as ResponseType<Error>;
     }
 };
+export const register = async(registerFormData:{name:string; email:string; password:string; gender:string; mobile:string;}):Promise<ResponseType<UserTypes|Error>> => {
+    try {
+        const loginRes = await fetch("http://localhost:8000/api/v1/user/new", {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(registerFormData)
+        });
+
+        const registerData:unknown = await loginRes.json();
+
+        console.log("----- register  api.ts");
+        console.log(registerData);
+        console.log("----- register  api.ts");
+        return registerData as ResponseType<UserTypes>;
+    } catch (error) {
+        console.log("----- register  api.ts");
+        console.log(error);
+        console.log("----- register  api.ts");
+        return error as ResponseType<Error>;
+    }
+};
 export const login = async(loginFormData:{email:string; password:string;}):Promise<ResponseType<UserTypes|Error>> => {
     try {
         const loginRes = await fetch("http://localhost:8000/api/v1/user/login", {
