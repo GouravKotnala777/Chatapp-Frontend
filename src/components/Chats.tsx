@@ -1,12 +1,14 @@
 import "../styles/components/chat.scss";
-import { BiDotsVertical } from "react-icons/bi";
+import { BiDotsVertical, BiLogIn } from "react-icons/bi";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import ChatListItem from "./chatListItem";
 import { Input, SpreadOptions } from "../utils/Utill";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { ChatTypes, NaviagationTypes } from "../types/types";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
+import { getMyChats } from "../redux/api/api";
 //import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
 
 const chatListData:{_id:string; chatName:string; lastMessage:string; date:string;}[] = [
@@ -74,8 +76,10 @@ const chatListData:{_id:string; chatName:string; lastMessage:string; date:string
 const contentArray:NaviagationTypes[] = ["New group", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
 
 const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; selectedChat:ChatTypes|null; setSelectedChat:ActionCreatorWithPayload<ChatTypes|null>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;}) => {
-    //const [optionsDialogPosition, setOptionsDialogPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [isOptionsDialogActive, setIsOptionsDialogActive] = useState<boolean>(false);
+    const navigate = useNavigate();
+    const [myChats, setMyChats] = useState<ChatTypes[]>([]);
+
 
     const onSelectChatHandler = (data:ChatTypes) => {
         setSelectedChat(data);
@@ -84,12 +88,31 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
         setIsOptionsDialogActive(!isOptionsDialogActive);
     };
 
+
+    useEffect(() => {
+        const fetchMyAllChats = getMyChats();
+
+        fetchMyAllChats.then((data) => {
+            console.log("from Home.tsx ))))))))))");
+            setMyChats(data.message as ChatTypes[]);
+            console.log("from Home.tsx ))))))))))");
+            
+        })
+        .catch((err) => {
+            console.log("from Home.tsx--------------");
+            console.log(err);
+            console.log("from Home.tsx--------------");
+        })
+    }, []);
+
     return(
         <>
+        {/*<pre>{JSON.stringify(myChats, null, `\t`)}</pre>*/}
             <div className="chat_cont">
                 <div className="chat_section_header">
                     <div className="heading">Chats</div>
                     <div className="icons">
+                        <button className="icon" onClick={() => navigate("/login")} ><BiLogIn /></button>
                         <button className="icon"><LuMessageSquarePlus /></button>
                         <button className="icon" onClick={onClickThreeDotsHandler}>
                             <BiDotsVertical />
@@ -114,15 +137,16 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
                 <div className="chat_section">
                     <div className="chat_section_scrollable">
                         {
-                            chatListData.map((chat) => (
-                                <div className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
+                            myChats?.map((chat) => (
+                                <div key={chat._id} className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
                                     background:selectedChat?._id === chat._id ?
                                         PRIMARY_LIGHT
                                         :
                                         "unset"
                                 }}>
-                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={chat?.lastMessage} date={chat?.date} />
                                 </div>
+                                //<pre>{JSON.stringify(, null, `\t`)}</pre>
                             ))
                         }
                     </div>
@@ -146,7 +170,7 @@ const Chats = ({setIsMessangerForMobileActive, selectedChat, setSelectedChat}:{s
                     <div className="search_tags_cont">
                         {
                             ["All", "Unread", "Favorites", "Groups"].map((tag) => (
-                                <button className="tag">
+                                <button key={tag} className="tag">
                                     {tag}
                                 </button>
                             ))

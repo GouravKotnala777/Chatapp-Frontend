@@ -21,19 +21,19 @@ const ChatListItem = ({isSelected, chatName, lastMessage, date, imgHeight, imgWi
                     }}>{chatName}</div>
                     <div className="last_message" style={{
                         color:isSelected ? "black" : GRAY_LIGHT
-                    }}>{lastMessage}</div>
+                    }}>{"lastMessage"}</div>
                 </div>
                 {
                     date && typeof date === "string" ?
                         <div className="date_cont" style={{
                             color:isSelected ? "black" : GRAY_LIGHT
                         }}>
-                            {date} {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)} />}
-                            <SpreadOptions contentArray={["Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} setActiveNavigation={setActiveNavigation as Dispatch<SetStateAction<string>>} />
+                            {"date"} {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)} />}
+                            <SpreadOptions contentArray={["Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
                         </div>
                         :
                         <div className="icons_cont">
-                            {(date as IconType[]).map((Icon, index) => (
+                            {(date as IconType[])?.map((Icon, index) => (
                                 <Icon className="icon" key={index} />
                             ))}
                         </div>

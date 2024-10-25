@@ -37,6 +37,7 @@ const Home = () => {
     const [tooltipContent, setTooltipContent] = useState<string>("");
     const [isMessangerForMobileActive, setIsMessangerForMobileActive] = useState<boolean>(false);
     const {selectedNavigation, selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes;}) => state.miscReducer);
+    //const [myChats, setMyChats] = useState<ChatTypes[]>([]);
     const dispatch = useDispatch();
 
 
@@ -55,6 +56,22 @@ const Home = () => {
     const navigationHandler = (e:MouseEvent<HTMLButtonElement>) => {
         dispatch(setSelectedNavigation(e.currentTarget.value as NaviagationTypes));
     };
+
+    //useEffect(() => {
+    //    const fetchMyAllChats = getMyChats();
+
+    //    fetchMyAllChats.then((data) => {
+    //        console.log("from Home.tsx ))))))))))");
+    //        setMyChats(data.message as ChatTypes[]);
+    //        console.log("from Home.tsx ))))))))))");
+            
+    //    })
+    //    .catch((err) => {
+    //        console.log("from Home.tsx--------------");
+    //        console.log(err);
+    //        console.log("from Home.tsx--------------");
+    //    })
+    //}, []);
 
     return(
         <>

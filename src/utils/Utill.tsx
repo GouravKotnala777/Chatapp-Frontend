@@ -115,7 +115,7 @@ export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:Na
                 }}>
                     {
                         contentArray.map((optionName, index) => (
-                            <button key={index} className="option" onClick={() => onClickOptionsHandler(optionName as NaviagationTypes)} >{optionName}</button>
+                            <div key={index} className="option" onClick={() => onClickOptionsHandler(optionName as NaviagationTypes)} >{optionName}</div>
                         ))
                     }
                 </div>

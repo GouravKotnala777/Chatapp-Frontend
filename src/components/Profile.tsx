@@ -5,9 +5,12 @@ import dp from "../../public/user_placeholder.png";
 import { Heading, Para } from "../utils/Utill";
 import { GRAY_LIGHTER, PRIMARY } from "../constants/constants";
 import { MdEdit } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
 
 
 const Profile = () => {
+    const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
 
     return(
         <div className="profile_cont">
@@ -28,7 +31,7 @@ const Profile = () => {
                     <Para value="Your name" color={PRIMARY} padding="10px 0" />
                     <div className="profile_info">
                         <div className="profile_name_value">
-                            <Heading value="Gourav aksdjaslkd skfj  " color={GRAY_LIGHTER} padding="0" margin="0" textAlign="left" />
+                            <Heading value={user?.name as string} color={GRAY_LIGHTER} padding="0" margin="0" textAlign="left" />
                         </div>
                         <div className="profile_edit_icon">
                             <MdEdit className="MdEdit" />
@@ -38,7 +41,7 @@ const Profile = () => {
                     <Para value="About" color={PRIMARY} padding="10px 0" />
                     <div className="profile_info">
                         <div className="profile_name_value">
-                            <Heading value="Gourav" color={GRAY_LIGHTER} padding="0" margin="0" textAlign="left" />
+                            <Heading value="Urgent calls only" color={GRAY_LIGHTER} padding="0" margin="0" textAlign="left" />
                         </div>
                         <div className="profile_edit_icon">
                             <MdEdit className="MdEdit" />
