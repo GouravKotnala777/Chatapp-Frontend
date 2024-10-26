@@ -1,6 +1,6 @@
 export type textAlign = 'left' | 'right' | 'center' | 'justify';
 
-export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block";
+export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Add members" | "Remove members" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block";
 
 export type ResponseType<T> = {success:boolean; message:T};
 
@@ -27,6 +27,17 @@ export interface ChatTypes {
     chatName:string;
     admin:string[];
     members:string[];
+    description:string;
+    isGroupChat:boolean;
+    createdBy:string;
+    createdAt:Date;
+    updatedAt:Date;
+};
+export interface ChatTypesPopulated {
+    _id:string;
+    chatName:string;
+    admin:string[];
+    members:UserTypes[];
     description:string;
     isGroupChat:boolean;
     createdBy:string;

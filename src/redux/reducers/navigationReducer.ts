@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChatTypes, NaviagationTypes } from "../../types/types";
+import { ChatTypes, ChatTypesPopulated, NaviagationTypes } from "../../types/types";
 
 export interface MiscReducerTypes {
     selectedNavigation:NaviagationTypes;
-    selectedChat:ChatTypes|null;
+    selectedChat:ChatTypes|ChatTypesPopulated|null;
 }
 
 const initialState:MiscReducerTypes = {
@@ -18,7 +18,7 @@ const miscReducer = createSlice({
         setSelectedNavigation:(state, action:PayloadAction<NaviagationTypes>) => {
             state.selectedNavigation = action.payload;
         },
-        setSelectedChat:(state, action:PayloadAction<ChatTypes|null>) => {
+        setSelectedChat:(state, action:PayloadAction<ChatTypes|ChatTypesPopulated|null>) => {
             state.selectedChat = action.payload;
         }
     }

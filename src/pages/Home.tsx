@@ -28,6 +28,8 @@ import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
 import { myProfile } from "../redux/api/api";
 import { setLoginUser } from "../redux/reducers/loginUserReducer";
+import Contacts from "../components/Contancts";
+import ChatMembersList from "../components/ChatMembersList";
 
 
 
@@ -157,7 +159,13 @@ const Home = () => {
                                             selectedNavigation === "Profile" ?
                                                 <Profile />
                                                 :
-                                                <h1>From Home Page...</h1>
+                                                selectedNavigation === "Add members" ?
+                                                    <Contacts />
+                                                    :
+                                                    selectedNavigation === "Remove members" ?
+                                                        <ChatMembersList />
+                                                        :
+                                                        <h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
 

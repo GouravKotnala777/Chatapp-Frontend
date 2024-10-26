@@ -86,7 +86,6 @@ export const Button = ({value, color, fontSize, padding}:{value:string; color?:s
 export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:NaviagationTypes[]; isOpen:boolean; setIsOpen:Dispatch<SetStateAction<boolean>>;}) => {
     const dispatch = useDispatch();
 
-
     const onClickOptionsHandler = (optionName:NaviagationTypes) => {
         setIsOpen(false);
         dispatch(setSelectedNavigation(optionName));

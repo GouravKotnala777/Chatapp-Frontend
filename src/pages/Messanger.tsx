@@ -17,7 +17,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive}:{selectedChat:C
         <div className="messagenger_mobile">
             <div className="upper_part">
                 <BiLeftArrow className="BiLeftArrow" onClick={() => setIsMessangerForMobileActive(false)} />
-                <ChatListItem chatName={selectedChat?.chatName as string} lastMessage={`last seen today at ${selectedChat?.date} am`} date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
+                <ChatListItem chatName={selectedChat?.chatName as string} lastMessage={`last seen today at ${selectedChat?.createdAt} am`} date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
             </div>
             <div className="middle_part">
                 <Messages />

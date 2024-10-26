@@ -90,6 +90,27 @@ export const myProfile = async() => {
         return error as ResponseType<Error>;
     }
 };
+export const myFriends = async() => {
+    try {
+        const myFriendsRes = await fetch("http://localhost:8000/api/v1/user/friends", {
+            method:"GET",
+            credentials:"include"
+        });
+
+        const myFriendsData = await myFriendsRes.json();
+
+        console.log("----- myFriends  api.ts");
+        console.log(myFriendsData);
+        console.log("----- myFriends  api.ts");
+
+        return myFriendsData as ResponseType<UserTypes[]>;
+    } catch (error) {
+        console.log("----- myFriends  api.ts");
+        console.log(error);
+        console.log("----- myFriends  api.ts");
+        return error as ResponseType<Error>;        
+    }
+};
 
 // Chat APIs
 export const createChat = async(newChatFormData:{chatName:string; members?:string[]; description:string; isGroupChat:boolean;}) => {
@@ -116,3 +137,81 @@ export const createChat = async(newChatFormData:{chatName:string; members?:strin
         return error as ResponseType<Error>;
     }
 };
+export const updateChat = async(updateChatFromData:{chatID:string; members:string[];}) => {
+    try {
+        const updatedChatRes = await fetch(`http://localhost:8000/api/v1/chat/selected_chat`, {
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(updateChatFromData)
+        });
+
+        const updatedChatData = await updatedChatRes.json();
+
+        console.log("----- updateChat api.ts");
+        console.log(updatedChatData);
+        console.log("----- updateChat api.ts");
+
+        return updatedChatData as  ResponseType<ChatTypes>
+        
+    } catch (error) {
+        console.log("----- updateChat api.ts");
+        console.log(error);
+        console.log("----- updateChat api.ts");
+        return error as  ResponseType<Error>
+    }
+}
+export const removeMembersFromChat = async(removeMembersFromChatFromData:{chatID:string; members:string[];}) => {
+    try {
+        const updatedChatRes = await fetch(`http://localhost:8000/api/v1/chat/remove_members`, {
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(removeMembersFromChatFromData)
+        });
+
+        const updatedChatData = await updatedChatRes.json();
+
+        console.log("----- removeMembersFromChat api.ts");
+        console.log(updatedChatData);
+        console.log("----- removeMembersFromChat api.ts");
+
+        return updatedChatData as  ResponseType<ChatTypes>
+        
+    } catch (error) {
+        console.log("----- removeMembersFromChat api.ts");
+        console.log(error);
+        console.log("----- removeMembersFromChat api.ts");
+        return error as  ResponseType<Error>
+    }
+}
+//export const singleChatMembers = async() => {
+//    try {
+//        const updatedChatRes = await fetch(`http://localhost:8000/api/v1/chat/remove_members`, {
+//            method:"PUT",
+//            headers:{
+//                "Content-Type":"application/json"
+//            },
+//            credentials:"include",
+//            body:JSON.stringify(removeMembersFromChatFromData)
+//        });
+
+//        const updatedChatData = await updatedChatRes.json();
+
+//        console.log("----- removeMembersFromChat api.ts");
+//        console.log(updatedChatData);
+//        console.log("----- removeMembersFromChat api.ts");
+
+//        return updatedChatData as  ResponseType<ChatTypes>
+        
+//    } catch (error) {
+//        console.log("----- removeMembersFromChat api.ts");
+//        console.log(error);
+//        console.log("----- removeMembersFromChat api.ts");
+//        return error as  ResponseType<Error>
+//    }
+//}

@@ -5,7 +5,7 @@ import ChatListItem from "./chatListItem";
 import { Input, SpreadOptions } from "../utils/Utill";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
-import { ChatTypes, NaviagationTypes } from "../types/types";
+import { ChatTypes, ChatTypesPopulated, NaviagationTypes } from "../types/types";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { getMyChats } from "../redux/api/api";
@@ -85,7 +85,7 @@ const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Di
     const [myChats, setMyChats] = useState<ChatTypes[]>([]);
 
 
-    const onSelectChatHandler = (data:ChatTypes) => {
+    const onSelectChatHandler = (data:ChatTypes|ChatTypesPopulated) => {
         dispatch(setSelectedChat(data));
         console.log(data._id);
         console.log(selectedChat);
