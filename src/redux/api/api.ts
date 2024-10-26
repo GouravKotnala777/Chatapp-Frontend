@@ -90,3 +90,29 @@ export const myProfile = async() => {
         return error as ResponseType<Error>;
     }
 };
+
+// Chat APIs
+export const createChat = async(newChatFormData:{chatName:string; description:string; isGroupChat:boolean;}) => {
+    try {
+        const createChatRes = await fetch("http://localhost:8000/api/v1/chat/new", {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(newChatFormData)
+        });
+
+        const createChatData = await createChatRes.json();
+
+        console.log("----- createChat  api.ts");
+        console.log(createChatData);
+        console.log("----- createChat  api.ts");
+        return createChatData as ResponseType<ChatTypes>;
+    } catch (error) {
+        console.log("----- createChat  api.ts");
+        console.log(error);
+        console.log("----- createChat  api.ts");
+        return error as ResponseType<Error>;
+    }
+};
