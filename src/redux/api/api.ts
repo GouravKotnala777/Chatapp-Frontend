@@ -92,7 +92,7 @@ export const myProfile = async() => {
 };
 
 // Chat APIs
-export const createChat = async(newChatFormData:{chatName:string; description:string; isGroupChat:boolean;}) => {
+export const createChat = async(newChatFormData:{chatName:string; members?:string[]; description:string; isGroupChat:boolean;}) => {
     try {
         const createChatRes = await fetch("http://localhost:8000/api/v1/chat/new", {
             method:"POST",
