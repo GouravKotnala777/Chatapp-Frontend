@@ -1,9 +1,10 @@
 export type textAlign = 'left' | 'right' | 'center' | 'justify';
 
-export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Add members" | "Remove members" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block";
+export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Add members" | "Remove members" | "Search user" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block";
 
 export type ResponseType<T> = {success:boolean; message:T};
 
+export type FriendRequestStatusType = "pending"|"accepted"|"rejected";
 export interface UserTypes {
     _id: string,
     name: string,

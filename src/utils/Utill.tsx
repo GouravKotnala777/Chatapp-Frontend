@@ -4,7 +4,7 @@ import "../styles/utils.scss";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { NaviagationTypes, textAlign } from "../types/types";
-import { Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 //import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
 import { useDispatch } from "react-redux";
 import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
@@ -25,7 +25,7 @@ export const Para = ({value, color, fontSize, margin, padding}:{value:string; co
         <p style={{width:"fit-content", color:color?color:GRAY_LIGHT, fontSize:fontSize?fontSize:"0.7rem", textAlign:"justify", margin:margin?margin:"0", padding:padding?padding:"10px"}}>{value}</p>
     )
 };
-export const Input = ({biSearchID, faArrowLeftLongID, inputID, ioMdCloseID}:{biSearchID:string; faArrowLeftLongID:string; inputID:string; ioMdCloseID:string;}) => {
+export const Input = ({onChangeHandler, biSearchID, faArrowLeftLongID, inputID, ioMdCloseID}:{onChangeHandler?:(e:ChangeEvent<HTMLInputElement>) => void; biSearchID:string; faArrowLeftLongID:string; inputID:string; ioMdCloseID:string;}) => {
 
     const onFocusHandler = () => {
         const BiSearch = document.getElementById(biSearchID);
@@ -70,7 +70,7 @@ export const Input = ({biSearchID, faArrowLeftLongID, inputID, ioMdCloseID}:{biS
                 <BiSearch id={biSearchID} className="BiSearch" />
                 <FaArrowLeftLong id={faArrowLeftLongID} className="FaArrowLeftLong" />
             </div>
-            <input type="text" name="search" placeholder="Search" id={inputID} onFocus={onFocusHandler} onBlur={onBlurHandler} />
+            <input type="text" name="search" placeholder="Search" id={inputID} onFocus={onFocusHandler} onBlur={onBlurHandler} onChange={onChangeHandler} />
             <div className="search_icon" onClick={searchInputClearHandler}>
                 <IoMdClose id={ioMdCloseID} className="IoMdClose" />
             </div>

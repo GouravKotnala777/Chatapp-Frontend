@@ -30,6 +30,7 @@ import { myProfile } from "../redux/api/api";
 import { setLoginUser } from "../redux/reducers/loginUserReducer";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
+import SearchUser from "../components/SearchUser";
 
 
 
@@ -165,7 +166,10 @@ const Home = () => {
                                                     selectedNavigation === "Remove members" ?
                                                         <ChatMembersList />
                                                         :
-                                                        <h1 style={{color:"white"}}>From Home Page...</h1>
+                                                        selectedNavigation === "Search user" ?
+                                                            <SearchUser />
+                                                            :
+                                                            <h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
 

@@ -1,0 +1,102 @@
+@import "../utils.scss";
+
+.search_user_cont{
+    //border: 1px solid violet;
+    flex:1;
+    height: 100vh;
+    background: $grayDarker;
+    position: relative;    
+    .search_user_section_header{
+        //border: 1px solid indigo;
+        height: 10%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        .back_btn{
+            //border: 1px solid red;
+            background: transparent;
+            border: none;
+            margin-left: 10px;
+            .FaArrowLeftLong{
+                color: $grayLight;
+            }
+        }
+        .heading{
+            //border: 1px solid blue;
+            color: $grayLight;
+            
+        }
+    }
+    .search_user_section{
+        //border: 1px solid yellow;
+        height: 90%;
+        .search_inp_outer{
+            //border: 1px solid violet;
+            height: 12%;
+            padding: 6px 0;
+        }
+        .searched_users_list{
+            height: 88%;
+            //border: 1px solid indigo;
+            overflow-y: scroll;
+            .searched_users_list_scrollable{
+                //border: 1px solid blue;
+                .searched_user_cont{
+
+                }
+            }
+        }
+        
+    }
+    .submit_btn{
+        //border: 1px solid red;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: $grayLighter;
+        border-radius:50%;
+        display: grid;
+        place-items:center;
+        background: $primary;
+        transition: 0.3s;
+        border: 2px solid white;
+        .BiRightArrowAlt{
+            //border: 1px solid greenyellow;
+            font-size: 1.3rem;
+            color: white;
+        }
+    }
+}
+
+@media screen and (width <= 360px) {
+    .search_user_cont{   
+        .search_user_section_header{
+            .back_btn{
+                .FaArrowLeftLong{
+
+                }
+            }
+            .heading{
+            }
+        }
+        .search_user_section{
+            .search_inp_outer{
+            }
+            .searched_users_list{
+                .searched_users_list_scrollable{
+                    .searched_user_cont{
+    
+                    }
+                }
+            }
+            
+        }
+        .submit_btn{
+            .BiRightArrowAlt{
+            }
+        }
+    }
+    
+}
