@@ -4,7 +4,7 @@ import { ChatTypes, ResponseType, UserTypes } from "../../types/types";
 
 export const getMyChats = async() => {
     try {
-        const myChatsRes = await fetch("http://localhost:8000/api/v1/chat/my_chats", {
+        const myChatsRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/chat/my_chats`, {
             method:"GET",
             credentials:"include"
         });
@@ -24,7 +24,7 @@ export const getMyChats = async() => {
 };
 export const register = async(registerFormData:{name:string; email:string; password:string; gender:string; mobile:string;}):Promise<ResponseType<UserTypes|Error>> => {
     try {
-        const loginRes = await fetch("http://localhost:8000/api/v1/user/new", {
+        const loginRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/user/new`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -48,7 +48,7 @@ export const register = async(registerFormData:{name:string; email:string; passw
 };
 export const login = async(loginFormData:{email:string; password:string;}):Promise<ResponseType<UserTypes|Error>> => {
     try {
-        const loginRes = await fetch("http://localhost:8000/api/v1/user/login", {
+        const loginRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/user/login`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -72,7 +72,7 @@ export const login = async(loginFormData:{email:string; password:string;}):Promi
 };
 export const myProfile = async() => {
     try {
-        const myProfileRes = await fetch("http://localhost:8000/api/v1/user/me", {
+        const myProfileRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/user/me`, {
             method:"GET",
             credentials:"include"
         });
@@ -92,7 +92,7 @@ export const myProfile = async() => {
 };
 export const myFriends = async() => {
     try {
-        const myFriendsRes = await fetch("http://localhost:8000/api/v1/user/friends", {
+        const myFriendsRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/user/friends`, {
             method:"GET",
             credentials:"include"
         });
@@ -115,7 +115,7 @@ export const myFriends = async() => {
 // Chat APIs
 export const createChat = async(newChatFormData:{chatName:string; members?:string[]; description:string; isGroupChat:boolean;}) => {
     try {
-        const createChatRes = await fetch("http://localhost:8000/api/v1/chat/new", {
+        const createChatRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/chat/new`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -139,7 +139,7 @@ export const createChat = async(newChatFormData:{chatName:string; members?:strin
 };
 export const updateChat = async(updateChatFromData:{chatID:string; members:string[];}) => {
     try {
-        const updatedChatRes = await fetch(`http://localhost:8000/api/v1/chat/selected_chat`, {
+        const updatedChatRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/chat/selected_chat`, {
             method:"PUT",
             headers:{
                 "Content-Type":"application/json"
@@ -165,7 +165,7 @@ export const updateChat = async(updateChatFromData:{chatID:string; members:strin
 }
 export const removeMembersFromChat = async(removeMembersFromChatFromData:{chatID:string; members:string[];}) => {
     try {
-        const updatedChatRes = await fetch(`http://localhost:8000/api/v1/chat/remove_members`, {
+        const updatedChatRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/chat/remove_members`, {
             method:"PUT",
             headers:{
                 "Content-Type":"application/json"
@@ -191,7 +191,7 @@ export const removeMembersFromChat = async(removeMembersFromChatFromData:{chatID
 }
 //export const singleChatMembers = async() => {
 //    try {
-//        const updatedChatRes = await fetch(`http://localhost:8000/api/v1/chat/remove_members`, {
+//        const updatedChatRes = await fetch(`${import.meta.env.SERVER_URL}/api/v1/chat/remove_members`, {
 //            method:"PUT",
 //            headers:{
 //                "Content-Type":"application/json"
