@@ -285,6 +285,31 @@ export const removeMembersFromChat = async(removeMembersFromChatFromData:{chatID
         return error as  ResponseType<Error>
     }
 }
+export const deleteChat = async(deleteChatFormData:{chatID:string;}) => {
+    try {
+        const deleteChatRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
+            method:"DELETE",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(deleteChatFormData)
+        });
+
+        const deleteChatData = await deleteChatRes.json();
+
+        console.log("----- deleteChat api.ts");
+        console.log(deleteChatData);
+        console.log("----- deleteChat api.ts");
+
+        return deleteChatData as  ResponseType<ChatTypes>
+    } catch (error) {
+        console.log("----- deleteChat api.ts");
+        console.log(error);
+        console.log("----- deleteChat api.ts");
+        return error as  ResponseType<Error>
+    }
+};
 //export const singleChatMembers = async() => {
 //    try {
 //        const updatedChatRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/remove_members`, {

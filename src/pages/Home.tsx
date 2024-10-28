@@ -32,6 +32,7 @@ import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
 import SearchUser from "../components/SearchUser";
 import ReceivedFriendRequests from "../components/ReceivedFriendRequests";
+import DeleteChat from "../components/DeleteChat";
 
 
 
@@ -176,7 +177,10 @@ const Home = () => {
                                                                 selectedNavigation === "Friend requests" ?
                                                                     <ReceivedFriendRequests />
                                                                     :
-                                                                    <h1 style={{color:"white"}}>From Home Page...</h1>
+                                                                    selectedNavigation === "Delete chat" ?
+                                                                        <DeleteChat />
+                                                                        :
+                                                                        <h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
 

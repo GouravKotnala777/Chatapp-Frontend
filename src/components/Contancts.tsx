@@ -11,7 +11,6 @@ import { myFriends, updateChat } from "../redux/api/api";
 
 
 const Contacts = () => {
-    //const [selectedUser, setSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     const [myAllFriends, setMyAllFriends] = useState<UserTypes[]>([]);
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
