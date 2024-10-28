@@ -136,6 +136,27 @@ export const searchUser = async(searchUserFormData:{searchQuery:string;}) => {
         return error as ResponseType<Error>;        
     }
 };
+export const allReceivedFriendRequests = async() => {
+    try {
+        const allReceivedFriendRequestsRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends_request`, {
+            method:"GET",
+            credentials:"include"
+        });
+
+        const allReceivedFriendRequestsData = await allReceivedFriendRequestsRes.json();
+
+        console.log("----- allReceivedFriendRequests  api.ts");
+        console.log(allReceivedFriendRequestsData);
+        console.log("----- allReceivedFriendRequests  api.ts");
+
+        return allReceivedFriendRequestsData as ResponseType<{_id:string; name:string; email:string; date:Date;}[]>;
+    } catch (error) {
+        console.log("----- allReceivedFriendRequests  api.ts");
+        console.log(error);
+        console.log("----- allReceivedFriendRequests  api.ts");
+        return error as ResponseType<Error>;        
+    }
+};
 export const sendFriendRequest = async(sendFriendRequestFormData:{searchedUserIDArray:string[];}) => {
     try {
         const sendFriendRequestRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends_request`, {
@@ -178,7 +199,7 @@ export const replyFriendRequest = async(replyFriendRequestFormData:{friendReques
         console.log(replyFriendRequestData);
         console.log("----- replyFriendRequest  api.ts");
 
-        return replyFriendRequestData as ResponseType<UserTypes>;
+        return replyFriendRequestData as ResponseType<string>;
     } catch (error) {
         console.log("----- replyFriendRequest  api.ts");
         console.log(error);

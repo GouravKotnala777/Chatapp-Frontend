@@ -5,10 +5,14 @@ import { GRAY_DARKER, GRAY_LIGHT, GRAY_LIGHTER } from "../constants/constants";
 import { useState } from "react";
 import { SpreadOptions } from "../utils/Utill";
 import { BiCheck, BiSolidDownArrow } from "react-icons/bi";
-import { NaviagationTypes } from "../types/types";
+import { FriendRequestStatusType, NaviagationTypes } from "../types/types";
 
-const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMessage, date, imgHeight, imgWidth}:{selectedNavigation:NaviagationTypes; isSelected?:boolean; userID:string; userName:string; lastMessage:string; date:string|IconType[]; imgHeight?:string; imgWidth?:string;}) => {
+const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMessage, date, replyFriendRequestHandler, imgHeight, imgWidth}:{selectedNavigation?:NaviagationTypes; isSelected?:boolean; userID:string; userName:string; lastMessage:string; date:string|IconType[]; replyFriendRequestHandler?:({ friendRequestID, status }: {
+    friendRequestID: string;
+    status: FriendRequestStatusType;
+}) => Promise<void>; imgHeight?:string; imgWidth?:string;}) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
+
 
 
     return(
@@ -42,7 +46,11 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
                         </div>
                         :
                         <div className="icons_cont" style={{gap:"20px"}}>
-                            aaaaaaaaaa
+                            {
+                                date&&typeof date === "object"&&(date as IconType[]).map((Icon) => (
+                                    isSelected && <Icon className={Icon.name === "CgRemove"?"CgRemove icon":"CgAdd icon"} onClick={() => replyFriendRequestHandler&&replyFriendRequestHandler({friendRequestID:userID, status:Icon.name === "CgRemove"?"rejected":"accepted"})} />
+                                ))
+                            }
                         </div>
 
                 }

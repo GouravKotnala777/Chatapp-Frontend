@@ -31,6 +31,7 @@ import { setLoginUser } from "../redux/reducers/loginUserReducer";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
 import SearchUser from "../components/SearchUser";
+import ReceivedFriendRequests from "../components/ReceivedFriendRequests";
 
 
 
@@ -172,7 +173,10 @@ const Home = () => {
                                                             selectedNavigation === "Search user" ?
                                                                 <SearchUser />
                                                                 :
-                                                                <h1 style={{color:"white"}}>From Home Page...</h1>
+                                                                selectedNavigation === "Friend requests" ?
+                                                                    <ReceivedFriendRequests />
+                                                                    :
+                                                                    <h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
 

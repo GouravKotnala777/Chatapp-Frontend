@@ -23,24 +23,16 @@ const Contacts = () => {
     };
 
     const onSelectUserHandler = (user:Pick<UserTypes, "_id"|"name"|"email">) => {
-        //setSelectedUser(user);
-        //console.log(selectedUser);
-
         setSingleSelectedUser(user);
         if (usersToAddInGroup.includes(user._id)) {
             const userFilterResult = usersToAddInGroup.filter((userId) => userId !== user._id);
             setUsersToAddInGroup(userFilterResult);
             console.log("HHHHHHHHHHHHHHHHHH");
-            
         }
         else{
             setUsersToAddInGroup([...usersToAddInGroup, user._id]);
             console.log("NNNNNNNNNNNNNNNNNN");
         }
-        //console.log(":::::::::::::::::::::::");
-        //console.log(usersToAddInGroup);
-        //console.log(":::::::::::::::::::::::");
-        
     };
 
     const addRemoveUserHandler = async() => {

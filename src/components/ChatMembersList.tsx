@@ -1,4 +1,4 @@
-import "../styles/components/user_list.scss";
+import "../styles/components/contacts.scss";
 import { useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { ChatTypesPopulated, UserTypes } from "../types/types";
@@ -14,7 +14,7 @@ const ChatMembersList = () => {
     //const [selectedUser, setSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     //const [myAllFriends, setMyAllFriends] = useState<UserTypes[]>([]);
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
-    const {selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
+    const {selectedChat, selectedNavigation} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
     const dispatch = useDispatch();
 
     const goBackHandler = () => {
@@ -95,7 +95,7 @@ const ChatMembersList = () => {
                                     :
                                     "unset"
                             }}>
-                                <UserListItem userID={user._id} userName={user.name} date="" lastMessage="" isSelected={usersToAddInGroup.includes(user._id)} />
+                                <UserListItem selectedNavigation={selectedNavigation} userID={user._id} userName={user.name} date="" lastMessage="" isSelected={usersToAddInGroup.includes(user._id)} />
                             </div>
                         ))
                     }

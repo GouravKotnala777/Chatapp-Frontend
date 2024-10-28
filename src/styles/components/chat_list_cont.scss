@@ -61,9 +61,29 @@
             display: flex;
 
             .icon{
-                font-size: 1rem;
-                color: $grayLight;       
+                font-size: 1.3rem;
+                //color: $grayDark;
                 margin-right: 10px;
+                padding: 1px;
+                border-radius: 50%;
+                background: white;
+
+                &:hover{
+                    //background-color: $grayDark;
+                    color: white;
+                }
+            }
+            .CgRemove{
+                color: red;
+                &:hover{
+                    background-color: red;
+                }
+            }
+            .CgAdd{
+                color:green;
+                &:hover{
+                    background-color: green;
+                }
             }
         }
     }

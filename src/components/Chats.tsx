@@ -1,5 +1,5 @@
 import "../styles/components/chat.scss";
-import { BiDotsVertical, BiLogIn, BiRegistered } from "react-icons/bi";
+import { BiDotsVertical, BiLogIn, BiNews, BiRegistered } from "react-icons/bi";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import ChatListItem from "./chatListItem";
 import { Input, SpreadOptions } from "../utils/Utill";
@@ -9,7 +9,7 @@ import { ChatTypes, ChatTypesPopulated, NaviagationTypes } from "../types/types"
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { getMyChats } from "../redux/api/api";
-import { MiscReducerTypes, setSelectedChat } from "../redux/reducers/navigationReducer";
+import { MiscReducerTypes, setSelectedChat, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 //import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
 
@@ -75,7 +75,7 @@ import { useDispatch, useSelector } from "react-redux";
 //        date:"5 days ago"
 //    },
 //];
-const contentArray:NaviagationTypes[] = ["Search user", "Contacts", "New group", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
+const contentArray:NaviagationTypes[] = ["Search user", "Contacts", "New group", "Friend requests", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
 
 const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;}) => {
     const [isOptionsDialogActive, setIsOptionsDialogActive] = useState<boolean>(false);
@@ -94,6 +94,9 @@ const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Di
     const onClickThreeDotsHandler = () => {
         setIsOptionsDialogActive(!isOptionsDialogActive);
     };
+    const navigateHandler = () => {
+        dispatch(setSelectedNavigation("Friend requests"));
+    }
 
 
     useEffect(() => {
@@ -121,6 +124,7 @@ const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Di
                     <div className="icons">
                         <button className="icon" onClick={() => navigate("/login")} ><BiLogIn /></button>
                         <button className="icon" onClick={() => navigate("/register")} ><BiRegistered /></button>
+                        <button className="icon" onClick={navigateHandler} ><BiNews /></button>
                         <button className="icon"><LuMessageSquarePlus /></button>
                         <button className="icon" onClick={onClickThreeDotsHandler}>
                             <BiDotsVertical />

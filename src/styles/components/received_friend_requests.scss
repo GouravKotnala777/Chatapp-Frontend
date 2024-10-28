@@ -1,0 +1,44 @@
+@import "../utils.scss";
+
+
+.reveived_friend_requests_cont{
+    border: 1px solid violet;
+    flex:1;
+}
+
+.reveived_friend_requests_cont{
+    //border: 2px solid red;
+    height: 100vh;
+    flex:1;
+    position: relative;
+    .heading{
+        //border: 1px solid rgb(0, 208, 255);
+        height: 10%;
+        color: $grayLighter;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+        gap: 10px;
+        .back_icon{
+            //border: 1px solid red;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: $grayLighter;
+            cursor: pointer;
+        }
+        .value{
+            //border: 1px solid greenyellow;
+            font-weight: 500;
+        }
+    }
+    .reveived_friend_requests{
+        //border: 1px solid rgb(0, 255, 149);
+        height: 90%;
+        overflow-y: scroll;
+        .reveived_friend_requests_scrollable{
+            //border: 2px solid violet;
+        }
+    }
+}
