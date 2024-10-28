@@ -4,9 +4,10 @@ import { IconType } from "react-icons";
 import { GRAY_DARKER, GRAY_LIGHT, GRAY_LIGHTER } from "../constants/constants";
 import { useState } from "react";
 import { SpreadOptions } from "../utils/Utill";
-import { BiCheck } from "react-icons/bi";
+import { BiCheck, BiSolidDownArrow } from "react-icons/bi";
+import { NaviagationTypes } from "../types/types";
 
-const UserListItem = ({isSelected, userID, userName, lastMessage, date, imgHeight, imgWidth}:{isSelected?:boolean; userID:string; userName:string; lastMessage:string; date:string|IconType[]; imgHeight?:string; imgWidth?:string;}) => {
+const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMessage, date, imgHeight, imgWidth}:{selectedNavigation:NaviagationTypes; isSelected?:boolean; userID:string; userName:string; lastMessage:string; date:string|IconType[]; imgHeight?:string; imgWidth?:string;}) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
 
 
@@ -30,16 +31,18 @@ const UserListItem = ({isSelected, userID, userName, lastMessage, date, imgHeigh
                             color:isSelected ? "black" : GRAY_LIGHT
                         }}>
                             {date}
-                            {/*{isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)} />}*/}
-                            <SpreadOptions contentArray={["Add members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
+                            {
+                                isSelected &&
+                                    (selectedNavigation === "Add members" ?
+                                        <BiCheck style={{fontSize:"1.3rem", marginRight:"10px", color:GRAY_DARKER}} />
+                                        :
+                                        <BiSolidDownArrow className="BiSolidDownArrow" style={{fontSize:"1.3rem", marginRight:"10px"}} onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)}  />)
+                            }
+                            <SpreadOptions contentArray={["Start chat", "Delete freind", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
                         </div>
                         :
                         <div className="icons_cont" style={{gap:"20px"}}>
-                            {
-                                //JSON.stringify(isSelected)
-                                isSelected &&
-                                    <BiCheck style={{fontSize:"1.3rem", marginRight:"10px", color:GRAY_DARKER}} />
-                            }
+                            aaaaaaaaaa
                         </div>
 
                 }

@@ -1,4 +1,4 @@
-import "../styles/components/user_list.scss";
+import "../styles/components/contacts.scss";
 import { useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { UserTypes } from "../types/types";
@@ -14,7 +14,8 @@ const Contacts = () => {
     //const [selectedUser, setSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     const [myAllFriends, setMyAllFriends] = useState<UserTypes[]>([]);
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
-    const {selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
+    const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
+    const {selectedChat, selectedNavigation} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
     const dispatch = useDispatch();
 
     const goBackHandler = () => {
@@ -25,7 +26,7 @@ const Contacts = () => {
         //setSelectedUser(user);
         //console.log(selectedUser);
 
-
+        setSingleSelectedUser(user);
         if (usersToAddInGroup.includes(user._id)) {
             const userFilterResult = usersToAddInGroup.filter((userId) => userId !== user._id);
             setUsersToAddInGroup(userFilterResult);
@@ -79,7 +80,6 @@ const Contacts = () => {
     return(
         <div className="user_list_cont">
             {/*<pre style={{color:"white"}}>{JSON.stringify(usersToAddInGroup, null, `\t`)}</pre>*/}
-
             <div className="heading">
                 <button className="back_icon" onClick={goBackHandler}><FaArrowLeftLong /></button>
                 <div className="value">Contacts</div>
@@ -89,23 +89,35 @@ const Contacts = () => {
                     {
                         myAllFriends.map((user) => (
                             <div key={user._id} className="user_cont"
-                                onClick={() => onSelectUserHandler(user)} style={{
-                                background:usersToAddInGroup.includes(user._id) ?
-                                    PRIMARY_LIGHT
-                                    :
-                                    "unset"
-                            }}>
-                                <UserListItem userID={user._id} userName={user.name} date="" lastMessage="" isSelected={usersToAddInGroup.includes(user._id)} />
+                                onClick={() => onSelectUserHandler(user)}
+                                style={{
+                                    background:selectedNavigation === "Add members" ?
+                                        usersToAddInGroup.includes(user._id) ?
+                                            PRIMARY_LIGHT
+                                            :
+                                            "unset"
+                                        :
+                                        singleSelectedUser._id === user._id ?
+                                            PRIMARY_LIGHT
+                                            :
+                                            "unset"
+                                }}>
+                                <UserListItem selectedNavigation={selectedNavigation} userID={user._id} userName={user.name} date="Online" lastMessage="" isSelected={
+                                    selectedNavigation === "Add members" ?
+                                        usersToAddInGroup.includes(user._id)
+                                        :
+                                        singleSelectedUser._id === user._id
+                                    } />
                             </div>
                         ))
                     }
                 </div>
             </div>
             <button className="submit_btn" style={{
-                transform:usersToAddInGroup.length !== 0?"scale(1)":"scale(0)"
+                transform:selectedNavigation === "Add members" && usersToAddInGroup.length !== 0?"scale(1)":"scale(0)"
             }}
                 onClick={addRemoveUserHandler}>
-                <BiRightArrowAlt className="BiRightArrowAlt" />
+                <span className="selection_count">{usersToAddInGroup.length}</span> <BiRightArrowAlt className="BiRightArrowAlt" />
             </button>
         </div>
     )

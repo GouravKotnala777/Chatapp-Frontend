@@ -75,7 +75,7 @@ import { useDispatch, useSelector } from "react-redux";
 //        date:"5 days ago"
 //    },
 //];
-const contentArray:NaviagationTypes[] = ["Search user", "New group", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
+const contentArray:NaviagationTypes[] = ["Search user", "Contacts", "New group", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
 
 const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;}) => {
     const [isOptionsDialogActive, setIsOptionsDialogActive] = useState<boolean>(false);

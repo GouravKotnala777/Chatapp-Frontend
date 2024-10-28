@@ -163,13 +163,16 @@ const Home = () => {
                                                 selectedNavigation === "Add members" ?
                                                     <Contacts />
                                                     :
-                                                    selectedNavigation === "Remove members" ?
-                                                        <ChatMembersList />
+                                                    selectedNavigation === "Contacts" ?
+                                                        <Contacts />
                                                         :
-                                                        selectedNavigation === "Search user" ?
-                                                            <SearchUser />
+                                                        selectedNavigation === "Remove members" ?
+                                                            <ChatMembersList />
                                                             :
-                                                            <h1 style={{color:"white"}}>From Home Page...</h1>
+                                                            selectedNavigation === "Search user" ?
+                                                                <SearchUser />
+                                                                :
+                                                                <h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
 
