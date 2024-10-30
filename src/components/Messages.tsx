@@ -1,66 +1,46 @@
+import { useSelector } from "react-redux";
 import "../styles/components/messages.scss";
+import { MessageTypesPopulated } from "../types/types";
+import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
+//import { Dispatch, SetStateAction } from "react";
 
-const Messages = () => {
+const Messages = ({messageArray}:{messageArray:MessageTypesPopulated[]|[];}) => {
+    const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
 
     return(
         <div className="messages_cont">
-                                    
-            <div className="incomming_message_cont">
-                <div className="content">H</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">He</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="default_message_cont">
-                <div className="content">Hello</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="outgoing_message_cont">
-                <div className="content">Hello</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello my</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello my name</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="outgoing_message_cont">
-                <div className="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore accusantium obcaecati distinctio odit facilis fugiat, omnis quia voluptas. Deleniti modi unde aspernatur similique excepturi dolorum commodi adipisci voluptas quasi.</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello my name is gourav</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello my name is gourav skdjsdaj sdkoajsd sakdjkajssn dsdjkasd ksjdkas ksjdkl lkjsdkaj asfhuhdc w wcjwenkmdniois dashdnsma</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello my name is gourav</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello my name is gourav</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello my name is gourav</div>
-                <div className="date">8:05 am</div>
-            </div>
-            <div className="incomming_message_cont">
-                <div className="content">Hello my name is gourav</div>
-                <div className="date">8:05 am</div>
-            </div>
+            <pre style={{color:"white"}}>{JSON.stringify(messageArray, null, `\t`)}</pre>
+            {
+                messageArray&&typeof messageArray === "object"&&messageArray.length!==0&&messageArray.map((msg) => {
+                    if (msg.sender === user?._id) {
+                        return(
+                            <div className="outgoing_message_cont">
+                                <div className="content">{msg.content.contentMessage}</div>
+                                <div className="date">{msg.createdAt.toString().split("T")[0]}</div>
+                            </div>
+                        )
+                    }
+                    else if(msg.sender === "default"){
+                        return(
+                            <div className="default_message_cont">
+                                <div className="content">{msg.content.contentMessage}</div>
+                                <div className="date">{msg.createdAt.toString().split("T")[0]}</div>
+                            </div>
+                        )
+                    }
+                    else{
+                        return(
+                            <div className="incomming_message_cont">
+                                <div className="content">{msg.content.contentMessage}</div>
+                                <div className="date">{msg.createdAt.toString().split("T")[0]}</div>
+                            </div>
+                        )
+                    }
+                })
+            }               
+            
+            
+            
         </div>
     )
 };

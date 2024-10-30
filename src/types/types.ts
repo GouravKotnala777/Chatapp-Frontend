@@ -45,3 +45,37 @@ export interface ChatTypesPopulated {
     createdAt:Date;
     updatedAt:Date;
 };
+
+export type MessageStatusType = "sent"|"delivered"|"read";
+export interface MessageTypes {
+    sender:string;
+    chatID:string;
+    content:string;
+    attachment:string;
+    messageStatus:MessageStatusType;
+    isForwarded:boolean;
+    deletedFor:string[];
+    createdAt:string;
+    updatedAt:string;
+};
+export interface MessageTypesPopulated {
+    sender:string;
+    chatID:string;
+    content:ContentType;
+    attachment:string;
+    messageStatus:MessageStatusType;
+    isForwarded:boolean;
+    deletedFor:string[];
+    createdAt:string;
+    updatedAt:string;
+};
+
+export type ContentMessageType = "text"|"image"|"file"|"video"|"audio";
+export interface ContentType {
+    contentMessage:string;
+    createdBy:string;
+    isForwarded:boolean;
+    contentType:ContentMessageType;
+    createdAt:Date;
+    updatedAt:Date;
+};

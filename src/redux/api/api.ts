@@ -1,7 +1,7 @@
-import { ChatTypes, FriendRequestStatusType, ResponseType, UserTypes } from "../../types/types";
+import { ChatTypes, ContentMessageType, FriendRequestStatusType, MessageStatusType, MessageTypesPopulated, ResponseType, UserTypes } from "../../types/types";
 
 
-
+// User APIs
 export const getMyChats = async() => {
     try {
         const myChatsRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/my_chats`, {
@@ -258,6 +258,32 @@ export const createChat = async(newChatFormData:{chatName:string; members?:strin
         return error as ResponseType<Error>;
     }
 };
+export const selectedChatMessages = async(selectedChatMessagesFromData:{chatID:string;}) => {
+    try {
+        const selectedChatMessagesRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(selectedChatMessagesFromData)
+        });
+
+        const selectedChatMessagesData = await selectedChatMessagesRes.json();
+
+        console.log("----- selectedChatMessages api.ts");
+        console.log(selectedChatMessagesData);
+        console.log("----- selectedChatMessages api.ts");
+
+        return selectedChatMessagesData as  ResponseType<MessageTypesPopulated[]>
+        
+    } catch (error) {
+        console.log("----- selectedChatMessages api.ts");
+        console.log(error);
+        console.log("----- selectedChatMessages api.ts");
+        return error as  ResponseType<Error>
+    }
+}
 export const updateChat = async(updateChatFromData:{chatID:string; members:string[];}) => {
     try {
         const updatedChatRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
@@ -335,29 +361,29 @@ export const deleteChat = async(deleteChatFormData:{chatID:string;}) => {
         return error as  ResponseType<Error>
     }
 };
-//export const singleChatMembers = async() => {
-//    try {
-//        const updatedChatRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/remove_members`, {
-//            method:"PUT",
-//            headers:{
-//                "Content-Type":"application/json"
-//            },
-//            credentials:"include",
-//            body:JSON.stringify(removeMembersFromChatFromData)
-//        });
 
-//        const updatedChatData = await updatedChatRes.json();
+// Message APIs
+export const createMessage = async(createMessageFormData:{sender:string; chatID:string; content:string; attachment:string[]; messageType:ContentMessageType; messageStatus:MessageStatusType;}) => {
+    try {
+        const createMessageRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/new`, {
+            method:"POST",
+            headers:{
+                "content-type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(createMessageFormData)
+        });
 
-//        console.log("----- removeMembersFromChat api.ts");
-//        console.log(updatedChatData);
-//        console.log("----- removeMembersFromChat api.ts");
+        const createMessageData = await createMessageRes.json();
 
-//        return updatedChatData as  ResponseType<ChatTypes>
-        
-//    } catch (error) {
-//        console.log("----- removeMembersFromChat api.ts");
-//        console.log(error);
-//        console.log("----- removeMembersFromChat api.ts");
-//        return error as  ResponseType<Error>
-//    }
-//}
+        console.log("----- createMessage api.ts");
+        console.log(createMessageData);        
+        console.log("----- createMessage api.ts");
+        return createMessageData as ResponseType<MessageTypesPopulated>;
+    } catch (error) {
+        console.log("----- createMessage api.ts");
+        console.log(error);
+        console.log("----- createMessage api.ts");
+        return error as ResponseType<Error>;
+    }
+};

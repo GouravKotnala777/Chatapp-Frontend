@@ -2,7 +2,7 @@ import "../styles/pages/home.scss";
 import { CiSettings } from "react-icons/ci";
 import photo from "../../public/vite.svg";
 import messangerPlaceholderImg from "../../public/hero_img1.png";
-import { Button, Heading, Input, Para } from "../utils/Utill";
+import { Button, Heading, Para } from "../utils/Utill";
 import { MouseEvent, useEffect, useState } from "react";
 import Tooltip from "../components/Tooltip";
 import { BsChatSquareText } from "react-icons/bs";
@@ -21,18 +21,19 @@ import { FaRegLaughBeam } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaCamera, FaPlus } from "react-icons/fa6";
 import Messages from "../components/Messages";
-import { ChatTypes, NaviagationTypes, UserTypes } from "../types/types";
+import { ChatTypes, ContentMessageType, MessageTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
 import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
-import { myProfile } from "../redux/api/api";
+import { myProfile, selectedChatMessages } from "../redux/api/api";
 import { setLoginUser } from "../redux/reducers/loginUserReducer";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
 import SearchUser from "../components/SearchUser";
 import ReceivedFriendRequests from "../components/ReceivedFriendRequests";
 import DeleteChat from "../components/DeleteChat";
+import MessageInput from "../components/MessageInput";
 
 
 
@@ -46,6 +47,11 @@ const Home = () => {
     const {selectedNavigation, selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes;}) => state.miscReducer);
     const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     const dispatch = useDispatch();
+    const [messageType, setMessageType] = useState<ContentMessageType>("text");
+    const [messageInp, setMessageInp] = useState<string>("");
+    const [messageArray, setMessageArray] = useState<MessageTypesPopulated[]>([]);
+    const [singleMessage, setSingleMessage] = useState<MessageTypes>({chatID:"", sender:"", messageStatus:"read" , content:"", attachment:"", isForwarded:false, deletedFor:[], createdAt:"", updatedAt:""});
+    const [refresh, setRefresh] = useState<boolean>(false);
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -79,6 +85,22 @@ const Home = () => {
             console.log("from Home.tsx--------------");
         })
     }, []);
+
+    useEffect(() => {
+        const getMessages = selectedChatMessages({chatID:selectedChat?._id as string});
+
+        getMessages.then((data) => {
+            console.log("----- getMessages Home.tsx");
+            console.log(data);
+            setMessageArray(data.message as MessageTypesPopulated[]);
+            console.log("----- getMessages Home.tsx");
+        })
+        .catch((err) => {
+            console.log("----- getMessages Home.tsx");
+            console.log(err);
+            console.log("----- getMessages Home.tsx");
+        })
+    }, [selectedChat]);
 
     return(
         <>
@@ -199,13 +221,13 @@ const Home = () => {
                                 <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
                             </div>
                             <div className="middle_part">
-                                <Messages />
+                                <Messages messageArray={messageArray} />
                             </div>
                             <div className="lower_part">
                                 <div className="icon"><FaRegLaughBeam /></div>
                                 <div className="icon"><FaPlus /></div>
                                 <div className="search_cont_outer">
-                                    <Input biSearchID="seachIconForMessanger" faArrowLeftLongID="leftArrowIconForMessanger" inputID="inputForMessanger" ioMdCloseID="closeIconForMessanger" />
+                                    <MessageInput refresh={refresh} setRefresh={setRefresh} singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} messageInp={messageInp} setMessageInp={setMessageInp} messageType={messageType} setMessageType={setMessageType} messageArray={messageArray} setMessageArray={setMessageArray} singleMessage={singleMessage} setSingleMessage={setSingleMessage} />
                                 </div>
                                 <div className="icon"><MdKeyboardVoice /></div>
                             </div>
