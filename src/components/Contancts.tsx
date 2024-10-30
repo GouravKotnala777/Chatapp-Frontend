@@ -1,5 +1,5 @@
 import "../styles/components/contacts.scss";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { UserTypes } from "../types/types";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -10,10 +10,9 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import { myFriends, updateChat } from "../redux/api/api";
 
 
-const Contacts = () => {
+const Contacts = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">; setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;}) => {
     const [myAllFriends, setMyAllFriends] = useState<UserTypes[]>([]);
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
-    const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     const {selectedChat, selectedNavigation} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
     const dispatch = useDispatch();
 
@@ -70,7 +69,8 @@ const Contacts = () => {
 
     return(
         <div className="user_list_cont">
-            {/*<pre style={{color:"white"}}>{JSON.stringify(usersToAddInGroup, null, `\t`)}</pre>*/}
+            {/*<pre style={{color:"white"}}>{JSON.stringify(singleSelectedUser, null, `\t`)}</pre>
+            <pre style={{color:"white"}}>{JSON.stringify(selectedChat, null, `\t`)}</pre>*/}
             <div className="heading">
                 <button className="back_icon" onClick={goBackHandler}><FaArrowLeftLong /></button>
                 <div className="value">Contacts</div>

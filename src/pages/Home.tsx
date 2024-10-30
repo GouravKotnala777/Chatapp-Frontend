@@ -44,7 +44,7 @@ const Home = () => {
     const [tooltipContent, setTooltipContent] = useState<string>("");
     const [isMessangerForMobileActive, setIsMessangerForMobileActive] = useState<boolean>(false);
     const {selectedNavigation, selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes;}) => state.miscReducer);
-    //const [myChats, setMyChats] = useState<ChatTypes[]>([]);
+    const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     const dispatch = useDispatch();
 
 
@@ -163,10 +163,10 @@ const Home = () => {
                                                 <Profile />
                                                 :
                                                 selectedNavigation === "Add members" ?
-                                                    <Contacts />
+                                                    <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} />
                                                     :
                                                     selectedNavigation === "Contacts" ?
-                                                        <Contacts />
+                                                        <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} />
                                                         :
                                                         selectedNavigation === "Remove members" ?
                                                             <ChatMembersList />
@@ -178,9 +178,12 @@ const Home = () => {
                                                                     <ReceivedFriendRequests />
                                                                     :
                                                                     selectedNavigation === "Delete chat" ?
-                                                                        <DeleteChat />
+                                                                        <DeleteChat singleSelectedUser={singleSelectedUser._id} />
                                                                         :
-                                                                        <h1 style={{color:"white"}}>From Home Page...</h1>
+                                                                        selectedNavigation === "Delete freind" ?
+                                                                            <DeleteChat singleSelectedUser={singleSelectedUser._id} />
+                                                                            :
+                                                                            <h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
 

@@ -5,10 +5,10 @@ import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navig
 import photo from "../../public/vite.svg";
 import { Heading, Para } from "../utils/Utill";
 import { GRAY_LIGHTER, PRIMARY_LIGHT } from "../constants/constants";
-import { deleteChat } from "../redux/api/api";
+import { deleteChat, removeFriend } from "../redux/api/api";
 
-const DeleteChat = () => {
-    const {selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
+const DeleteChat = ({singleSelectedUser}:{singleSelectedUser:string;}) => {
+    const {selectedChat, selectedNavigation} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
     const dispatch = useDispatch();
 
     const goBackHandler = () => {
@@ -16,22 +16,35 @@ const DeleteChat = () => {
     };
 
     const deleteChatHandler = async() => {
-        const deleteChatRes = await deleteChat({chatID:selectedChat?._id as string});
-
-        if (deleteChatRes.success === true) {
-            console.log("------ deleteChatHandler DeleteChat.tsx");
-            console.log(deleteChatRes);
-            goBackHandler();
-            console.log("------ deleteChatHandler DeleteChat.tsx");
+        
+        if (selectedNavigation === "Delete chat") {
+            const deleteChatRes = await deleteChat({chatID:selectedChat?._id as string});
+            if (deleteChatRes.success === true) {
+                console.log("------ deleteChatHandler DeleteChat.tsx");
+                console.log(deleteChatRes);
+                goBackHandler();
+                console.log("------ deleteChatHandler DeleteChat.tsx");
+            }
         }
+        else if (selectedNavigation === "Delete freind"){
+            const removeFriendRes = await removeFriend({friendUserID:singleSelectedUser});
+            if (removeFriendRes.success === true) {
+                console.log("------ deleteChatHandler DeleteChat.tsx");
+                console.log(removeFriendRes);
+                goBackHandler();
+                console.log("------ deleteChatHandler DeleteChat.tsx");
+            }
+        }
+
     }
 
     return(
         <div className="delete_chat_cont">
-            {/*<pre>{JSON.stringify(selectedChat, null, `\t`)}</pre>*/}
+            {/*<pre style={{color:"white"}}>{JSON.stringify(selectedChat, null, `\t`)}</pre>
+            <pre style={{color:"white"}}>{JSON.stringify(selectedChat, null, `\t`)}</pre>*/}
             <div className="heading">
                 <button className="back_icon" onClick={goBackHandler}><FaArrowLeftLong /></button>
-                <div className="value">Contacts</div>
+                <div className="value">{selectedNavigation === "Delete chat" ? "Delete Chat" : "Remove friend"}</div>
             </div>
             <div className="delete_chat">
                 <div className="delete_chat_scrollable">
@@ -39,7 +52,7 @@ const DeleteChat = () => {
                         <img src={photo} alt={photo} />
                     </div>
                     <div className="warning_cont">
-                        <Heading value="Do you want to delete this chat" color={GRAY_LIGHTER} />
+                        <Heading value={`Do you want to ${selectedNavigation === "Delete chat" ? "delete this chat" : "remove this friend"}`} color={GRAY_LIGHTER} />
                         <Para value={selectedChat?.chatName as string} color={PRIMARY_LIGHT} fontSize="0.8rem" margin="0 auto" />
                         <div className="btns_cont">
                             <button className="cancel_btn" onClick={goBackHandler}>No, Don't</button>

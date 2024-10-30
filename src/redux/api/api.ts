@@ -207,6 +207,31 @@ export const replyFriendRequest = async(replyFriendRequestFormData:{friendReques
         return error as ResponseType<Error>;        
     }
 };
+export const removeFriend = async(removeFriendFormData:{friendUserID:string;}) => {
+    try {
+        const removeFriendRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends`, {
+            method:"DELETE",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(removeFriendFormData)
+        });
+
+        const removeFriendData = await removeFriendRes.json();
+
+        console.log("----- removeFriend  api.ts");
+        console.log(removeFriendData);
+        console.log("----- removeFriend  api.ts");
+
+        return removeFriendData as ResponseType<UserTypes[]>;
+    } catch (error) {
+        console.log("----- removeFriend  api.ts");
+        console.log(error);
+        console.log("----- removeFriend  api.ts");
+        return error as ResponseType<Error>;        
+    }
+};
 
 // Chat APIs
 export const createChat = async(newChatFormData:{chatName:string; members?:string[]; description:string; isGroupChat:boolean;}) => {
