@@ -6,7 +6,7 @@ import { BiSolidDownArrow } from "react-icons/bi";
 import { useState } from "react";
 import { SpreadOptions } from "../utils/Utill";
 
-const ChatListItem = ({isSelected, chatName, lastMessage, date, imgHeight, imgWidth}:{isSelected?:boolean; chatName:string; lastMessage:string; date:string|IconType[]; imgHeight?:string; imgWidth?:string;}) => {
+const ChatListItem = ({isSelected, chatName, lastMessage, date, iconsArray, imgHeight, imgWidth}:{isSelected?:boolean; chatName:string; lastMessage?:string; date?:string; iconsArray?:IconType[]; imgHeight?:string; imgWidth?:string;}) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
 
     return(
@@ -24,27 +24,27 @@ const ChatListItem = ({isSelected, chatName, lastMessage, date, imgHeight, imgWi
                     }}>{lastMessage}</div>
                 </div>
                 {
-                    date && typeof date === "string" ?
-                        <div className="date_cont" style={{
-                            color:isSelected ? "black" : GRAY_LIGHT
-                        }}>
-                            {date} {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
-                            <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
-                        </div>
-                        :
-                        <div className="icons_cont">
-                            {(date as IconType[])?.map((Icon, index) => (
-                                Icon.name === "BiDotsVertical" ?
-                                <>
-                                    {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
-                                    <Icon className="icon" key={index} onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)} />
-                                    <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
-                                </>
-                                :
-                                <Icon className="icon" key={index} />
-                            ))}
-                        </div>
-
+                    <div className="date_cont" style={{
+                        color:isSelected ? "black" : GRAY_LIGHT
+                    }}>
+                        {date?.toString().split("T")[0]} {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
+                        <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
+                    </div>
+                }
+                {
+                    <div className="icons_cont">
+                        {iconsArray?.map((Icon, index) => (
+                            Icon.name === "BiDotsVertical" ?
+                            <>
+                                {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
+                                <Icon className="icon" key={index} onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)} />
+                                <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
+                            </>
+                            :
+                            <Icon className="icon" key={index} />
+                        ))}
+                    </div>
+                    
                 }
             </div>
         </div>
