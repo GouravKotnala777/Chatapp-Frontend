@@ -178,7 +178,11 @@ const Home = () => {
                         setIsMessangerForMobileActive={setIsMessangerForMobileActive} />
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
-                        <Chats setIsMessangerForMobileActive={setIsMessangerForMobileActive} setSelectedNavigation={setSelectedNavigation} />
+                        <Chats 
+                            setIsMessangerForMobileActive={setIsMessangerForMobileActive}
+                            setSelectedNavigation={setSelectedNavigation}
+                            messagesArray={messageArray}
+                         />
                         :
                         selectedNavigation === "Status" ?
                             <Status />
@@ -232,7 +236,7 @@ const Home = () => {
                     selectedChat ? 
                         <div className="messagenger">
                             <div className="upper_part">
-                                <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} date={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
+                                <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} iconsArray={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
                             </div>
                             <div className="middle_part">
                                 <Messages messageArray={messageArray} />

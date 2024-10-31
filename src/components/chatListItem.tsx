@@ -44,7 +44,6 @@ const ChatListItem = ({isSelected, chatName, lastMessage, date, iconsArray, imgH
                             <Icon className="icon" key={index} />
                         ))}
                     </div>
-                    
                 }
             </div>
         </div>

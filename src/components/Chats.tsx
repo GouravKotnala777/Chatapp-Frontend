@@ -5,7 +5,7 @@ import ChatListItem from "./chatListItem";
 import { Input, SpreadOptions } from "../utils/Utill";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
-import { ChatTypes, ChatTypesPopulated, NaviagationTypes } from "../types/types";
+import { ChatTypes, ChatTypesPopulated, MessageTypesPopulated, NaviagationTypes } from "../types/types";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { getMyChats } from "../redux/api/api";
@@ -77,7 +77,9 @@ import { useDispatch, useSelector } from "react-redux";
 //];
 const contentArray:NaviagationTypes[] = ["Search user", "Contacts", "New group", "Friend requests", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
 
-const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;}) => {
+const Chats = ({setIsMessangerForMobileActive, messagesArray}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;
+    messagesArray:MessageTypesPopulated[];
+}) => {
     const [isOptionsDialogActive, setIsOptionsDialogActive] = useState<boolean>(false);
     const {selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
     const navigate = useNavigate();
@@ -156,7 +158,7 @@ const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Di
                                         :
                                         "unset"
                                 }}>
-                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={"------chat?.lastMessage------"} date={chat.createdAt.toString().split("T")[0]} />
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray[messagesArray.length-1].content.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
                                 </div>
                                 //<pre>{JSON.stringify(, null, `\t`)}</pre>
                             ))
@@ -199,7 +201,7 @@ const Chats = ({setIsMessangerForMobileActive}:{setIsMessangerForMobileActive:Di
                                         :
                                         "unset"
                                 }}>
-                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={"----chat.lastMessage----"} date={chat.createdAt.toString().split("T")[0]} />
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray[messagesArray.length-1].content.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
                                 </div>
                                 //<Link to="/chat/single" className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
                                 //    background:selectedChat?._id === chat._id ?
