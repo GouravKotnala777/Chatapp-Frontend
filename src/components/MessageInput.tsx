@@ -5,6 +5,7 @@ import { ContentMessageType, MessageTypes, MessageTypesPopulated, UserTypes } fr
 import { useSelector } from "react-redux";
 import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
 import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
+import { BiSend } from "react-icons/bi";
 
 const MessageInput = ({messageInp, setMessageInp, messageType, setMessageArray,
     // singleSelectedUser, setSingleSelectedUser, setMessageType, messageArray, singleMessage, setSingleMessage,
@@ -55,8 +56,8 @@ const MessageInput = ({messageInp, setMessageInp, messageType, setMessageArray,
 
     return(
         <div className="message_inp_cont">
-            <input type="text" name="message" placeholder="Message..." value={messageInp} onChange={(e) => messageInpChangeHandler(e)} />
-            <button style={{display:isMessageInputAction?"inline-block":"none"}} onClick={sendMessageHandler}>Send</button>
+            <input className="message_inp" type="text" name="message" placeholder="Message..." value={messageInp} onChange={(e) => messageInpChangeHandler(e)} />
+            <button className="send_message_btn" style={{display:isMessageInputAction?"inline-block":"none"}} onClick={sendMessageHandler}><BiSend /></button>
         </div>
     )
 };

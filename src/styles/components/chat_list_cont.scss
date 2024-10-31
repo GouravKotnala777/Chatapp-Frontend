@@ -29,10 +29,22 @@
             flex: 1;
             text-align: left;
             .chat_name{
+                //border: 1px solid rgb(38, 255, 0);
                 font-size: 1rem;
+                text-wrap: nowrap;
+                width: 150px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                //white-space:nowrap;
             }
             .last_message{
+                //border: 1px solid red;
                 font-size: 0.7rem;
+                text-wrap: nowrap;
+                width: 150px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                //white-space:nowrap;
             }
         }
         .date_cont{
@@ -92,6 +104,7 @@
 
 @media screen and (width <= 680px) {
     .chat_list_item_cont{
+        width: 96%;
         .image_cont{
             width: 50px;
             height: 50px;
@@ -99,12 +112,24 @@
         .chat_info_cont{
             .chat_name_cont{
                 .chat_name{
-                    font-size: 0.8rem;
+                    font-size: 0.7rem;
+                    width: 60px;
                 }
                 .last_message{
+                    font-size: 0.6rem;
+                    width: 60px;
                 }
             }
             .date_cont{
+            }
+            .icons_cont{
+                .icon{
+                    font-size: 0.9rem;
+                }
+                .CgRemove{
+                }
+                .CgAdd{
+                }
             }
         }
     }

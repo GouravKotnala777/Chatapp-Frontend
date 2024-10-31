@@ -8,6 +8,7 @@ import { SpreadOptions } from "../utils/Utill";
 
 const ChatListItem = ({isSelected, chatName, lastMessage, date, iconsArray, imgHeight, imgWidth}:{isSelected?:boolean; chatName:string; lastMessage?:string; date?:string; iconsArray?:IconType[]; imgHeight?:string; imgWidth?:string;}) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
+    const [isSelectedChatOptionMobileActive, setIsSelectedChatOptionMobileActive] = useState<boolean>(false);
 
     return(
         <div className="chat_list_item_cont" key={chatName}>
@@ -37,8 +38,8 @@ const ChatListItem = ({isSelected, chatName, lastMessage, date, iconsArray, imgH
                             Icon.name === "BiDotsVertical" ?
                             <>
                                 {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
-                                <Icon className="icon" key={index} onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)} />
-                                <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
+                                <Icon className="icon" key={index} onClick={() => setIsSelectedChatOptionMobileActive(!isSelectedChatOptionMobileActive)} />
+                                <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionMobileActive} setIsOpen={setIsSelectedChatOptionMobileActive} />
                             </>
                             :
                             <Icon className="icon" key={index} />

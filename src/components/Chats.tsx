@@ -158,7 +158,7 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray}:{setIsMessangerFor
                                         :
                                         "unset"
                                 }}>
-                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray[messagesArray.length-1].content.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray[messagesArray?.length-1]?.content?.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
                                 </div>
                                 //<pre>{JSON.stringify(, null, `\t`)}</pre>
                             ))
@@ -201,7 +201,7 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray}:{setIsMessangerFor
                                         :
                                         "unset"
                                 }}>
-                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray[messagesArray.length-1].content.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray[messagesArray?.length-1]?.content?.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
                                 </div>
                                 //<Link to="/chat/single" className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
                                 //    background:selectedChat?._id === chat._id ?

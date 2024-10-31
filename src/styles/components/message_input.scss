@@ -1,6 +1,38 @@
-
+@import "../utils.scss";
 
 .message_inp_cont{
-    border: 1px solid red;
+    //border: 1px solid red;
+    height: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    background-color: $grayLighter;
+    border-radius: 8px;
+    margin-top: 2.5%;
+    .message_inp{
+        background-color: transparent;
+        outline: none;
+        border: none;
+        //border: 1px solid rgb(0, 255, 4);
+    }
+    .send_message_btn{
+        //border: 1px solid rgb(0, 162, 255);
+        background-color: $grayDark;
+        border: none;
+        outline: none;
+        color: $grayLighter;
+        border-radius: 4px;
+        padding: 4px;
+    }
+}
+
+@media screen and (width <= 360px) {
+    .message_inp_cont{
+        .message_inp{
+        }
+        .send_message_btn{
+        }
+    }
     
 }
