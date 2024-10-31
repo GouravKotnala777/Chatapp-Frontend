@@ -1,17 +1,31 @@
 import "../styles/pages/messanger.scss";
-import { FaRegLaughBeam } from "react-icons/fa"
-import ChatListItem from "../components/chatListItem"
-import Messages from "../components/Messages"
-import { FaCamera, FaPlus } from "react-icons/fa6"
-import { Input } from "../utils/Utill"
-import { MdKeyboardVoice } from "react-icons/md"
-import { IoVideocam } from "react-icons/io5"
-import { BiDotsVertical, BiLeftArrow, BiSearch } from "react-icons/bi"
-import { ChatTypes, MessageTypesPopulated } from "../types/types"
+import { FaRegLaughBeam } from "react-icons/fa";
+import ChatListItem from "../components/chatListItem";
+import Messages from "../components/Messages";
+import { FaCamera, FaPlus } from "react-icons/fa6";
+import { MdKeyboardVoice } from "react-icons/md";
+import { IoVideocam } from "react-icons/io5";
+import { BiDotsVertical, BiLeftArrow, BiSearch } from "react-icons/bi";
+import { ChatTypes, ContentMessageType, MessageTypes, MessageTypesPopulated, UserTypes } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
+import MessageInput from "../components/MessageInput";
 
 
-const Messanger = ({messageArray, selectedChat, setIsMessangerForMobileActive}:{messageArray:MessageTypesPopulated[]; selectedChat:ChatTypes; setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>;}) => {
+const Messanger = ({selectedChat, setIsMessangerForMobileActive,
+    refresh, setRefresh, messageInp, setMessageInp, messageType, setMessageType, messageArray, setMessageArray, singleMessage, setSingleMessage, singleSelectedUser, setSingleSelectedUser
+}:{selectedChat:ChatTypes; setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>;
+    singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">;
+    setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;
+    messageType:ContentMessageType;
+    setMessageType:Dispatch<SetStateAction<ContentMessageType>>;
+    messageInp:string;
+    setMessageInp:Dispatch<SetStateAction<string>>;
+    messageArray:MessageTypesPopulated[];
+    setMessageArray:Dispatch<SetStateAction<MessageTypesPopulated[]>>;
+    singleMessage:MessageTypes;
+    setSingleMessage:Dispatch<SetStateAction<MessageTypes>>;
+    refresh:boolean; setRefresh:Dispatch<SetStateAction<boolean>>;
+}) => {
 
     return(
         <div className="messagenger_mobile">
@@ -26,7 +40,20 @@ const Messanger = ({messageArray, selectedChat, setIsMessangerForMobileActive}:{
                 <div className="icon"><FaRegLaughBeam /></div>
                 <div className="icon"><FaPlus /></div>
                 <div className="search_cont_outer">
-                    <Input biSearchID="seachIconForMessanger" faArrowLeftLongID="leftArrowIconForMessanger" inputID="inputForMessanger" ioMdCloseID="closeIconForMessanger" />
+                    <MessageInput 
+                        refresh={refresh}
+                        setRefresh={setRefresh}
+                        messageInp={messageInp}
+                        setMessageInp={setMessageInp}
+                        messageType={messageType}
+                        setMessageType={setMessageType}
+                        messageArray={messageArray}
+                        setMessageArray={setMessageArray}
+                        singleMessage={singleMessage}
+                        setSingleMessage={setSingleMessage}
+                        singleSelectedUser={singleSelectedUser}
+                        setSingleSelectedUser={setSingleSelectedUser}
+                    />
                 </div>
                 <div className="icon"><MdKeyboardVoice /></div>
             </div>

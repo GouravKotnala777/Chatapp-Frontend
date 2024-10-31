@@ -28,7 +28,7 @@ const ChatListItem = ({isSelected, chatName, lastMessage, date, imgHeight, imgWi
                         <div className="date_cont" style={{
                             color:isSelected ? "black" : GRAY_LIGHT
                         }}>
-                            {date} {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)} />}
+                            {date} {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
                             <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
                         </div>
                         :

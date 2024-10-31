@@ -9,7 +9,7 @@ const Messages = ({messageArray}:{messageArray:MessageTypesPopulated[]|[];}) => 
 
     return(
         <div className="messages_cont">
-            <pre style={{color:"white"}}>{JSON.stringify(messageArray, null, `\t`)}</pre>
+            {/*<pre style={{color:"white"}}>{JSON.stringify(messageArray, null, `\t`)}</pre>*/}
             {
                 messageArray&&typeof messageArray === "object"&&messageArray.length!==0&&messageArray.map((msg) => {
                     if (msg.sender === user?._id) {

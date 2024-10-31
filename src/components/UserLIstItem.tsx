@@ -40,7 +40,7 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
                                     (selectedNavigation === "Add members" ?
                                         <BiCheck style={{fontSize:"1.3rem", marginRight:"10px", color:GRAY_DARKER}} />
                                         :
-                                        <BiSolidDownArrow className="BiSolidDownArrow" style={{fontSize:"1.3rem", marginRight:"10px"}} onClick={() => setIsSelectedChatOptionActive(!isSelectedChatOptionActive)}  />)
+                                        <BiSolidDownArrow className="BiSolidDownArrow" style={{fontSize:"1.3rem", marginRight:"10px"}} onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}}  />)
                             }
                             <SpreadOptions contentArray={["Start chat", "Delete freind", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
                         </div>

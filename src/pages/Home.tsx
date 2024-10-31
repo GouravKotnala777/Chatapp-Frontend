@@ -161,7 +161,21 @@ const Home = () => {
 
             {
                 selectedNavigation === "Chats" && isMessangerForMobileActive ?
-                    <Messanger messageArray={messageArray} selectedChat={selectedChat as ChatTypes} setIsMessangerForMobileActive={setIsMessangerForMobileActive} />
+                    <Messanger
+                        refresh={refresh}
+                        setRefresh={setRefresh}
+                        messageInp={messageInp}
+                        setMessageInp={setMessageInp}
+                        messageType={messageType}
+                        setMessageType={setMessageType}
+                        messageArray={messageArray}
+                        setMessageArray={setMessageArray}
+                        singleMessage={singleMessage}
+                        setSingleMessage={setSingleMessage}
+                        singleSelectedUser={singleSelectedUser}
+                        setSingleSelectedUser={setSingleSelectedUser}
+                        selectedChat={selectedChat as ChatTypes}
+                        setIsMessangerForMobileActive={setIsMessangerForMobileActive} />
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
                         <Chats setIsMessangerForMobileActive={setIsMessangerForMobileActive} setSelectedNavigation={setSelectedNavigation} />
