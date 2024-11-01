@@ -16,12 +16,12 @@ import Channels from "../components/Channels";
 import Settings from "../components/Settings";
 import Profile from "../components/Profile";
 import ChatListItem from "../components/chatListItem";
-import { BiDotsVertical, BiSearch } from "react-icons/bi";
+import { BiDotsVertical } from "react-icons/bi";
 import { FaRegLaughBeam } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaCamera, FaPlus } from "react-icons/fa6";
 import Messages from "../components/Messages";
-import { ChatTypes, ContentMessageType, MessageTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
+import { ChatTypes, ChatTypesPopulated, ContentMessageType, MessageTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
 import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +34,8 @@ import SearchUser from "../components/SearchUser";
 import ReceivedFriendRequests from "../components/ReceivedFriendRequests";
 import DeleteChat from "../components/DeleteChat";
 import MessageInput from "../components/MessageInput";
+import ChatInfo from "./ChatInfo";
+import UserInfo from "./UserInfo";
 
 
 
@@ -223,7 +225,13 @@ const Home = () => {
                                                                         selectedNavigation === "Delete freind" ?
                                                                             <DeleteChat singleSelectedUser={singleSelectedUser._id} />
                                                                             :
-                                                                            <h1 style={{color:"white"}}>From Home Page...</h1>
+                                                                            selectedNavigation === "Chat info" ?
+                                                                                <ChatInfo selectedNavigation={selectedNavigation} selectedChat={selectedChat as ChatTypesPopulated} singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} />
+                                                                                :
+                                                                                selectedNavigation === "User info" ?
+                                                                                    <UserInfo singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} />
+                                                                                    :
+                                                                                    <h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
 
@@ -236,7 +244,9 @@ const Home = () => {
                     selectedChat ? 
                         <div className="messagenger">
                             <div className="upper_part">
-                                <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} iconsArray={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
+                                <div className="single_chat_outer" onClick={() => dispatch(setSelectedNavigation("Chat info"))}>
+                                    <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} iconsArray={[FaCamera, IoVideocam , BiDotsVertical]} />
+                                </div>
                             </div>
                             <div className="middle_part">
                                 <Messages messageArray={messageArray} />

@@ -1,0 +1,116 @@
+@import "../utils.scss";
+
+.user_info_bg{
+    //border: 1px solid yellow;
+    flex: 1;
+    overflow-y: scroll;
+    padding: 10px;
+    .back_btn{
+        text-align: left;
+        margin-top: 10px;
+        background-color: $grayDark;
+        color: $grayLight;
+        border-radius: 8px;
+        height: 10%;
+        .HiMiniArrowLongLeft{
+            //border: 1px solid red;
+            height: 100%;
+            width: 35px;
+            padding: 8px;
+            cursor: pointer;
+            &:hover{
+                color: $grayLighter;
+            }
+        }
+
+    }
+    .dp_cont{
+        //border: 2px solid violet;
+        background-color: $grayDark;
+        display: grid;
+        place-items: center;
+        height: 200px;
+        border-radius: 8px;
+        margin-top: 10px;
+        img{
+            //border: 2px solid yellow;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+        }
+    }
+    .user_name_cont{
+        //border: 1px solid indigo;
+        //color: $primaryLight;
+        color: $grayLight;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        background-color: $grayDark;
+        text-align: left;
+        font-size: 0.9rem;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+    }
+    .user_email_cont{
+        //border: 1px solid indigo;
+        //color: $primaryLight;
+        color: $grayLight;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        background-color: $grayDark;
+        text-align: left;
+        font-size: 0.9rem;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+    }
+    .user_about_cont{
+        //border: 1px solid blue;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        text-align: justify;
+        font-size: 0.8rem;
+        background-color: $grayDark;
+        color: $grayLight;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+    }
+    .action_with_user_cont{
+        //border: 1px solid blue;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        text-align: justify;
+        font-size: 0.8rem;
+        background-color: $grayDark;
+        color: $grayLight;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+        button{
+            margin-top:4px;
+            padding: 8px 10px;
+            background-color: transparent;
+            border: 1px solid $primaryLight;
+            color: $primaryLight;
+            border-radius: 8px;
+            cursor: pointer;
+            &:hover{
+                background-color: $primaryHover;
+            }
+        }
+    }
+}

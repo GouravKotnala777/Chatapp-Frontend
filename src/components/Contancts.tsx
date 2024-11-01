@@ -93,7 +93,7 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUse
                                             :
                                             "unset"
                                 }}>
-                                <UserListItem selectedNavigation={selectedNavigation} userID={user._id} userName={user.name} date="Online" lastMessage="" isSelected={
+                                <UserListItem optionsArray={["Start chat", "Delete freind"]} selectedNavigation={selectedNavigation} userID={user._id} userName={user.name} date="Online" lastMessage="" isSelected={
                                     selectedNavigation === "Add members" ?
                                         usersToAddInGroup.includes(user._id)
                                         :

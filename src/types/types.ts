@@ -1,6 +1,6 @@
 export type textAlign = 'left' | 'right' | 'center' | 'justify';
 
-export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Add members" | "Contacts" | "Remove members" | "Friend requests" | "Search user" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block" | "Start chat" | "Delete freind";
+export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "Chat info" | "User info" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Add members" | "Contacts" | "Remove members" | "Friend requests" | "Search user" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block" | "Start chat" | "Delete freind";
 
 export type ResponseType<T> = {success:boolean; message:T};
 

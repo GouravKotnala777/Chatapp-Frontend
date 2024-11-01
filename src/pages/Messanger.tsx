@@ -5,10 +5,12 @@ import Messages from "../components/Messages";
 import { FaCamera, FaPlus } from "react-icons/fa6";
 import { MdKeyboardVoice } from "react-icons/md";
 import { IoVideocam } from "react-icons/io5";
-import { BiDotsVertical, BiLeftArrow, BiSearch } from "react-icons/bi";
+import { BiDotsVertical, BiLeftArrow } from "react-icons/bi";
 import { ChatTypes, ContentMessageType, MessageTypes, MessageTypesPopulated, UserTypes } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
 import MessageInput from "../components/MessageInput";
+import { useDispatch } from "react-redux";
+import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 
 
 const Messanger = ({selectedChat, setIsMessangerForMobileActive,
@@ -26,12 +28,18 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     setSingleMessage:Dispatch<SetStateAction<MessageTypes>>;
     refresh:boolean; setRefresh:Dispatch<SetStateAction<boolean>>;
 }) => {
+    const dispatch = useDispatch();
 
     return(
         <div className="messagenger_mobile">
             <div className="upper_part">
                 <BiLeftArrow className="BiLeftArrow" onClick={() => setIsMessangerForMobileActive(false)} />
-                <ChatListItem chatName={selectedChat?.chatName as string} lastMessage={`last seen today at ${selectedChat?.createdAt.toString().split("T")[1].split(".")[0]} am`} iconsArray={[FaCamera, IoVideocam, BiSearch , BiDotsVertical]} />
+
+
+
+                <div className="single_chat_outer" onClick={() => dispatch(setSelectedNavigation("Chat info"))}>
+                    <ChatListItem chatName={selectedChat?.chatName as string} lastMessage={`last seen today at ${selectedChat?.createdAt.toString().split("T")[1].split(".")[0]} am`} iconsArray={[FaCamera, IoVideocam , BiDotsVertical]} />
+                </div>
             </div>
             <div className="middle_part">
                 <Messages messageArray={messageArray} />

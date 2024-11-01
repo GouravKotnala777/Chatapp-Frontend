@@ -1,0 +1,98 @@
+@import "../utils.scss";
+
+.chat_info_bg{
+    //border: 1px solid red;
+    flex: 1;
+    background-color: $grayDarker;
+    padding: 10px;
+    overflow-y: scroll;
+    .back_btn{
+        text-align: left;
+        margin-top: 10px;
+        background-color: $grayDark;
+        color: $grayLight;
+        border-radius: 8px;
+        height: 10%;
+        .HiMiniArrowLongLeft{
+            //border: 1px solid red;
+            height: 100%;
+            width: 35px;
+            padding: 8px;
+            cursor: pointer;
+            &:hover{
+                color: $grayLighter;
+            }
+        }
+
+    }
+    .dp_cont{
+        //border: 2px solid violet;
+        background-color: $grayDark;
+        display: grid;
+        place-items: center;
+        height: 200px;
+        border-radius: 8px;
+        margin-top: 10px;
+        img{
+            //border: 2px solid yellow;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+        }
+    }
+    .chat_name_cont{
+        //border: 1px solid indigo;
+        //color: $primaryLight;
+        color: $grayLight;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        background-color: $grayDark;
+        text-align: left;
+        font-size: 0.9rem;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+    }
+    .chat_description_cont{
+        //border: 1px solid blue;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        text-align: justify;
+        font-size: 0.8rem;
+        background-color: $grayDark;
+        color: $grayLight;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+    }
+    .members_list_cont{
+        //border: 1px solid green;
+        margin-top: 10px;
+        border-radius: 8px;
+        background-color: $grayDark;
+        text-align: left;
+        padding: 10px;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+        .single_member_outer{
+            background-color: transparent;
+        }
+    }
+    .leave_chat{
+        //border: 1px solid yellow;
+        margin-top: 10px;
+        border-radius: 8px;
+        color: $primary;
+        background-color: $grayDark;
+        font-size: 0.7rem;
+    }
+}

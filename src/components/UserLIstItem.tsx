@@ -7,10 +7,15 @@ import { SpreadOptions } from "../utils/Utill";
 import { BiCheck, BiSolidDownArrow } from "react-icons/bi";
 import { FriendRequestStatusType, NaviagationTypes } from "../types/types";
 
-const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMessage, date, replyFriendRequestHandler, imgHeight, imgWidth}:{selectedNavigation?:NaviagationTypes; isSelected?:boolean; userID:string; userName:string; lastMessage:string; date:string|IconType[]; replyFriendRequestHandler?:({ friendRequestID, status }: {
-    friendRequestID: string;
-    status: FriendRequestStatusType;
-}) => Promise<void>; imgHeight?:string; imgWidth?:string;}) => {
+const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMessage, date, replyFriendRequestHandler, imgHeight, imgWidth, optionsArray}:{
+    selectedNavigation?:NaviagationTypes;
+    isSelected?:boolean;
+    userID:string;
+    userName:string;
+    lastMessage:string;
+    date:string|IconType[];
+    replyFriendRequestHandler?:({ friendRequestID, status }: {friendRequestID: string; status: FriendRequestStatusType;}) => Promise<void>; imgHeight?:string; imgWidth?:string;
+    optionsArray:NaviagationTypes[];}) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
 
 
@@ -42,7 +47,7 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
                                         :
                                         <BiSolidDownArrow className="BiSolidDownArrow" style={{fontSize:"1.3rem", marginRight:"10px"}} onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}}  />)
                             }
-                            <SpreadOptions contentArray={["Start chat", "Delete freind", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
+                            <SpreadOptions contentArray={optionsArray} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
                         </div>
                         :
                         <div className="icons_cont" style={{gap:"20px"}}>

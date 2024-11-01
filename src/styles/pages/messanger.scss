@@ -2,7 +2,7 @@
 
 .message_cont{
     //border: 1px solid blue;
-    flex:1;
+    flex:2;
     background: $grayDark;
     .messagenger_placeholder{
         width: 100%;
@@ -45,7 +45,7 @@
 }
 
 
-@media screen and (width <= 570px) {
+@media screen and (width <= 610px) {
     .home_bg{
         //border: 2px solid red;
         flex-direction: column-reverse;
