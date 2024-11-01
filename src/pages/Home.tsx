@@ -244,7 +244,11 @@ const Home = () => {
                     selectedChat ? 
                         <div className="messagenger">
                             <div className="upper_part">
-                                <div className="single_chat_outer" onClick={() => dispatch(setSelectedNavigation("Chat info"))}>
+                                <div className="single_chat_outer"
+                                    tabIndex={0}
+                                    onKeyDown={(e) => e.key === "Enter" && dispatch(setSelectedNavigation("Chat info"))}
+                                    onClick={() => dispatch(setSelectedNavigation("Chat info"))}
+                                    >
                                     <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} iconsArray={[FaCamera, IoVideocam , BiDotsVertical]} />
                                 </div>
                             </div>

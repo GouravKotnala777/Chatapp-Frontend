@@ -96,27 +96,30 @@ export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:Na
 
     return(
         <>
-            <div className="spread_option_dialog_disable_bg" style={{
-                zIndex:isOpen?"21":"-1"
-            }} onClick={() => onClickOptionsBGHandler()}>
-            </div>
             <div className="spread_option_dialog_cont_outer" style={{
                 opacity:isOpen?"1":"0",
-                zIndex:isOpen?"21":"-1"
+                zIndex:isOpen?"22":"-1"
             }}>
                 <div className="spread_option_dialog_cont" style={{
                     top:"40px",
                     right:"30px",
                     opacity:isOpen?"1":"0",
-                    zIndex:isOpen?"21":"-1",
+                    zIndex:isOpen?"22":"-1",
                     position:"absolute"
                 }}>
                     {
                         contentArray.map((optionName, index) => (
-                            <div key={index} className="option" onClick={() => onClickOptionsHandler(optionName as NaviagationTypes)} >{optionName}</div>
+                            <div key={index} className="option" tabIndex={isOpen?0:-1} onKeyDown={(e) => e.key === "Enter" && onClickOptionsHandler(optionName as NaviagationTypes)} onClick={() => onClickOptionsHandler(optionName as NaviagationTypes)} >{optionName}</div>
                         ))
                     }
                 </div>
+            </div>
+            <div className="spread_option_dialog_disable_bg" tabIndex={isOpen?0:-1}
+            style={{
+                zIndex:isOpen?"21":"-1"
+            }}
+            onFocus={(e) => {e.stopPropagation(); onClickOptionsBGHandler()}}
+            onClick={(e) => {e.stopPropagation(); onClickOptionsBGHandler()}}>
             </div>
         </>
     )

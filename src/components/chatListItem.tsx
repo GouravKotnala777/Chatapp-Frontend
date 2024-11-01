@@ -28,7 +28,12 @@ const ChatListItem = ({isSelected, chatName, lastMessage, date, iconsArray, imgH
                     <div className="date_cont" style={{
                         color:isSelected ? "black" : GRAY_LIGHT
                     }}>
-                        {date?.toString().split("T")[0]} {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
+                        {date?.toString().split("T")[0]} {isSelected && <BiSolidDownArrow className="BiSolidDownArrow"
+                        tabIndex={0}
+                        onKeyDown={(e) => {if (e.key === "Enter") {
+                            e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);
+                        }}}
+                        onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
                         <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
                     </div>
                 }
@@ -37,8 +42,8 @@ const ChatListItem = ({isSelected, chatName, lastMessage, date, iconsArray, imgH
                         {iconsArray?.map((Icon, index) => (
                             Icon.name === "BiDotsVertical" ?
                             <>
-                                {isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}
-                                <Icon className="icon" key={index} onClick={() => setIsSelectedChatOptionMobileActive(!isSelectedChatOptionMobileActive)} />
+                                {/*{isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}*/}
+                                <Icon className="icon" key={index} onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionMobileActive(!isSelectedChatOptionMobileActive)}} />
                                 <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionMobileActive} setIsOpen={setIsSelectedChatOptionMobileActive} />
                             </>
                             :

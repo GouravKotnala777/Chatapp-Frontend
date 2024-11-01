@@ -7,7 +7,7 @@ import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import photo from "../../public/vite.svg";
 
 
-const UserInfo = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">; setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;}) => {
+const UserInfo = ({singleSelectedUser}:{singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">; setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;}) => {
     const dispatch = useDispatch();
 
     return(

@@ -152,7 +152,7 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray}:{setIsMessangerFor
                     <div className="chat_section_scrollable">
                         {
                             myChats?.map((chat) => (
-                                <div key={chat._id} className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
+                                <div key={chat._id} className="single_chat_outer" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && onSelectChatHandler(chat)} onClick={() => onSelectChatHandler(chat)} style={{
                                     background:selectedChat?._id === chat._id ?
                                         PRIMARY_LIGHT
                                         :
