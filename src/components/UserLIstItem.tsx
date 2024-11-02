@@ -15,7 +15,7 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
     lastMessage:string;
     date:string|IconType[];
     replyFriendRequestHandler?:({ friendRequestID, status }: {friendRequestID: string; status: FriendRequestStatusType;}) => Promise<void>; imgHeight?:string; imgWidth?:string;
-    optionsArray:NaviagationTypes[];}) => {
+    optionsArray?:NaviagationTypes[];}) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
 
 
@@ -47,7 +47,7 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
                                         :
                                         <BiSolidDownArrow className="BiSolidDownArrow" style={{fontSize:"1.3rem", marginRight:"10px"}} onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}}  />)
                             }
-                            <SpreadOptions contentArray={optionsArray} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
+                            <SpreadOptions contentArray={optionsArray as NaviagationTypes[]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
                         </div>
                         :
                         <div className="icons_cont" style={{gap:"20px"}}>

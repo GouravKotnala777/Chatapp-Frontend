@@ -6,25 +6,6 @@
     background-color: $grayDarker;
     padding: 10px;
     overflow-y: scroll;
-    .back_btn{
-        text-align: left;
-        margin-top: 10px;
-        background-color: $grayDark;
-        color: $grayLight;
-        border-radius: 8px;
-        height: 10%;
-        .HiMiniArrowLongLeft{
-            //border: 1px solid red;
-            height: 100%;
-            width: 35px;
-            padding: 8px;
-            cursor: pointer;
-            &:hover{
-                color: $grayLighter;
-            }
-        }
-
-    }
     .dp_cont{
         //border: 2px solid violet;
         background-color: $grayDark;

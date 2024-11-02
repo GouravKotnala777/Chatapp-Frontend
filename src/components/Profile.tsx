@@ -1,53 +1,38 @@
 import "../styles/components/profile.scss";
-import { BiDotsVertical } from "react-icons/bi";
-import { LuMessageSquarePlus } from "react-icons/lu";
 import dp from "../../public/user_placeholder.png";
-import { Heading, Para } from "../utils/Utill";
-import { GRAY_LIGHTER, PRIMARY } from "../constants/constants";
-import { MdEdit } from "react-icons/md";
+import { Para, TopBackBtn } from "../utils/Utill";
+import { PRIMARY_LIGHT } from "../constants/constants";
 import { useSelector } from "react-redux";
 import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
+import { useNavigate } from "react-router-dom";
 
 
 const Profile = () => {
     const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
+    const navigate = useNavigate();
 
     return(
         <div className="profile_cont">
-            <div className="profile_section_header">
-                <div className="heading">Profile</div>
-                <div className="icons">
-                    <button className="icon"><LuMessageSquarePlus /></button>
-                    <button className="icon"><BiDotsVertical /></button>
-                </div>
+            <TopBackBtn heading="Profile" />
+            <div className="dp_cont">
+                <img src={dp} alt={dp} />
             </div>
-            <div className="search_section">
-                <div className="my_dp_cont">
-                    <img src={dp} alt={dp} />
-                </div>
+            <div className="user_name_cont">
+                <div className="heading">User Name</div>
+                {user?.name}
             </div>
-            <div className="profile_section">
-                <div className="profile_section_scrollable">
-                    <Para value="Your name" color={PRIMARY} padding="10px 0" />
-                    <div className="profile_info">
-                        <div className="profile_name_value">
-                            <Heading value={user?.name as string} color={GRAY_LIGHTER} padding="0" margin="0" textAlign="left" />
-                        </div>
-                        <div className="profile_edit_icon">
-                            <MdEdit className="MdEdit" />
-                        </div>
-                    </div>
-                    <Para value="This is not your username or PIN. This name will be visible to your WhatsApp contancts." color={GRAY_LIGHTER} padding="10px 0" />
-                    <Para value="About" color={PRIMARY} padding="10px 0" />
-                    <div className="profile_info">
-                        <div className="profile_name_value">
-                            <Heading value="Urgent calls only" color={GRAY_LIGHTER} padding="0" margin="0" textAlign="left" />
-                        </div>
-                        <div className="profile_edit_icon">
-                            <MdEdit className="MdEdit" />
-                        </div>
-                    </div>
-                </div>
+            <Para value="This is not your username or PIN. This name will be visible to your WhatsApp contancts." color={PRIMARY_LIGHT} padding="10px 5px" />
+            <div className="user_email_cont">
+                <div className="heading">Email</div>
+                {user?.email}
+            </div>
+            <div className="user_about_cont">
+                <div className="heading">About</div>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur perferendis quidem cupiditate voluptatem debitis iste neque reiciendis, necessitatibus et aut hic veritatis, molestiae, tempore laboriosam. Eveniet ipsum placeat unde provident!
+            </div>
+            <div className="action_with_user_cont">
+                <div className="heading">Logout</div>
+                <button onClick={() => navigate("/logout")}>Logout</button>
             </div>
         </div>
     )

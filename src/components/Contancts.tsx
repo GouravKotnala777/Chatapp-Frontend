@@ -2,23 +2,20 @@ import "../styles/components/contacts.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { UserTypes } from "../types/types";
-import { FaArrowLeftLong } from "react-icons/fa6";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import UserListItem from "./UserLIstItem";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { myFriends, updateChat } from "../redux/api/api";
+import { TopBackBtn } from "../utils/Utill";
 
 
 const Contacts = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">; setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;}) => {
     const [myAllFriends, setMyAllFriends] = useState<UserTypes[]>([]);
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const {selectedChat, selectedNavigation} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
-    const dispatch = useDispatch();
 
-    const goBackHandler = () => {
-        dispatch(setSelectedNavigation("Chats"));
-    };
+
 
     const onSelectUserHandler = (user:Pick<UserTypes, "_id"|"name"|"email">) => {
         setSingleSelectedUser(user);
@@ -71,10 +68,7 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUse
         <div className="user_list_cont">
             {/*<pre style={{color:"white"}}>{JSON.stringify(singleSelectedUser, null, `\t`)}</pre>
             <pre style={{color:"white"}}>{JSON.stringify(selectedChat, null, `\t`)}</pre>*/}
-            <div className="heading">
-                <button className="back_icon" onClick={goBackHandler}><FaArrowLeftLong /></button>
-                <div className="value">Contacts</div>
-            </div>
+            <TopBackBtn heading="Contancts" />
             <div className="users_list">
                 <div className="users_list_scrollable">
                     {

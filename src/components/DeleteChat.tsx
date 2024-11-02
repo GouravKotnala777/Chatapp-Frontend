@@ -1,9 +1,8 @@
-import { FaArrowLeftLong } from "react-icons/fa6";
 import "../styles/components/delete_chat.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import photo from "../../public/vite.svg";
-import { Heading, Para } from "../utils/Utill";
+import { Heading, Para, TopBackBtn } from "../utils/Utill";
 import { GRAY_LIGHTER, PRIMARY_LIGHT } from "../constants/constants";
 import { deleteChat, removeFriend } from "../redux/api/api";
 
@@ -42,10 +41,7 @@ const DeleteChat = ({singleSelectedUser}:{singleSelectedUser:string;}) => {
         <div className="delete_chat_cont">
             {/*<pre style={{color:"white"}}>{JSON.stringify(selectedChat, null, `\t`)}</pre>
             <pre style={{color:"white"}}>{JSON.stringify(selectedChat, null, `\t`)}</pre>*/}
-            <div className="heading">
-                <button className="back_icon" onClick={goBackHandler}><FaArrowLeftLong /></button>
-                <div className="value">{selectedNavigation === "Delete chat" ? "Delete Chat" : "Remove friend"}</div>
-            </div>
+            <TopBackBtn heading={selectedNavigation === "Delete chat" ? "Delete Chat" : "Remove friend"} />
             <div className="delete_chat">
                 <div className="delete_chat_scrollable">
                     <div className="chat_img_cont">

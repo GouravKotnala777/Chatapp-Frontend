@@ -5,28 +5,8 @@
     flex:1;
     height: 100vh;
     background: $grayDarker;
-    position: relative;    
-    .search_user_section_header{
-        //border: 1px solid indigo;
-        height: 10%;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        .back_btn{
-            //border: 1px solid red;
-            background: transparent;
-            border: none;
-            margin-left: 10px;
-            .FaArrowLeftLong{
-                color: $grayLight;
-            }
-        }
-        .heading{
-            //border: 1px solid blue;
-            color: $grayLight;
-            
-        }
-    }
+    position: relative;
+    padding: 6px;
     .search_user_section{
         //border: 1px solid yellow;
         height: 90%;

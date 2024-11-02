@@ -2,14 +2,24 @@ import { useSelector } from "react-redux";
 import "../styles/components/messages.scss";
 import { MessageTypesPopulated } from "../types/types";
 import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
+import { useEffect, useRef } from "react";
 //import { Dispatch, SetStateAction } from "react";
 
 const Messages = ({messageArray}:{messageArray:MessageTypesPopulated[]|[];}) => {
     const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
+    const messageEndRef = useRef<HTMLDivElement>(null);
+
+    const scrollToBottomHandler = () => {
+        messageEndRef.current?.scrollIntoView({behavior:"smooth"});
+    };
+
+    useEffect(() => {
+        scrollToBottomHandler();
+    }, [messageArray]);
 
     return(
         <div className="messages_cont">
-            {/*<pre style={{color:"white"}}>{JSON.stringify(messageArray, null, `\t`)}</pre>*/}
+            {/*<pre style={{color:"white"}}>{JSON.stringify(user?.name, null, `\t`)}</pre>*/}
             {
                 messageArray&&typeof messageArray === "object"&&messageArray.length!==0&&messageArray.map((msg) => {
                     if (msg.sender === user?._id) {
@@ -37,10 +47,9 @@ const Messages = ({messageArray}:{messageArray:MessageTypesPopulated[]|[];}) => 
                         )
                     }
                 })
-            }               
-            
-            
-            
+            }
+
+            <div className="message_end_anchor" ref={messageEndRef}></div>
         </div>
     )
 };

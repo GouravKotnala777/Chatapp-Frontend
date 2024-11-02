@@ -43,7 +43,7 @@ const ChatListItem = ({isSelected, chatName, lastMessage, date, iconsArray, imgH
                             Icon.name === "BiDotsVertical" ?
                             <>
                                 {/*{isSelected && <BiSolidDownArrow className="BiSolidDownArrow" onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}} />}*/}
-                                <Icon className="icon" key={index} onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionMobileActive(!isSelectedChatOptionMobileActive)}} />
+                                <Icon className="icon" key={index} tabIndex={0} onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionMobileActive(!isSelectedChatOptionMobileActive)}} />
                                 <SpreadOptions contentArray={["Add members", "Remove members", "Archive chat", "Mute notifications", "Delete chat", "Pin chat", "Mark as unread", "Block"]} isOpen={isSelectedChatOptionMobileActive} setIsOpen={setIsSelectedChatOptionMobileActive} />
                             </>
                             :

@@ -1,10 +1,10 @@
 import "../styles/pages/user_info.scss";
 import { Dispatch, SetStateAction } from "react";
 import { UserTypes } from "../types/types";
-import { HiMiniArrowLongLeft } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import photo from "../../public/vite.svg";
+import { TopBackBtn } from "../utils/Utill";
 
 
 const UserInfo = ({singleSelectedUser}:{singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">; setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;}) => {
@@ -12,9 +12,7 @@ const UserInfo = ({singleSelectedUser}:{singleSelectedUser:Pick<UserTypes, "_id"
 
     return(
         <div className="user_info_bg">
-            <div className="back_btn">
-                <HiMiniArrowLongLeft className="HiMiniArrowLongLeft" onClick={() => dispatch(setSelectedNavigation("Chats"))} />
-            </div>
+            <TopBackBtn heading="User info" />
             <div className="dp_cont">
                 <img src={photo} alt={photo} />
             </div>

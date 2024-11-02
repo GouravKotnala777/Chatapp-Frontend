@@ -1,91 +1,96 @@
 @import "../utils.scss";
 
 .profile_cont{
-    //border: 2px solid rgb(47, 255, 120);
-    flex:1;
-    height: 100vh;
-    background: $grayDarker;
-    
-    .profile_section_header{
-        //border: 1px solid green;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 10%;
-        //margin: 0 10px;
-        padding: 0 10px;
-        .heading{
-            //border: 1px solid yellow;
-            color: $grayLighter;
-            font-weight: 600;                
-        }
-        .icons{
-            //border: 1px solid orange;
-            color: $grayLighter;
-            display: flex;
-            gap: 20px;
-
-            .icon{
-                //border: 1px solid green;
-                background: transparent;
-                color: $grayLight;
-                border-radius: 50%;
-                width: 45px;
-                height: 45px;
-                margin: 5px auto;
-                border: none;
-                font-size: 1rem;
-                cursor: pointer;
-                &:hover{
-                    background: $grayHover;
-                }
-            }
-        }
-    }
-    .search_section{
-        //border: 2px solid red;
-        height: 38%;
-        display: flex;
-        flex-direction: column;
-        justify-content: stretch;
-        .my_dp_cont{
-            //border: 1px solid greenyellow;
-            height: 170px;
-            width: 170px;
-            margin: 0 auto;
+    //border: 1px solid yellow;
+    flex: 1;
+    overflow-y: scroll;
+    padding: 10px;
+    .dp_cont{
+        //border: 2px solid violet;
+        background-color: $grayDark;
+        display: grid;
+        place-items: center;
+        height: 200px;
+        border-radius: 8px;
+        margin-top: 10px;
+        img{
+            //border: 2px solid yellow;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            img{
-                height: 100%;
-                width: 100%;
-            }
         }
     }
-    .profile_section{
-        //border: 2px solid orange;
-        height: 52%;
-        overflow-y: scroll;
-        background: transparent;
-        .profile_section_scrollable{
-            //border: 2px solid rgb(0, 115, 255);
-            padding:5px 15px;
-            .profile_info{
-                //border: 1px solid seagreen;
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                .profile_name_value{
-                    //border: 1px solid purple;
-                    width:80%;
-                    
-                }
-                .profile_edit_icon{
-                    //border: 1px solid orange;
-                    .MdEdit{
-                        color: $primary;
-                        font-size: 1.1rem;
-                        margin-top:4px;
-                    }
-                }
+    .user_name_cont{
+        //border: 1px solid indigo;
+        //color: $primaryLight;
+        color: $grayLight;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        background-color: $grayDark;
+        text-align: left;
+        font-size: 0.9rem;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+    }
+    .user_email_cont{
+        //border: 1px solid indigo;
+        //color: $primaryLight;
+        color: $grayLight;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        background-color: $grayDark;
+        text-align: left;
+        font-size: 0.9rem;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+    }
+    .user_about_cont{
+        //border: 1px solid blue;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        text-align: justify;
+        font-size: 0.8rem;
+        background-color: $grayDark;
+        color: $grayLight;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+    }
+    .action_with_user_cont{
+        //border: 1px solid blue;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        text-align: justify;
+        font-size: 0.8rem;
+        background-color: $grayDark;
+        color: $grayLight;
+        .heading{
+            font-weight: 500;
+            color: $grayLighter;
+            font-size: 0.7rem;
+        }
+        button{
+            margin-top:10px;
+            padding: 8px 10px;
+            background-color: transparent;
+            border: 1px solid $primaryLight;
+            color: $primaryLight;
+            border-radius: 8px;
+            cursor: pointer;
+            &:hover{
+                background-color: $primaryHover;
             }
         }
     }

@@ -3,28 +3,7 @@
 .delete_chat_cont{
     //border: 1px solid violet;
     flex:1;
-    .heading{
-        //border: 1px solid rgb(0, 208, 255);
-        height: 10%;
-        color: $grayLighter;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 10px;
-        gap: 10px;
-        .back_icon{
-            //border: 1px solid red;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: $grayLighter;
-            cursor: pointer;
-        }
-        .value{
-            //border: 1px solid greenyellow;
-            font-weight: 500;
-        }
-    }
+    padding: 6px;
     .delete_chat{
         //border: 1px solid rgb(149, 0, 255);
         height: 90%;
@@ -48,7 +27,7 @@
                 //border: 1px solid rgb(0, 255, 0);
                 height: 200px;
                 background-color: $grayDark;
-                margin: 4px 8px;
+                margin: 4px 0px;
                 border-radius: 8px;
                 .btns_cont{
                     //border: 1px solid orange;

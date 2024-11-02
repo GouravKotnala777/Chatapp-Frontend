@@ -1,8 +1,6 @@
 import "../styles/components/search_user.scss";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
 import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
-import { Input } from "../utils/Utill";
+import { Input, TopBackBtn } from "../utils/Utill";
 import UserListItem from "./UserLIstItem";
 import { ChangeEvent, useEffect, useState } from "react";
 import { UserTypes } from "../types/types";
@@ -15,11 +13,7 @@ const SearchUser = () => {
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [searchedUserResult, setSearchedUserResult] = useState<UserTypes[]>([]);
-    const dispatch = useDispatch();
 
-    const goBackHandler = () => {
-        dispatch(setSelectedNavigation("Chats"));
-    };
     const addRemoveUserHandler = async() => {
         const selectedUserArray = await sendFriendRequest({searchedUserIDArray:usersToAddInGroup});
 
@@ -34,13 +28,11 @@ const SearchUser = () => {
         if (usersToAddInGroup.includes(user._id)) {
             const userFilterResult = usersToAddInGroup.filter((userId) => userId !== user._id);
             setUsersToAddInGroup(userFilterResult);
-            console.log("HHHHHHHHHHHHHHHHHH");
             console.log(usersToAddInGroup);
             
         }
         else{
             setUsersToAddInGroup([...usersToAddInGroup, user._id]);
-            console.log("NNNNNNNNNNNNNNNNNN");
         }
     };
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
@@ -69,10 +61,7 @@ const SearchUser = () => {
 
     return(
         <div className="search_user_cont">
-            <div className="search_user_section_header">
-                <button className="back_btn" onClick={goBackHandler}><FaArrowLeftLong className="FaArrowLeftLong" /></button>
-                <div className="heading">Search user</div>
-            </div>
+            <TopBackBtn heading="Search user" />
             <div className="search_user_section">
                 <div className="search_inp_outer">
                     <Input onChangeHandler={onChangeHandler} biSearchID="biSearchIDForSearchUser" faArrowLeftLongID="faArrowLeftLongIDForSearchUser" inputID="inputIDForSearchUser" ioMdCloseID="ioMdCloseIDForSearchUser" />

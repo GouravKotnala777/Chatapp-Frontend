@@ -1,26 +1,18 @@
-import { FaArrowLeftLong } from "react-icons/fa6";
 import "../styles/components/received_friend_requests.scss";
-import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
-import { useDispatch } from "react-redux";
 import { FriendRequestStatusType, UserTypes } from "../types/types";
 import { useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import UserListItem from "./UserLIstItem";
 import { CgAdd, CgRemove } from "react-icons/cg";
 import { allReceivedFriendRequests, replyFriendRequest } from "../redux/api/api";
+import { TopBackBtn } from "../utils/Utill";
 
 
 
 const ReceivedFriendRequests = () => {
     const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     const [friendRequests, setFriendRequests] = useState<{_id:string; name:string; email:string; date:Date;}[]>([]);
-    const dispatch = useDispatch();
 
-
-
-    const goBackHandler = () => {
-        dispatch(setSelectedNavigation("Chats"));
-    };
     const replyFriendRequestHandler = async({friendRequestID, status}:{friendRequestID:string; status:FriendRequestStatusType;}) => {
         const reply = await replyFriendRequest({friendRequestID, status});
 
@@ -52,13 +44,10 @@ const ReceivedFriendRequests = () => {
     }, []);
 
     return(
-        <div className="reveived_friend_requests_cont">
-            <div className="heading">
-                <button className="back_icon" onClick={goBackHandler}><FaArrowLeftLong /></button>
-                <div className="value">All friend requests</div>
-            </div>
-            <div className="reveived_friend_requests">
-                <div className="reveived_friend_requests_scrollable">
+        <div className="received_friend_requests_cont">
+            <TopBackBtn heading="Received friend requests" />
+            <div className="received_friend_requests">
+                <div className="received_friend_requests_scrollable">
                     {
                         friendRequests.map((user) => (
                             <div key={user._id} className="user_cont"

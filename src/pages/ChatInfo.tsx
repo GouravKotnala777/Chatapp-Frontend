@@ -1,24 +1,17 @@
 import "../styles/pages/chat_info.scss";
 import photo from "../../public/vite.svg";
 import UserListItem from "../components/UserLIstItem";
-import { HiMiniArrowLongLeft } from "react-icons/hi2";
 import { ChatTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
-import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
-import { useDispatch } from "react-redux";
-//import { UserTypes } from "../types/types";
-//import { Dispatch, SetStateAction } from "react";
+import { TopBackBtn } from "../utils/Utill";
 
 const ChatInfo = ({selectedChat, singleSelectedUser, setSingleSelectedUser, selectedNavigation}:{selectedChat:ChatTypesPopulated; singleSelectedUser:Pick<UserTypes, "_id" | "name" | "email">; setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id" | "name" | "email">>>; selectedNavigation:NaviagationTypes;}) => {
-    const dispatch = useDispatch();
 
 
     return(
         <div className="chat_info_bg">
-            <div className="back_btn">
-                <HiMiniArrowLongLeft className="HiMiniArrowLongLeft" onClick={() => dispatch(setSelectedNavigation("Chats"))} />
-            </div>
+            <TopBackBtn heading="Chat info" />
             <div className="dp_cont">
                 <img src={photo} alt={photo} />
             </div>

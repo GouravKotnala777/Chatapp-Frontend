@@ -5,32 +5,7 @@
     flex:1;
     height: 100vh;
     background: $grayDarker;
-    
-    .new_group_section_header{
-        //border: 1px solid indigo;
-        height: 10%;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        .back_btn{
-            //border: 1px solid red;
-            background: transparent;
-            border: none;
-            margin-left: 10px;
-            .FaArrowLeftLong{
-                color: $grayLight;
-            }
-        }
-        .heading{
-            //border: 1px solid blue;
-            color: $grayLight;
-            
-        }
-    }
-    //.search_section{
-    //    height: 0%;
-    //    //border: 1px solid green;
-    //}
+    padding: 6px;
     .new_group_section{
         //border: 1px solid yellow;
         height: 85%;
@@ -82,13 +57,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            //gap:10px;
-            margin-top: 10px;
-            //border-bottom: 2px solid $primary;
-            gap: 10px;
+            margin-top: 20px;
+            gap: 4px;
             input{
                 //border: 1px solid indigo;
-                padding: 10px;
+                padding: 10px 0;
                 border: none;
                 background: transparent;
                 width: 70%;
@@ -103,6 +76,10 @@
             .BiSmile{
                 font-size: 1.6rem;
                 color: $primary;
+                cursor: pointer;
+                &:hover{
+                    color: $primaryDark;
+                }
             }
         }
         .new_group_description_field{
@@ -111,7 +88,7 @@
             align-items: flex-start;
             justify-content: center;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 20px;
             background: $grayDark;
             width: 80%;
             margin-left: 10%;
@@ -130,6 +107,10 @@
                 font-size: 1.6rem;
                 color: $primary;
                 margin-top: 5px;
+                cursor: pointer;
+                &:hover{
+                    color: $primaryDark;
+                }
             }
         }
         .new_group_create_btn{
@@ -137,11 +118,15 @@
             margin-top: 10px;
             button{
                 padding: 4px 8px;
-                background: $primary;
+                background: linear-gradient(90deg, $primary, $primaryLight, $primary);
                 color: white;
                 border: none;
                 outline: none;
                 border-radius: 4px;
+                cursor: pointer;
+                &:hover{
+                    background: $primaryHover;
+                }
             }
         }
     }

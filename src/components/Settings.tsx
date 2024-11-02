@@ -2,7 +2,6 @@ import "../styles/components/settings.scss";
 import { BiDotsVertical } from "react-icons/bi";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import { Input, SpreadOptions } from "../utils/Utill";
-import ChatListItem from "./chatListItem";
 import { MdAccountCircle } from "react-icons/md";
 import { IoIosLock, IoMdHelpCircle, IoMdNotifications } from "react-icons/io";
 import { BsChatSquareTextFill } from "react-icons/bs";
@@ -11,6 +10,10 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { GRAY_LIGHTER, PRIMARY } from "../constants/constants";
 import { Dispatch, SetStateAction } from "react";
 import { NaviagationTypes } from "../types/types";
+import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { useDispatch, useSelector } from "react-redux";
+import UserListItem from "./UserLIstItem";
+import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
 
 const settingList = [
     {settingName:"Account", settingIcon:<MdAccountCircle />},
@@ -25,7 +28,9 @@ const contentArray:NaviagationTypes[] = ["New group", "New broadcast", "Linked d
 
 
 const Settings = ({isOptionsDialogActive, setIsOptionsDialogActive}:{isOptionsDialogActive:boolean; setIsOptionsDialogActive:Dispatch<SetStateAction<boolean>>;}) => {
-    //const dispatch = useDispatch();
+    const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
+    const dispatch = useDispatch();
+
 
     return(
         <div className="settings_cont">
@@ -41,8 +46,9 @@ const Settings = ({isOptionsDialogActive, setIsOptionsDialogActive}:{isOptionsDi
                 <div className="search_cont_outer">
                 <Input biSearchID="seachIconForSetting" faArrowLeftLongID="leftArrowIconForSetting" inputID="inputForSetting" ioMdCloseID="closeIconForSetting" />
                 </div>
-                <div className="search_tags_cont">
-                    <ChatListItem chatName="Gourav" lastMessage="Honesty is the best policy" date="aaa" imgHeight="80%" imgWidth="80px" />
+                <div className="search_tags_cont" onClick={() => dispatch(setSelectedNavigation("Profile"))}>
+                    {/*<ChatListItem chatName={singleSelectedUser.name} lastMessage="Honesty is the best policy" date="aaa" imgHeight="80%" imgWidth="80px" />*/}
+                    <UserListItem userID={user?._id as string} userName={user?.name as string} lastMessage={"kjljkas"} date={""}  />
                 </div>
             </div>
             <div className="setting_section">

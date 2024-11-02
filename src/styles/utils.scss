@@ -105,6 +105,7 @@ $grayDarker:#1c1c1c;
     top: 0;
     right: 0;
     position: absolute;
+    //background-color: #ff4b69;
 }
 .spread_option_dialog_cont_outer{
     //border: 2px solid rgb(195, 255, 0);
@@ -135,6 +136,38 @@ $grayDarker:#1c1c1c;
                 background: $primaryLight;
             }
         }
+    }
+}
+.top_back_btn_cont{
+    //border: 1px solid red;
+    //margin-top: 10px;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: $grayDark;
+    border-radius: 8px;
+    .back_btn{
+        //border: 1px solid greenyellow;
+        text-align: left;
+        color: $grayLight;
+        height: 100%;
+        .FaArrowLeftLong{
+            //border: 1px solid red;
+            height: 100%;
+            width: 32px;
+            padding: 8px;
+            cursor: pointer;
+            &:hover{
+                color: $grayLighter;
+            }
+        }
+
+    }
+    .heading_cont{
+        //border: 1px solid blue;
+        font-weight: 600;
+        color: $grayLight;
     }
 }
 

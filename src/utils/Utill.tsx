@@ -109,7 +109,10 @@ export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:Na
                 }}>
                     {
                         contentArray.map((optionName, index) => (
-                            <div key={index} className="option" tabIndex={isOpen?0:-1} onKeyDown={(e) => e.key === "Enter" && onClickOptionsHandler(optionName as NaviagationTypes)} onClick={() => onClickOptionsHandler(optionName as NaviagationTypes)} >{optionName}</div>
+                            <div key={index} className="option" tabIndex={isOpen?0:-1}
+                                onKeyDown={(e) => e.key === "Enter" && onClickOptionsHandler(optionName as NaviagationTypes)}
+                                onClick={() => onClickOptionsHandler(optionName as NaviagationTypes)}
+                                >{optionName}</div>
                         ))
                     }
                 </div>
@@ -118,9 +121,27 @@ export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:Na
             style={{
                 zIndex:isOpen?"21":"-1"
             }}
-            onFocus={(e) => {e.stopPropagation(); onClickOptionsBGHandler()}}
+            //onFocus={(e) => {e.stopPropagation(); onClickOptionsBGHandler()}}
             onClick={(e) => {e.stopPropagation(); onClickOptionsBGHandler()}}>
             </div>
         </>
     )
 }
+export const TopBackBtn = ({heading}:{heading?:string;}) => {
+    const dispatch = useDispatch();
+
+    const goBackHandler = () => {
+        dispatch(setSelectedNavigation("Chats"));
+    };
+
+    return(
+        <div className="top_back_btn_cont">
+            <div className="back_btn">
+                <FaArrowLeftLong className="FaArrowLeftLong" onClick={goBackHandler} />
+            </div>
+            <div className="heading_cont">
+                {heading}
+            </div>
+        </div>
+    )
+};

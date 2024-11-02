@@ -107,7 +107,7 @@ const Home = () => {
     return(
         <>
         <Tooltip content={tooltipContent} position={tooltipPosition} isTooltipActive={isTooltipActive} />
-        {/*{selectedNavigation}*/}
+        {/*{JSON.stringify(singleSelectedUser)}*/}
         <div className="home_bg">
             {
                 !isMessangerForMobileActive &&
@@ -196,7 +196,7 @@ const Home = () => {
                                     <Channels />
                                     :
                                     selectedNavigation === "Settings" ?
-                                        <Settings isOptionsDialogActive={false} setIsOptionsDialogActive={setIsMessangerForMobileActive} />
+                                        <Settings  isOptionsDialogActive={false} setIsOptionsDialogActive={setIsMessangerForMobileActive} />
                                         :
                                         selectedNavigation === "New group" ?
                                             <NewGroup />
@@ -246,8 +246,10 @@ const Home = () => {
                             <div className="upper_part">
                                 <div className="single_chat_outer"
                                     tabIndex={0}
-                                    onKeyDown={(e) => e.key === "Enter" && dispatch(setSelectedNavigation("Chat info"))}
-                                    onClick={() => dispatch(setSelectedNavigation("Chat info"))}
+                                    onKeyDown={(e) => {if (e.key === "Enter") {
+                                        e.stopPropagation(); dispatch(setSelectedNavigation("Chat info"));
+                                    }}}
+                                    onClick={(e) => {e.stopPropagation(); dispatch(setSelectedNavigation("Chat info"))}}
                                     >
                                     <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} iconsArray={[FaCamera, IoVideocam , BiDotsVertical]} />
                                 </div>
@@ -268,7 +270,7 @@ const Home = () => {
                         <div className="messagenger_placeholder">
                             <img className="placeholder_img" src={messangerPlaceholderImg} alt={messangerPlaceholderImg} />
                             <Heading value="Download WhatsApp for Windows" color="#e1e1e1" fontSize="1.2rem" />
-                            <Para value="make calls, share your screen and get a faster experience when you download the Windows app." />
+                            <Para value="make calls, share your screen and get a faster experience when you download the Windows app." margin="0 auto" />
                             <Button value="Get from Microsoft Store" color="white" />
                         </div>
                 }

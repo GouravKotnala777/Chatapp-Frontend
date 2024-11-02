@@ -1,18 +1,14 @@
-import { BiRefresh, BiSmile } from "react-icons/bi";
 import "../styles/pages/new_group.scss";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
+import { BiRefresh, BiSmile } from "react-icons/bi";
 import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { createChat } from "../redux/api/api";
 import { ChangeEvent, useState } from "react";
+import { TopBackBtn } from "../utils/Utill";
 
 const NewGroup = () => {
     const [newGroupFormData, setNewGroupFormData] = useState<{chatName:string; description:string; isGroupChat:boolean;}>({chatName:"", description:"", isGroupChat:false})
-    const dispatch = useDispatch();
 
-    const goBackHandler = () => {
-        dispatch(setSelectedNavigation("Chats"));
-    };
+
 
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
         setNewGroupFormData({...newGroupFormData, [e.target.name]:e.target.value});
@@ -34,10 +30,7 @@ const NewGroup = () => {
 
     return(
         <div className="new_group_cont">
-            <div className="new_group_section_header">
-                <button className="back_btn" onClick={goBackHandler}><FaArrowLeftLong className="FaArrowLeftLong" /></button>
-                <div className="heading">New group</div>
-            </div>
+            <TopBackBtn heading="New group" />
             <div className="new_group_section">
                 <div className="group_image_cont">
                     <p>ADD GROUP ICON</p>
