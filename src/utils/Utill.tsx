@@ -7,7 +7,7 @@ import { NaviagationTypes, textAlign } from "../types/types";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 //import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
 import { useDispatch } from "react-redux";
-import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { setIsMessageSelectionActive, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 
 export const Heading = ({value, color, fontSize, padding, margin, textAlign}:{value:string; color?:string; fontSize?:string; padding?:string; margin?:string; textAlign?:textAlign;}) => {
     return(
@@ -88,7 +88,12 @@ export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:Na
 
     const onClickOptionsHandler = (optionName:NaviagationTypes) => {
         setIsOpen(false);
-        dispatch(setSelectedNavigation(optionName));
+        if (optionName === "Delete message") {
+            dispatch(setIsMessageSelectionActive(true));
+        }
+        else{
+            dispatch(setSelectedNavigation(optionName));
+        }
     }
     const onClickOptionsBGHandler = () => {
         setIsOpen(false);

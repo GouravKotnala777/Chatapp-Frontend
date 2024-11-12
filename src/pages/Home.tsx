@@ -46,7 +46,7 @@ const Home = () => {
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [tooltipContent, setTooltipContent] = useState<string>("");
     const [isMessangerForMobileActive, setIsMessangerForMobileActive] = useState<boolean>(false);
-    const {selectedNavigation, selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes;}) => state.miscReducer);
+    const {selectedNavigation, selectedChat, isMessageSelectionActive, selectedMessages} = useSelector((state:{miscReducer:MiscReducerTypes;}) => state.miscReducer);
     const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     const dispatch = useDispatch();
     const [messageType, setMessageType] = useState<ContentMessageType>("text");
@@ -255,7 +255,7 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="middle_part">
-                                <Messages messageArray={messageArray} />
+                                <Messages messageArray={messageArray} isMessageSelectionActive={isMessageSelectionActive} selectedMessages={selectedMessages} />
                             </div>
                             <div className="lower_part">
                                 <div className="icon"><FaRegLaughBeam /></div>
