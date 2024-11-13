@@ -36,6 +36,7 @@ import DeleteChat from "../components/DeleteChat";
 import MessageInput from "../components/MessageInput";
 import ChatInfo from "./ChatInfo";
 import UserInfo from "./UserInfo";
+import DialogWrapper from "../components/DialogWrapper";
 
 
 
@@ -54,6 +55,10 @@ const Home = () => {
     const [messageArray, setMessageArray] = useState<MessageTypesPopulated[]>([]);
     const [singleMessage, setSingleMessage] = useState<MessageTypes>({chatID:"", sender:"", messageStatus:"read" , content:"", attachment:"", isForwarded:false, deletedFor:[], createdAt:"", updatedAt:""});
     const [refresh, setRefresh] = useState<boolean>(false);
+    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+    const [isDeleteForMeClicked, setIsDeleteForMeClicked] = useState<boolean>(false);
+    const [isDeleteForAllClicked, setIsDeleteForAllClicked] = useState<boolean>(false);
+
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -106,6 +111,7 @@ const Home = () => {
 
     return(
         <>
+        <DialogWrapper heading="Delete message?" parent="delete-for-all" isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} setIsDeleteForMeClicked={setIsDeleteForMeClicked} setIsDeleteForAllClicked={setIsDeleteForAllClicked} />
         <Tooltip content={tooltipContent} position={tooltipPosition} isTooltipActive={isTooltipActive} />
         {/*{JSON.stringify(singleSelectedUser)}*/}
         <div className="home_bg">
@@ -255,16 +261,24 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="middle_part">
-                                <Messages messageArray={messageArray} isMessageSelectionActive={isMessageSelectionActive} selectedMessages={selectedMessages} />
+                                <Messages messageArray={messageArray} isMessageSelectionActive={isMessageSelectionActive} selectedMessages={selectedMessages} setIsDialogOpen={setIsDialogOpen}
+                                    isDeleteForMeClicked={isDeleteForMeClicked}
+                                    setIsDeleteForMeClicked={setIsDeleteForMeClicked}
+                                    isDeleteForAllClicked={isDeleteForAllClicked}
+                                    setIsDeleteForAllClicked={setIsDeleteForAllClicked}
+                                 />
                             </div>
-                            <div className="lower_part">
-                                <div className="icon"><FaRegLaughBeam /></div>
-                                <div className="icon"><FaPlus /></div>
-                                <div className="search_cont_outer">
-                                    <MessageInput refresh={refresh} setRefresh={setRefresh} singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} messageInp={messageInp} setMessageInp={setMessageInp} messageType={messageType} setMessageType={setMessageType} messageArray={messageArray} setMessageArray={setMessageArray} singleMessage={singleMessage} setSingleMessage={setSingleMessage} />
-                                </div>
-                                <div className="icon"><MdKeyboardVoice /></div>
-                            </div>
+                            {
+                                !isMessageSelectionActive &&
+                                    <div className="lower_part">
+                                        <div className="icon"><FaRegLaughBeam /></div>
+                                        <div className="icon"><FaPlus /></div>
+                                        <div className="search_cont_outer">
+                                            <MessageInput refresh={refresh} setRefresh={setRefresh} singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} messageInp={messageInp} setMessageInp={setMessageInp} messageType={messageType} setMessageType={setMessageType} messageArray={messageArray} setMessageArray={setMessageArray} singleMessage={singleMessage} setSingleMessage={setSingleMessage} />
+                                        </div>
+                                        <div className="icon"><MdKeyboardVoice /></div>
+                                    </div>
+                            }
                         </div>
                         :
                         <div className="messagenger_placeholder">

@@ -1,4 +1,4 @@
-import { ChatTypes, ContentMessageType, FriendRequestStatusType, MessageStatusType, MessageTypesPopulated, ResponseType, UserTypes } from "../../types/types";
+import { ChatTypes, ContentMessageType, FriendRequestStatusType, MessageStatusType, MessageTypes, MessageTypesPopulated, ResponseType, UserTypes } from "../../types/types";
 
 
 // User APIs
@@ -387,4 +387,51 @@ export const createMessage = async(createMessageFormData:{sender:string; chatID:
         return error as ResponseType<Error>;
     }
 };
-    // DELETE MESSAGES BANANA HAI
+export const deleteMessagesForMe = async(deleteForMeFormData:{messageID:string[]}) => {
+    try {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/delete-for-me`, {
+            method:"DELETE",
+            headers:{
+                "content-type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(deleteForMeFormData)
+        });
+
+        const resolved = await res.json();
+
+        console.log("----- deleteMessagesForMe api.ts");
+        console.log(resolved);        
+        console.log("----- deleteMessagesForMe api.ts");
+        return resolved as ResponseType<MessageTypes[]>;
+    } catch (error) {
+        console.log("----- deleteMessagesForMe api.ts");
+        console.log(error);
+        console.log("----- deleteMessagesForMe api.ts");
+        return error as ResponseType<Error>;
+    }
+};
+export const deleteMessagesForAll = async(deleteForAllFormData:{messageID:string[]; chatID:string;}) => {
+    try {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/delete-for-all`, {
+            method:"DELETE",
+            headers:{
+                "content-type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(deleteForAllFormData)
+        });
+
+        const resolved = await res.json();
+
+        console.log("----- deleteMessagesForAll api.ts");
+        console.log(resolved);        
+        console.log("----- deleteMessagesForAll api.ts");
+        return resolved as ResponseType<string>;
+    } catch (error) {
+        console.log("----- deleteMessagesForAll api.ts");
+        console.log(error);
+        console.log("----- deleteMessagesForAll api.ts");
+        return error as ResponseType<Error>;
+    }
+};

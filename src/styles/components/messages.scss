@@ -162,12 +162,15 @@
         }
     }
     .cancel_message_selection_cont{
-        //border: 2px solid rgb(39, 39, 255);
+        border: 2px solid rgb(39, 39, 255);
         display: none;
         justify-content: space-between;
         position: sticky;
         bottom: 0;
         padding: 0 10px;
+        height: 55px;
+        align-items: center;
+        background-color: $grayDarker;
         .icon{
             //border: 2px solid violet;
             padding: 10px;
