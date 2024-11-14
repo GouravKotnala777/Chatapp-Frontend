@@ -6,7 +6,7 @@
     position: relative;
     
     .incomming_message_cont_outer{
-        border: 2px solid rgb(30, 255, 30);
+        //border: 2px solid rgb(30, 255, 30);
         display: flex;
         .include_message_checkbox{
             transform: scale(0, 1);
@@ -41,7 +41,7 @@
                 margin-left: 4px;
             }
             .message_options_cont{
-                border: 1px solid rgb(0, 255, 0);
+                //border: 1px solid rgb(0, 255, 0);
                 //position: absolute;
                 top: 0;
                 right: 0;
@@ -60,7 +60,7 @@
         }
     }
     .outgoing_message_cont_outer{
-        border: 2px solid rgb(30, 255, 30);
+        //border: 2px solid rgb(30, 255, 30);
         display: flex;
         .include_message_checkbox{
             transform: scale(0, 1);
@@ -96,7 +96,7 @@
                 margin-left: 4px;
             }
             .message_options_cont{
-                border: 1px solid rgb(0, 255, 0);
+                //border: 1px solid rgb(0, 255, 0);
                 //position: absolute;
                 top: 0;
                 right: 0;
@@ -144,7 +144,7 @@
             margin-left: 4px;
         }
         .message_options_cont{
-            border: 1px solid rgb(0, 255, 0);
+            //border: 1px solid rgb(0, 255, 0);
             //position: absolute;
             top: 0;
             right: 0;
@@ -162,7 +162,7 @@
         }
     }
     .cancel_message_selection_cont{
-        border: 2px solid rgb(39, 39, 255);
+        //border: 2px solid rgb(39, 39, 255);
         display: none;
         justify-content: space-between;
         position: sticky;
@@ -170,14 +170,14 @@
         padding: 0 10px;
         height: 55px;
         align-items: center;
-        background-color: $grayDarker;
+        background-color: $grayDark;
         .icon{
             //border: 2px solid violet;
             padding: 10px;
             cursor: pointer;
             border-radius: 4px;
             &:hover{
-                background: $grayDark;
+                background: $grayHover;
             }
             .FcCancel{
                 color: $grayLight;
@@ -185,6 +185,14 @@
             .CgRemove{
                 color: $grayLight;
             }
+        }
+        .selected_messages_count{
+            //border: 1px solid red;
+            color: $grayLight;
+            flex: 1;
+            text-align: left;
+            padding-left: 20px;
+            font-size: 0.8rem;
         }
     }
 }

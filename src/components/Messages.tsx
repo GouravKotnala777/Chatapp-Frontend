@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/components/messages.scss";
-import { MessageTypes, MessageTypesPopulated } from "../types/types";
+import { DialogParentTypes, MessageTypesPopulated } from "../types/types";
 import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { BiDownArrow } from "react-icons/bi";
@@ -11,20 +11,23 @@ import { setIsMessageSelectionActive, setSelectedMessages } from "../redux/reduc
 import { deleteMessagesForAll, deleteMessagesForMe } from "../redux/api/api";
 //import { Dispatch, SetStateAction } from "react";
 
-const Messages = ({messageArray, isMessageSelectionActive, selectedMessages, setIsDialogOpen,
-    isDeleteForMeClicked, isDeleteForAllClicked, setIsDeleteForMeClicked, setIsDeleteForAllClicked
-}:{messageArray:MessageTypesPopulated[]|[]; isMessageSelectionActive:boolean; selectedMessages:MessageTypesPopulated[]; setIsDialogOpen:Dispatch<SetStateAction<boolean>>;
+const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, selectedMessages, setIsDialogOpen,
+    isDeleteForMeClicked, isDeleteForAllClicked, setIsDeleteForMeClicked, setIsDeleteForAllClicked, setDialogParent
+}:{messageArray:MessageTypesPopulated[]|[];
+    setMessageArray:Dispatch<SetStateAction<MessageTypesPopulated[]>>;
+    isMessageSelectionActive:boolean;
+    selectedMessages:MessageTypesPopulated[];
+    setIsDialogOpen:Dispatch<SetStateAction<boolean>>;
     isDeleteForMeClicked:boolean;
     setIsDeleteForMeClicked:Dispatch<SetStateAction<boolean>>;
     isDeleteForAllClicked:boolean;
     setIsDeleteForAllClicked:Dispatch<SetStateAction<boolean>>;
+    setDialogParent:Dispatch<SetStateAction<DialogParentTypes>>;
 }) => {
     const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
     const [selectedMessage, setSelectedMessage] = useState<string>("");
     const messageEndRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [deletedMsgsForMe, setDeletedMsgsForMe] = useState<MessageTypes[]>([]);
-    const [deletedMsgsForAll, setDeletedMsgsForAll] = useState<string>("");
     const dispatch = useDispatch();
 
     const scrollToBottomHandler = () => {
@@ -43,12 +46,23 @@ const Messages = ({messageArray, isMessageSelectionActive, selectedMessages, set
             const res = await deleteMessagesForMe({messageID:selectedMessages.map((msg) => msg._id)});
 
             if (res.success) {
-                setDeletedMsgsForMe(res.message as MessageTypes[]);
+                //setDeletedMsgsForMe(res.message as string[]);
+                dispatch(setIsMessageSelectionActive(false));
+                dispatch(setSelectedMessages(null));
+                setMessageArray(messageArray.filter((array1Item) => !(
+                    res.message as string[]).some((array2Item) => 
+                        array2Item === array1Item._id
+                    )
+                ))
             }
+            console.log("======== deleteForMe chala hai");
             console.log(res);
-
+            console.log("======== deleteForMe chala hai");
+            
         } catch (error) {
+            console.log("======== deleteForMe chala hai");
             console.log(error);
+            console.log("======== deleteForMe chala hai");
         }
     };
     const deleteMessagesForAllHandler = async() => {
@@ -56,43 +70,52 @@ const Messages = ({messageArray, isMessageSelectionActive, selectedMessages, set
             const res = await deleteMessagesForAll({messageID:selectedMessages.map((msg) => msg._id), chatID:selectedMessages[0].chatID});
 
             if (res.success) {
-                setDeletedMsgsForAll(res.message as string);
+                //setDeletedMsgsForAll(res.message as string[]);
+                dispatch(setIsMessageSelectionActive(false));
+                dispatch(setSelectedMessages(null));
+                setMessageArray(messageArray.filter((array1Item) => !(
+                    res.message as string[]).some((array2Item) => 
+                        array2Item === array1Item._id
+                    )
+                ))
             }
+            console.log("======== deleteForAll chala hai");
             console.log(res);
-
+            console.log("======== deleteForAll chala hai");
+            
         } catch (error) {
+            console.log("======== deleteForAll chala hai");
             console.log(error);
+            console.log("======== deleteForAll chala hai");
         }
     };
     const deleteMessagesHandler = () => {
-        setIsDialogOpen(true);
-        //if (user?._id) {
-        //    if (selectedMessages.find(msg => msg.sender !== (user._id))) {
-        //        console.log("======== deleteForMe chala hai");
-        //        deleteMessagesForMeHandler();
-        //        console.log("======== deleteForMe chala hai");
-        //    }
-        //    else{
-        //        console.log("======== deleteForAll chala hai");
-        //        deleteMessagesForAllHandler();
-        //        console.log("======== deleteForAll chala hai");
-        //    }
-        //}
-        //else{
-        //    console.log("----------USERID NAHI HAI---------");
-        //}
+        if (user?._id) {
+            if (selectedMessages.find(msg => msg.sender !== (user._id))) {
+                setDialogParent("Delete for me");
+            }
+            else{
+                setDialogParent("Delete for all");
+            }
+            setIsDialogOpen(true);
+        }
+        else{
+            console.log("----------USERID NAHI HAI---------");
+        }
     };
 
     useEffect(() => {
         if (isDeleteForMeClicked) {
             deleteMessagesForMeHandler();
             setIsDeleteForMeClicked(false);
+            setSelectedMessage("");
         }
     }, [isDeleteForMeClicked]);
     useEffect(() => {
         if (isDeleteForAllClicked) {
             deleteMessagesForAllHandler();
             setIsDeleteForAllClicked(false);
+            setSelectedMessage("");
         }
     }, [isDeleteForAllClicked]);
 
@@ -102,15 +125,13 @@ const Messages = ({messageArray, isMessageSelectionActive, selectedMessages, set
 
     return(
         <div className="messages_cont">
-            {/*<pre style={{color:"white"}}>{JSON.stringify(selectedMessages, null, `\t`)}</pre>*/}
-            <pre style={{color:"white"}}>{JSON.stringify(deletedMsgsForMe, null, `\t`)}</pre>
-            <pre style={{color:"white"}}>{JSON.stringify(deletedMsgsForAll, null, `\t`)}</pre>
+            {/*<pre style={{color:"white"}}>{JSON.stringify(selectedMessage, null, `\t`)}</pre>*/}
             {
                 messageArray&&typeof messageArray === "object"&&messageArray.length!==0&&messageArray.map((msg) => {
                     if (msg.sender === user?._id) {
                         return(
-                            <div className="outgoing_message_cont_outer">
-                                <input type="checkbox" className="include_message_checkbox" name="includeMessage" style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
+                            <div className="outgoing_message_cont_outer" key={msg._id}>
+                                <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
                                 <div className="outgoing_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
                                     <div className="content">{msg.content.contentMessage}</div>
                                     <div className="date"
@@ -128,8 +149,7 @@ const Messages = ({messageArray, isMessageSelectionActive, selectedMessages, set
                     }
                     else if(msg.sender === "default"){
                         return(
-                            <div className="default_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
-                                {/*<div className="content">{msg.content.conteLonMouseLeaventMessage}</div>*/}
+                            <div className="default_message_cont" key={msg._id}>
                                 <div className="date"
                                 style={{display:selectedMessage === msg._id ? "none" : "block"}}                                
                                 >{msg.createdAt.toString().split("T")[0]}</div>
@@ -144,8 +164,8 @@ const Messages = ({messageArray, isMessageSelectionActive, selectedMessages, set
                     }
                     else{
                         return(
-                            <div className="incomming_message_cont_outer">
-                                <input type="checkbox" className="include_message_checkbox" name="includeMessage" style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
+                            <div className="incomming_message_cont_outer" key={msg._id}>
+                                <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
                                 <div className="incomming_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
                                     <div className="content">{msg.content.contentMessage}</div>
                                     <div className="date"
@@ -166,6 +186,7 @@ const Messages = ({messageArray, isMessageSelectionActive, selectedMessages, set
 
             <div className="cancel_message_selection_cont" style={{display:isMessageSelectionActive?"flex":"none"}}>
                 <div className="icon" onClick={cancelMessageSelectionHandler}><FcCancel className="FcCancel" /></div>
+                <div className="selected_messages_count">{selectedMessages.length} selected messages</div>
                 <div className="icon"><CgRemove className="CgRemove" onClick={() => deleteMessagesHandler()} /></div>
             </div>
 

@@ -21,7 +21,7 @@ import { FaRegLaughBeam } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaCamera, FaPlus } from "react-icons/fa6";
 import Messages from "../components/Messages";
-import { ChatTypes, ChatTypesPopulated, ContentMessageType, MessageTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
+import { ChatTypes, ChatTypesPopulated, ContentMessageType, DialogParentTypes, MessageTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
 import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,11 +53,12 @@ const Home = () => {
     const [messageType, setMessageType] = useState<ContentMessageType>("text");
     const [messageInp, setMessageInp] = useState<string>("");
     const [messageArray, setMessageArray] = useState<MessageTypesPopulated[]>([]);
-    const [singleMessage, setSingleMessage] = useState<MessageTypes>({chatID:"", sender:"", messageStatus:"read" , content:"", attachment:"", isForwarded:false, deletedFor:[], createdAt:"", updatedAt:""});
+    const [singleMessage, setSingleMessage] = useState<MessageTypes>({_id:"", chatID:"", sender:"", messageStatus:"read" , content:"", attachment:"", isForwarded:false, deletedFor:[], createdAt:"", updatedAt:""});
     const [refresh, setRefresh] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const [isDeleteForMeClicked, setIsDeleteForMeClicked] = useState<boolean>(false);
     const [isDeleteForAllClicked, setIsDeleteForAllClicked] = useState<boolean>(false);
+    const [dialogParent, setDialogParent] = useState<DialogParentTypes>("Delete for me");
 
 
 
@@ -111,7 +112,7 @@ const Home = () => {
 
     return(
         <>
-        <DialogWrapper heading="Delete message?" parent="delete-for-all" isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} setIsDeleteForMeClicked={setIsDeleteForMeClicked} setIsDeleteForAllClicked={setIsDeleteForAllClicked} />
+        <DialogWrapper heading="Delete message?" parent={dialogParent} isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} setIsDeleteForMeClicked={setIsDeleteForMeClicked} setIsDeleteForAllClicked={setIsDeleteForAllClicked} />
         <Tooltip content={tooltipContent} position={tooltipPosition} isTooltipActive={isTooltipActive} />
         {/*{JSON.stringify(singleSelectedUser)}*/}
         <div className="home_bg">
@@ -191,6 +192,7 @@ const Home = () => {
                         isMessageSelectionActive={isMessageSelectionActive}
                         selectedMessages={selectedMessages}
                         setIsDialogOpen={setIsDialogOpen}
+                        setDialogParent={setDialogParent}
                          />
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
@@ -269,11 +271,16 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="middle_part">
-                                <Messages messageArray={messageArray} isMessageSelectionActive={isMessageSelectionActive} selectedMessages={selectedMessages} setIsDialogOpen={setIsDialogOpen}
+                                <Messages messageArray={messageArray}
+                                    setMessageArray={setMessageArray}
+                                    isMessageSelectionActive={isMessageSelectionActive}
+                                    selectedMessages={selectedMessages}
+                                    setIsDialogOpen={setIsDialogOpen}
                                     isDeleteForMeClicked={isDeleteForMeClicked}
                                     setIsDeleteForMeClicked={setIsDeleteForMeClicked}
                                     isDeleteForAllClicked={isDeleteForAllClicked}
                                     setIsDeleteForAllClicked={setIsDeleteForAllClicked}
+                                    setDialogParent={setDialogParent}
                                  />
                             </div>
                             {

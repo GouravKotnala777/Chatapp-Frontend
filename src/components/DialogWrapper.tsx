@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 import "../styles/components/dialog-wrapper.scss";
+import { DialogParentTypes } from "../types/types";
 
 const DialogWrapper = ({heading, parent, isDialogOpen, setIsDialogOpen,
     setIsDeleteForMeClicked, setIsDeleteForAllClicked
-}:{heading:string; parent:string; isDialogOpen:boolean; setIsDialogOpen:Dispatch<SetStateAction<boolean>>;
+}:{heading:string; parent:DialogParentTypes; isDialogOpen:boolean; setIsDialogOpen:Dispatch<SetStateAction<boolean>>;
     setIsDeleteForMeClicked:Dispatch<SetStateAction<boolean>>;
     setIsDeleteForAllClicked:Dispatch<SetStateAction<boolean>>;
 }) => {
@@ -16,7 +17,7 @@ const DialogWrapper = ({heading, parent, isDialogOpen, setIsDialogOpen,
                 <div className="dialog_wrapper_content">
                     <div className="dialog_heading">{heading}</div>
                     {
-                        parent === "delete-for-all" &&
+                        parent === "Delete for all" &&
                             <div className="delete_for_all_cont">
                                 <button onClick={() => setIsDeleteForAllClicked(true)}>Delete for everyone</button>
                                 <button onClick={() => setIsDeleteForMeClicked(true)}>Delete for me</button>
@@ -24,7 +25,7 @@ const DialogWrapper = ({heading, parent, isDialogOpen, setIsDialogOpen,
                             </div>
                     }
                     {
-                        parent === "delete-for-me" &&
+                        parent === "Delete for me" &&
                             <div className="delete_for_me_cont" onClick={() => setIsDialogOpen(false)}>
                                 <button className="cancel_btn">Cancel</button>
                                 <button className="delete_btn" onClick={() => setIsDeleteForMeClicked(true)}>Delete for me</button>

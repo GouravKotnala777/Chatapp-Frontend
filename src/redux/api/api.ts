@@ -1,4 +1,4 @@
-import { ChatTypes, ContentMessageType, FriendRequestStatusType, MessageStatusType, MessageTypes, MessageTypesPopulated, ResponseType, UserTypes } from "../../types/types";
+import { ChatTypes, ContentMessageType, FriendRequestStatusType, MessageStatusType, MessageTypesPopulated, ResponseType, UserTypes } from "../../types/types";
 
 
 // User APIs
@@ -403,7 +403,7 @@ export const deleteMessagesForMe = async(deleteForMeFormData:{messageID:string[]
         console.log("----- deleteMessagesForMe api.ts");
         console.log(resolved);        
         console.log("----- deleteMessagesForMe api.ts");
-        return resolved as ResponseType<MessageTypes[]>;
+        return resolved as ResponseType<string[]>;
     } catch (error) {
         console.log("----- deleteMessagesForMe api.ts");
         console.log(error);
@@ -427,7 +427,7 @@ export const deleteMessagesForAll = async(deleteForAllFormData:{messageID:string
         console.log("----- deleteMessagesForAll api.ts");
         console.log(resolved);        
         console.log("----- deleteMessagesForAll api.ts");
-        return resolved as ResponseType<string>;
+        return resolved as ResponseType<string[]>;
     } catch (error) {
         console.log("----- deleteMessagesForAll api.ts");
         console.log(error);

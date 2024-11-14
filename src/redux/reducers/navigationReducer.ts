@@ -29,15 +29,24 @@ const miscReducer = createSlice({
             state.isMessageSelectionActive = action.payload;
         },
         setSelectedMessages:(state, action:PayloadAction<MessageTypesPopulated|null>) => {
+            console.log("----------- (0)");
             if (action.payload === null) {
+                console.log("----------- (1)");
                 state.selectedMessages = [];
+                console.log("----------- (2)");
             }
             else{
+                console.log("----------- (3)");
+                
                 if (state.selectedMessages.find((msg) => msg._id === action.payload?._id)) {
-                    state.selectedMessages.filter((msg) => msg._id !== action.payload?._id)
+                    console.log("----------- (4)");
+                    state.selectedMessages = state.selectedMessages.filter((msg) => msg._id !== action.payload?._id)
+                    console.log("----------- (5)");
                 }
                 else{
+                    console.log("----------- (6)");
                     state.selectedMessages.push(action.payload);
+                    console.log("----------- (7)");
                 }
             }
             //state.selectedMessages = action.payload

@@ -6,7 +6,7 @@ import { FaCamera, FaPlus } from "react-icons/fa6";
 import { MdKeyboardVoice } from "react-icons/md";
 import { IoVideocam } from "react-icons/io5";
 import { BiDotsVertical, BiLeftArrow } from "react-icons/bi";
-import { ChatTypes, ContentMessageType, MessageTypes, MessageTypesPopulated, UserTypes } from "../types/types";
+import { ChatTypes, ContentMessageType, DialogParentTypes, MessageTypes, MessageTypesPopulated, UserTypes } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
 import MessageInput from "../components/MessageInput";
 import { useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     refresh, setRefresh, messageInp, setMessageInp, messageType, setMessageType, messageArray, setMessageArray, singleMessage, setSingleMessage, singleSelectedUser, setSingleSelectedUser,
     isDeleteForMeClicked, isDeleteForAllClicked, setIsDeleteForMeClicked, setIsDeleteForAllClicked, isMessageSelectionActive,
-    selectedMessages, setIsDialogOpen
+    selectedMessages, setIsDialogOpen, setDialogParent
 }:{selectedChat:ChatTypes; setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>;
     singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">;
     setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;
@@ -37,6 +37,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     isMessageSelectionActive:boolean;
     selectedMessages:MessageTypesPopulated[];
     setIsDialogOpen:Dispatch<SetStateAction<boolean>>;
+    setDialogParent:Dispatch<SetStateAction<DialogParentTypes>>;
 }) => {
     const dispatch = useDispatch();
 
@@ -52,12 +53,19 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
                 </div>
             </div>
             <div className="middle_part">
-            <Messages messageArray={messageArray} isMessageSelectionActive={isMessageSelectionActive} selectedMessages={selectedMessages} setIsDialogOpen={setIsDialogOpen}
-                                    isDeleteForMeClicked={isDeleteForMeClicked}
-                                    setIsDeleteForMeClicked={setIsDeleteForMeClicked}
-                                    isDeleteForAllClicked={isDeleteForAllClicked}
-                                    setIsDeleteForAllClicked={setIsDeleteForAllClicked}
-                                 />
+            <Messages messageArray={messageArray} 
+                isMessageSelectionActive={isMessageSelectionActive}
+                selectedMessages={selectedMessages}
+                setIsDialogOpen={setIsDialogOpen}
+                isDeleteForMeClicked={isDeleteForMeClicked}
+                setIsDeleteForMeClicked={setIsDeleteForMeClicked}
+                isDeleteForAllClicked={isDeleteForAllClicked}
+                setIsDeleteForAllClicked={setIsDeleteForAllClicked}
+                
+
+                setMessageArray={setMessageArray}
+                setDialogParent={setDialogParent}
+            />
             </div>
             <div className="lower_part">
                 <div className="icon"><FaRegLaughBeam /></div>
