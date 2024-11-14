@@ -183,7 +183,15 @@ const Home = () => {
                         singleSelectedUser={singleSelectedUser}
                         setSingleSelectedUser={setSingleSelectedUser}
                         selectedChat={selectedChat as ChatTypes}
-                        setIsMessangerForMobileActive={setIsMessangerForMobileActive} />
+                        setIsMessangerForMobileActive={setIsMessangerForMobileActive}
+                        isDeleteForMeClicked={isDeleteForMeClicked}
+                        isDeleteForAllClicked={isDeleteForAllClicked}
+                        setIsDeleteForMeClicked={setIsDeleteForMeClicked}
+                        setIsDeleteForAllClicked={setIsDeleteForAllClicked}
+                        isMessageSelectionActive={isMessageSelectionActive}
+                        selectedMessages={selectedMessages}
+                        setIsDialogOpen={setIsDialogOpen}
+                         />
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
                         <Chats 

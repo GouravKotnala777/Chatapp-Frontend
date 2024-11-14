@@ -14,7 +14,9 @@ import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 
 
 const Messanger = ({selectedChat, setIsMessangerForMobileActive,
-    refresh, setRefresh, messageInp, setMessageInp, messageType, setMessageType, messageArray, setMessageArray, singleMessage, setSingleMessage, singleSelectedUser, setSingleSelectedUser
+    refresh, setRefresh, messageInp, setMessageInp, messageType, setMessageType, messageArray, setMessageArray, singleMessage, setSingleMessage, singleSelectedUser, setSingleSelectedUser,
+    isDeleteForMeClicked, isDeleteForAllClicked, setIsDeleteForMeClicked, setIsDeleteForAllClicked, isMessageSelectionActive,
+    selectedMessages, setIsDialogOpen
 }:{selectedChat:ChatTypes; setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>;
     singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">;
     setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;
@@ -27,6 +29,14 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     singleMessage:MessageTypes;
     setSingleMessage:Dispatch<SetStateAction<MessageTypes>>;
     refresh:boolean; setRefresh:Dispatch<SetStateAction<boolean>>;
+
+    isDeleteForMeClicked:boolean;
+    setIsDeleteForMeClicked:Dispatch<SetStateAction<boolean>>;
+    isDeleteForAllClicked:boolean;
+    setIsDeleteForAllClicked:Dispatch<SetStateAction<boolean>>;
+    isMessageSelectionActive:boolean;
+    selectedMessages:MessageTypesPopulated[];
+    setIsDialogOpen:Dispatch<SetStateAction<boolean>>;
 }) => {
     const dispatch = useDispatch();
 
@@ -42,7 +52,12 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
                 </div>
             </div>
             <div className="middle_part">
-                <Messages messageArray={messageArray} />
+            <Messages messageArray={messageArray} isMessageSelectionActive={isMessageSelectionActive} selectedMessages={selectedMessages} setIsDialogOpen={setIsDialogOpen}
+                                    isDeleteForMeClicked={isDeleteForMeClicked}
+                                    setIsDeleteForMeClicked={setIsDeleteForMeClicked}
+                                    isDeleteForAllClicked={isDeleteForAllClicked}
+                                    setIsDeleteForAllClicked={setIsDeleteForAllClicked}
+                                 />
             </div>
             <div className="lower_part">
                 <div className="icon"><FaRegLaughBeam /></div>
