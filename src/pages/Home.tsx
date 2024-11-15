@@ -26,7 +26,7 @@ import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
-import { myProfile, selectedChatMessages } from "../redux/api/api";
+import { createChat, myProfile, selectedChatMessages } from "../redux/api/api";
 import { setLoginUser } from "../redux/reducers/loginUserReducer";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
@@ -53,11 +53,12 @@ const Home = () => {
     const [messageType, setMessageType] = useState<ContentMessageType>("text");
     const [messageInp, setMessageInp] = useState<string>("");
     const [messageArray, setMessageArray] = useState<MessageTypesPopulated[]>([]);
-    const [singleMessage, setSingleMessage] = useState<MessageTypes>({_id:"", chatID:"", sender:"", messageStatus:"read" , content:"", attachment:"", isForwarded:false, deletedFor:[], createdAt:"", updatedAt:""});
+    const [singleMessage, setSingleMessage] = useState<MessageTypes>({_id:"", chatID:"", sender:"", messageStatus:"read" , content:"", attachment:[], isForwarded:false, deletedFor:[], createdAt:"", updatedAt:""});
     const [refresh, setRefresh] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const [isDeleteForMeClicked, setIsDeleteForMeClicked] = useState<boolean>(false);
     const [isDeleteForAllClicked, setIsDeleteForAllClicked] = useState<boolean>(false);
+    const [isStartChatClicked, setIsStartChatClicked] = useState<boolean>(false);
     const [dialogParent, setDialogParent] = useState<DialogParentTypes>("Delete for me");
 
 
@@ -76,6 +77,15 @@ const Home = () => {
     };
     const navigationHandler = (e:MouseEvent<HTMLButtonElement>) => {
         dispatch(setSelectedNavigation(e.currentTarget.value as NaviagationTypes));
+    };
+    const createNonGroupChatHandler = async () => {
+        const res = await createChat({chatName:singleSelectedUser.name, description:"aaaa", isGroupChat:false, members:[singleSelectedUser._id]});
+
+        //if (res.success) {
+        //}
+        console.log("------  createNonGroupChatHandler");
+        console.log(res.message);
+        console.log("------  createNonGroupChatHandler");
     };
 
     useEffect(() => {
@@ -109,6 +119,13 @@ const Home = () => {
             console.log("----- getMessages Home.tsx");
         })
     }, [selectedChat]);
+    
+    useEffect(() => {
+        if (isStartChatClicked === true) {
+            createNonGroupChatHandler();
+        }
+        setIsStartChatClicked(false);
+    }, [isStartChatClicked]);
 
     return(
         <>
@@ -193,6 +210,7 @@ const Home = () => {
                         selectedMessages={selectedMessages}
                         setIsDialogOpen={setIsDialogOpen}
                         setDialogParent={setDialogParent}
+                        selectedNavigation={selectedNavigation}
                          />
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
@@ -221,10 +239,10 @@ const Home = () => {
                                                 <Profile />
                                                 :
                                                 selectedNavigation === "Add members" ?
-                                                    <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} />
+                                                    <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} setIsStartChatClicked={setIsStartChatClicked} />
                                                     :
                                                     selectedNavigation === "Contacts" ?
-                                                        <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} />
+                                                        <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} setIsStartChatClicked={setIsStartChatClicked} />
                                                         :
                                                         selectedNavigation === "Remove members" ?
                                                             <ChatMembersList />
@@ -247,7 +265,15 @@ const Home = () => {
                                                                                 selectedNavigation === "User info" ?
                                                                                     <UserInfo singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} />
                                                                                     :
-                                                                                    <h1 style={{color:"white"}}>From Home Page...</h1>
+                                                                                    selectedNavigation === "Forward" ?
+                                                                                        <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} setIsStartChatClicked={setIsStartChatClicked} />
+                                                                                        :
+                                                                                        <Chats
+                                                                                            setIsMessangerForMobileActive={setIsMessangerForMobileActive}
+                                                                                            setSelectedNavigation={setSelectedNavigation}
+                                                                                            messagesArray={messageArray}
+                                                                                        />
+                                                                                        //<h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
 
@@ -281,6 +307,8 @@ const Home = () => {
                                     isDeleteForAllClicked={isDeleteForAllClicked}
                                     setIsDeleteForAllClicked={setIsDeleteForAllClicked}
                                     setDialogParent={setDialogParent}
+                                    selectedNavigation={selectedNavigation}
+                                    selectedChat={selectedChat}
                                  />
                             </div>
                             {

@@ -6,7 +6,7 @@ import { FaCamera, FaPlus } from "react-icons/fa6";
 import { MdKeyboardVoice } from "react-icons/md";
 import { IoVideocam } from "react-icons/io5";
 import { BiDotsVertical, BiLeftArrow } from "react-icons/bi";
-import { ChatTypes, ContentMessageType, DialogParentTypes, MessageTypes, MessageTypesPopulated, UserTypes } from "../types/types";
+import { ChatTypes, ContentMessageType, DialogParentTypes, MessageTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
 import MessageInput from "../components/MessageInput";
 import { useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     refresh, setRefresh, messageInp, setMessageInp, messageType, setMessageType, messageArray, setMessageArray, singleMessage, setSingleMessage, singleSelectedUser, setSingleSelectedUser,
     isDeleteForMeClicked, isDeleteForAllClicked, setIsDeleteForMeClicked, setIsDeleteForAllClicked, isMessageSelectionActive,
-    selectedMessages, setIsDialogOpen, setDialogParent
+    selectedMessages, setIsDialogOpen, setDialogParent, selectedNavigation
 }:{selectedChat:ChatTypes; setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>;
     singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">;
     setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;
@@ -38,6 +38,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     selectedMessages:MessageTypesPopulated[];
     setIsDialogOpen:Dispatch<SetStateAction<boolean>>;
     setDialogParent:Dispatch<SetStateAction<DialogParentTypes>>;
+    selectedNavigation:NaviagationTypes;
 }) => {
     const dispatch = useDispatch();
 
@@ -65,6 +66,8 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
 
                 setMessageArray={setMessageArray}
                 setDialogParent={setDialogParent}
+                selectedNavigation={selectedNavigation}
+                selectedChat={selectedChat}
             />
             </div>
             <div className="lower_part">

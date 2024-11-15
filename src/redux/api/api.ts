@@ -435,3 +435,27 @@ export const deleteMessagesForAll = async(deleteForAllFormData:{messageID:string
         return error as ResponseType<Error>;
     }
 };
+export const forwardMessage = async(forwardMessageFormData:{memberIDs:string[]; contentID:string[]; attachment:string[]; messageType:ContentMessageType; messageStatus:MessageStatusType; isForwarded:boolean;}) => {
+    try {
+        const forwardMessageRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/forward`, {
+            method:"POST",
+            headers:{
+                "content-type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify(forwardMessageFormData)
+        });
+
+        const forwardMessageData = await forwardMessageRes.json();
+
+        console.log("----- forwardMessage api.ts");
+        console.log(forwardMessageData);        
+        console.log("----- forwardMessage api.ts");
+        return forwardMessageData as ResponseType<string>;
+    } catch (error) {
+        console.log("----- forwardMessage api.ts");
+        console.log(error);
+        console.log("----- forwardMessage api.ts");
+        return error as ResponseType<Error>;
+    }
+};

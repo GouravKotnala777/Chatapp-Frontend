@@ -83,13 +83,25 @@ export const Button = ({value, color, fontSize, padding}:{value:string; color?:s
     )
 };
 //ActionCreatorWithPayload<MiscReducerTypes, "miscReducer/setSelectedNavigation">
-export const SpreadOptions = ({contentArray, isOpen, setIsOpen}:{contentArray:NaviagationTypes[]; isOpen:boolean; setIsOpen:Dispatch<SetStateAction<boolean>>;}) => {
+export const SpreadOptions = ({contentArray, isOpen, setIsOpen,
+    setIsStartChatClicked
+}:{contentArray:NaviagationTypes[]; isOpen:boolean; setIsOpen:Dispatch<SetStateAction<boolean>>;
+    setIsStartChatClicked?:Dispatch<SetStateAction<boolean>>;
+}) => {
     const dispatch = useDispatch();
 
     const onClickOptionsHandler = (optionName:NaviagationTypes) => {
         setIsOpen(false);
-        if (optionName === "Delete message") {
+        if (optionName === "Delete message" || optionName === "Forward") {
             dispatch(setIsMessageSelectionActive(true));
+            dispatch(setSelectedNavigation(optionName));
+        }
+        else if (optionName === "Start chat") {
+            console.log("chat is started....");
+            if (setIsStartChatClicked) {
+                setIsStartChatClicked(true);
+            }
+            dispatch(setSelectedNavigation(optionName));
         }
         else{
             dispatch(setSelectedNavigation(optionName));

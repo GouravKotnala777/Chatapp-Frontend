@@ -2,12 +2,14 @@ import "../styles/components/chat_list_cont.scss";
 import photo from "../../public/user_placeholder.png";
 import { IconType } from "react-icons";
 import { GRAY_DARKER, GRAY_LIGHT, GRAY_LIGHTER } from "../constants/constants";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { SpreadOptions } from "../utils/Utill";
 import { BiCheck, BiSolidDownArrow } from "react-icons/bi";
 import { FriendRequestStatusType, NaviagationTypes } from "../types/types";
 
-const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMessage, date, replyFriendRequestHandler, imgHeight, imgWidth, optionsArray}:{
+const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMessage, date, replyFriendRequestHandler, imgHeight, imgWidth, optionsArray,
+    setIsStartChatClicked
+}:{
     selectedNavigation?:NaviagationTypes;
     isSelected?:boolean;
     userID:string;
@@ -15,7 +17,9 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
     lastMessage:string;
     date:string|IconType[];
     replyFriendRequestHandler?:({ friendRequestID, status }: {friendRequestID: string; status: FriendRequestStatusType;}) => Promise<void>; imgHeight?:string; imgWidth?:string;
-    optionsArray?:NaviagationTypes[];}) => {
+    optionsArray?:NaviagationTypes[];
+    setIsStartChatClicked:Dispatch<SetStateAction<boolean>>;
+}) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
 
 
@@ -47,7 +51,9 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
                                         :
                                         <BiSolidDownArrow className="BiSolidDownArrow" style={{fontSize:"1.3rem", marginRight:"10px"}} onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}}  />)
                             }
-                            <SpreadOptions contentArray={optionsArray as NaviagationTypes[]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive} />
+                            <SpreadOptions contentArray={optionsArray as NaviagationTypes[]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive}
+                                setIsStartChatClicked={setIsStartChatClicked}
+                             />
                         </div>
                         :
                         <div className="icons_cont" style={{gap:"20px"}}>

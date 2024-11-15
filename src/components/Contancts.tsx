@@ -6,14 +6,18 @@ import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navig
 import { useSelector } from "react-redux";
 import UserListItem from "./UserLIstItem";
 import { BiRightArrowAlt } from "react-icons/bi";
-import { myFriends, updateChat } from "../redux/api/api";
+import { forwardMessage, myFriends, updateChat } from "../redux/api/api";
 import { TopBackBtn } from "../utils/Utill";
 
 
-const Contacts = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">; setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;}) => {
+const Contacts = ({singleSelectedUser, setSingleSelectedUser, setIsStartChatClicked}:{
+    singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">;
+    setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;
+    setIsStartChatClicked:Dispatch<SetStateAction<boolean>>;
+}) => {
     const [myAllFriends, setMyAllFriends] = useState<UserTypes[]>([]);
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
-    const {selectedChat, selectedNavigation} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
+    const {selectedChat, selectedNavigation, selectedMessages} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
 
 
 
@@ -53,6 +57,18 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUse
         }
     };
 
+    const forwardMessageHandler = async() => {
+        try {
+            
+            const res = await forwardMessage({memberIDs:usersToAddInGroup, contentID:selectedMessages.map((msg) => msg.content._id), attachment:selectedMessages.flatMap((msg) => msg.attachment), messageType:"text", messageStatus:"sent", isForwarded:true});
+
+            if (res.success === true) {
+                console.log(res.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         console.log(":::::::::::::::::::::::");
@@ -76,7 +92,7 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUse
                             <div key={user._id} className="user_cont"
                                 onClick={() => onSelectUserHandler(user)}
                                 style={{
-                                    background:selectedNavigation === "Add members" ?
+                                    background:(selectedNavigation === "Add members" || selectedNavigation === "Forward") ?
                                         usersToAddInGroup.includes(user._id) ?
                                             PRIMARY_LIGHT
                                             :
@@ -92,18 +108,33 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser}:{singleSelectedUse
                                         usersToAddInGroup.includes(user._id)
                                         :
                                         singleSelectedUser._id === user._id
-                                    } />
+                                    }
+                                    setIsStartChatClicked={setIsStartChatClicked}
+                                />
                             </div>
                         ))
                     }
                 </div>
             </div>
-            <button className="submit_btn" style={{
-                transform:selectedNavigation === "Add members" && usersToAddInGroup.length !== 0?"scale(1)":"scale(0)"
-            }}
-                onClick={addRemoveUserHandler}>
-                <span className="selection_count">{usersToAddInGroup.length}</span> <BiRightArrowAlt className="BiRightArrowAlt" />
-            </button>
+
+            {
+                selectedNavigation === "Add members" &&
+                    <button className="submit_btn" style={{
+                        transform:selectedNavigation === "Add members" && usersToAddInGroup.length !== 0?"scale(1)":"scale(0)"
+                    }}
+                        onClick={addRemoveUserHandler}>
+                        <span className="selection_count">{usersToAddInGroup.length}</span> <BiRightArrowAlt className="BiRightArrowAlt" />
+                    </button>
+            }
+            {
+                selectedNavigation === "Forward" &&
+                    <button className="submit_btn" style={{
+                        transform:selectedNavigation === "Forward" && usersToAddInGroup.length !== 0?"scale(1)":"scale(0)"
+                    }}
+                        onClick={forwardMessageHandler}>
+                        <span className="selection_count">{usersToAddInGroup.length}</span> <BiRightArrowAlt className="BiRightArrowAlt" />
+                    </button>
+            }
         </div>
     )
 };
