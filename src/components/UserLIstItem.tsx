@@ -18,7 +18,7 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
     date:string|IconType[];
     replyFriendRequestHandler?:({ friendRequestID, status }: {friendRequestID: string; status: FriendRequestStatusType;}) => Promise<void>; imgHeight?:string; imgWidth?:string;
     optionsArray?:NaviagationTypes[];
-    setIsStartChatClicked:Dispatch<SetStateAction<boolean>>;
+    setIsStartChatClicked?:Dispatch<SetStateAction<boolean>>;
 }) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
 

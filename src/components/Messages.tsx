@@ -8,13 +8,13 @@ import { SpreadOptions } from "../utils/Utill";
 import { FcCancel } from "react-icons/fc";
 import { CgRemove } from "react-icons/cg";
 import { setIsMessageSelectionActive, setSelectedMessages } from "../redux/reducers/navigationReducer";
-import { deleteMessagesForAll, deleteMessagesForMe, forwardMessage } from "../redux/api/api";
+import { deleteMessagesForAll, deleteMessagesForMe } from "../redux/api/api";
 import { BsForward } from "react-icons/bs";
 //import { Dispatch, SetStateAction } from "react";
 
 const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, selectedMessages, setIsDialogOpen,
     isDeleteForMeClicked, isDeleteForAllClicked, setIsDeleteForMeClicked, setIsDeleteForAllClicked, setDialogParent,
-    selectedNavigation, selectedChat
+    selectedNavigation
 }:{messageArray:MessageTypesPopulated[]|[];
     setMessageArray:Dispatch<SetStateAction<MessageTypesPopulated[]>>;
     isMessageSelectionActive:boolean;
