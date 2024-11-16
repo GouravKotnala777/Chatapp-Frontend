@@ -60,7 +60,7 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser, setIsStartChatClic
     const forwardMessageHandler = async() => {
         try {
             
-            const res = await forwardMessage({memberIDs:usersToAddInGroup, contentID:selectedMessages.map((msg) => msg.content._id), attachment:selectedMessages.flatMap((msg) => msg.attachment), messageType:"text", messageStatus:"sent", isForwarded:true});
+            const res = await forwardMessage({memberIDs:usersToAddInGroup, contentID:selectedMessages.map((msg) => msg?.content?._id).filter((item) => item !== undefined), attachment:selectedMessages.flatMap((msg) => msg.attachment?.[0]._id).filter((item) => item !== undefined), messageType:"text", messageStatus:"sent", isForwarded:true});
 
             if (res.success === true) {
                 console.log(res.message);
