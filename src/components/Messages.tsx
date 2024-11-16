@@ -145,23 +145,44 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
             {
                 messageArray&&typeof messageArray === "object"&&messageArray.length!==0&&messageArray.map((msg) => {
                     if (msg.sender === user?._id) {
-                        return(
-                            <div className="outgoing_message_cont_outer" key={msg._id}>
-                                <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
-                                <div className="outgoing_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
-                                    <div className="content">{msg?.content?.contentMessage}</div>
-                                    <div className="date"
-                                    style={{display:selectedMessage === msg._id ? "none" : "block"}}
-                                    >{msg.createdAt.toString().split("T")[0]}</div>
-                                    <div className="message_options_cont" 
-                                    style={{display:selectedMessage === msg._id ? "block" : "none"}}
-                                    >
-                                        <BiDownArrow className="BiDownArrow" onClick={() => setIsOpen(!isOpen)} />
-                                        <SpreadOptions contentArray={["Add members", "Forward", "Archive chat", "Delete message"]} isOpen={isOpen} setIsOpen={setIsOpen} />
+                        if (msg.content) {
+                            return(
+                                <div className="outgoing_message_cont_outer" key={msg._id}>
+                                    <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
+                                    <div className="outgoing_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
+                                        <div className="content">{msg?.content?.contentMessage}</div>
+                                        <div className="date"
+                                        style={{display:selectedMessage === msg._id ? "none" : "block"}}
+                                        >{msg.createdAt.toString().split("T")[0]}</div>
+                                        <div className="message_options_cont" 
+                                        style={{display:selectedMessage === msg._id ? "block" : "none"}}
+                                        >
+                                            <BiDownArrow className="BiDownArrow" onClick={() => setIsOpen(!isOpen)} />
+                                            <SpreadOptions contentArray={["Add members", "Forward", "Archive chat", "Delete message"]} isOpen={isOpen} setIsOpen={setIsOpen} />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
+                            )
+                        }
+                        else{
+                            return(
+                                <div className="outgoing_attachment_cont_outer" key={msg._id}>
+                                    <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
+                                    <div className="outgoing_attachment_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
+                                        <div className="content"><img src={`${msg?.attachment?.[0].contentMessage.split("/upload")[0]}/upload/w_200,h_200${msg?.attachment?.[0].contentMessage.split("/upload")[1]}`} alt={`${msg?.attachment?.[0].contentMessage.split("/upload")[0]}/upload/w_100,h_100${msg?.attachment?.[0].contentMessage.split("/upload")[1]}`} /></div>
+                                        <div className="date"
+                                        style={{display:selectedMessage === msg._id ? "none" : "block"}}
+                                        >{msg.createdAt.toString().split("T")[0]}</div>
+                                        <div className="message_options_cont" 
+                                        style={{display:selectedMessage === msg._id ? "block" : "none"}}
+                                        >
+                                            <BiDownArrow className="BiDownArrow" onClick={() => setIsOpen(!isOpen)} />
+                                            <SpreadOptions contentArray={["Add members", "Forward", "Archive chat", "Delete message"]} isOpen={isOpen} setIsOpen={setIsOpen} />
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
                     }
                     else if(msg.sender === "default"){
                         return(

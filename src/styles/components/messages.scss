@@ -114,6 +114,64 @@
             }
         }
     }
+    .outgoing_attachment_cont_outer{
+        //border: 2px solid rgb(30, 255, 30);
+        display: flex;
+        .include_message_checkbox{
+            transform: scale(0, 1);
+            transition: 0.5s;
+        }
+        .outgoing_attachment_cont{
+            //border: 1px solid red;
+            width: fit-content;
+            max-width: 45%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 5px;
+            border-radius:10px 0 10px 10px;
+            margin: 10px 10px 10px auto;
+            text-align: justify;
+            background: $grayDark;
+            //position: relative;
+            .content{
+                //border: 1px solid violet;
+                font-size: 0.7rem;
+                color: $grayLighter;
+                margin-bottom: 5px;
+                width: 88%;
+                img{
+                    border-radius: 4px;
+                }
+            }
+            .date{
+                //border: 1px solid indigo;
+                font-size: 0.5rem;
+                color: $grayLight;
+                margin-top: 5px;
+                width: 12%;
+                min-width: 40px;
+                margin-left: 4px;
+            }
+            .message_options_cont{
+                //border: 1px solid rgb(0, 255, 0);
+                //position: absolute;
+                top: 0;
+                right: 0;
+                width: 50px;
+                height: 100%;
+                border-radius: 20px 0 0 20px;
+                background-color: $grayDarker;
+                //text-align: right;
+                display: none;
+                place-items: center;
+                .BiDownArrow{
+                    color:$grayLighter;                
+                    cursor: pointer;
+                }
+            }
+        }
+    }
     .default_message_cont{
         //border: 1px solid white;
         width: max-content;
