@@ -15,6 +15,7 @@
     .messagenger{
         //border: 1px solid violet;
         height: 100vh;
+        position: relative;
         .upper_part{
             //border: 1px solid indigo;
             height: 13%;
@@ -30,11 +31,65 @@
             height: 12%;
             display: flex;
             color: $grayLight;
+            //position: relative;
 
             .icon{
                 //border: 1px solid rgb(0, 255, 191);
                 font-size: 1.1rem;
                 padding: 12px;
+                &:hover{
+                    background-color: $grayHover;
+                }
+                .attachment_dialog_menu{
+                    //border: 2px solid greenyellow;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: transparent;
+                    .attachment_menu_cont{
+                        //border: 2px solid rgb(51, 51, 255);
+                        width: 80px;
+                        position: absolute;
+                        left: 10px;
+                        bottom: 80px;
+                        border-radius: 4px;
+                        background-color: $grayDark;
+                        transform: scale(1,0);
+                        transform-origin: bottom;
+                        transition: 0.3s;
+                        .menu{
+                            //border: 1px solid red;
+                            font-size: 0.8rem;
+                            padding: 5px;
+                            color: $grayLight;
+                            overflow: hidden;
+                            position: relative;
+                            height: 40px;
+                            &:hover{
+                                background-color: $grayHover;
+                                color: white;
+                            }
+                            .menu_span{
+                                //border: 1px solid rgb(96, 96, 255);
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                            }
+                            .menu_file_input{
+                                //border: 1px solid blue;
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                height: 100%;
+                                opacity: 0;
+                            }
+                        }
+                    }
+                }
             }
             .search_cont_outer{
                 //border: 1px solid rgb(255, 213, 0);
@@ -143,7 +198,61 @@
                     display: grid;
                     place-items: center;
                     font-size: 0.9rem;
+                    &:hover{
+                        background-color: $grayHover;
+                    }
+                    .attachment_dialog_menu{
+                        //border: 2px solid greenyellow;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: transparent;
+                        .attachment_menu_cont{
+                            //border: 2px solid rgb(51, 51, 255);
+                            width: 80px;
+                            position: absolute;
+                            left: 10px;
+                            bottom: 80px;
+                            border-radius: 4px;
+                            background-color: $grayDark;
+                            transform: scale(1,0);
+                            transform-origin: bottom;
+                            transition: 0.3s;
+                            .menu{
+                                //border: 1px solid red;
+                                font-size: 0.8rem;
+                                padding: 5px;
+                                color: $grayLight;
+                                overflow: hidden;
+                                position: relative;
+                                height: 40px;
+                                &:hover{
+                                    background-color: $grayHover;
+                                    color: white;
+                                }
+                                .menu_span{
+                                    //border: 1px solid rgb(96, 96, 255);
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                }
+                                .menu_file_input{
+                                    //border: 1px solid blue;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    height: 100%;
+                                    opacity: 0;
+                                }
+                            }
+                        }
+                    }
                 }
+                
                 .search_cont_outer{
                     //border: 1px solid rgb(255, 213, 0);
                     //flex: 1;
@@ -197,7 +306,57 @@
                             height: 25px;
                             border-radius: 10px;
                             &:hover{
-                                background: $grayHover;
+                                background-color: $grayHover;
+                            }
+                            .attachment_dialog_menu{
+                                //border: 2px solid greenyellow;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background-color: transparent;
+                                .attachment_menu_cont{
+                                    //border: 2px solid rgb(51, 51, 255);
+                                    width: 80px;
+                                    position: absolute;
+                                    left: 10px;
+                                    bottom: 80px;
+                                    border-radius: 4px;
+                                    background-color: $grayDark;
+                                    transform: scale(1,0);
+                                    transform-origin: bottom;
+                                    transition: 0.3s;
+                                    .menu{
+                                        //border: 1px solid red;
+                                        font-size: 0.8rem;
+                                        padding: 5px;
+                                        color: $grayLight;
+                                        overflow: hidden;
+                                        position: relative;
+                                        height: 40px;
+                                        &:hover{
+                                            background-color: $grayHover;
+                                            color: white;
+                                        }
+                                        .menu_span{
+                                            //border: 1px solid rgb(96, 96, 255);
+                                            position: absolute;
+                                            top: 50%;
+                                            left: 50%;
+                                            transform: translate(-50%, -50%);
+                                        }
+                                        .menu_file_input{
+                                            //border: 1px solid blue;
+                                            position: absolute;
+                                            top: 50%;
+                                            left: 50%;
+                                            transform: translate(-50%, -50%);
+                                            height: 100%;
+                                            opacity: 0;
+                                        }
+                                    }
+                                }
                             }
                         }
                         .icon_name{

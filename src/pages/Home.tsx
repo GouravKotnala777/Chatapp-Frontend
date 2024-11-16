@@ -60,6 +60,7 @@ const Home = () => {
     const [isDeleteForAllClicked, setIsDeleteForAllClicked] = useState<boolean>(false);
     const [isStartChatClicked, setIsStartChatClicked] = useState<boolean>(false);
     const [dialogParent, setDialogParent] = useState<DialogParentTypes>("Delete for me");
+    const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
 
 
 
@@ -315,7 +316,21 @@ const Home = () => {
                                 !isMessageSelectionActive &&
                                     <div className="lower_part">
                                         <div className="icon"><FaRegLaughBeam /></div>
-                                        <div className="icon"><FaPlus /></div>
+                                        <div className="icon" onClick={() => setIsAttachmentOpen(!isAttachmentOpen)}>
+                                            <FaPlus />
+                                            <div className="attachment_dialog_menu" style={{zIndex:isAttachmentOpen?"22":"-1"}}>
+                                                <div className="attachment_menu_cont" style={{transform:isAttachmentOpen?`scale(1,1)`:`scale(1,0)`}}>
+                                                    {
+                                                        [{heading:"Image", ext:".jpg, .jpeg, .png"}, {heading:"Video", ext:"video/*"}, {heading:"Audio", ext:"audio/*"}, {heading:"Doc", ext:".pdf, .doc, .docx, .txt"}, {heading:"Archives", ext:".zip, .rar, .7z"}].map(item => (
+                                                            <div className="menu">
+                                                                <span className="menu_span">{item.heading}</span>
+                                                                <input type="file" accept={item.ext} className="menu_file_input" />
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div className="search_cont_outer">
                                             <MessageInput refresh={refresh} setRefresh={setRefresh} singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} messageInp={messageInp} setMessageInp={setMessageInp} messageType={messageType} setMessageType={setMessageType} messageArray={messageArray} setMessageArray={setMessageArray} singleMessage={singleMessage} setSingleMessage={setSingleMessage} />
                                         </div>

@@ -7,7 +7,7 @@ import { MdKeyboardVoice } from "react-icons/md";
 import { IoVideocam } from "react-icons/io5";
 import { BiDotsVertical, BiLeftArrow } from "react-icons/bi";
 import { ChatTypes, ContentMessageType, DialogParentTypes, MessageTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import MessageInput from "../components/MessageInput";
 import { useDispatch } from "react-redux";
 import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
@@ -41,6 +41,9 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     selectedNavigation:NaviagationTypes;
 }) => {
     const dispatch = useDispatch();
+    const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
+    //const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
+
 
     return(
         <div className="messagenger_mobile">
@@ -54,25 +57,39 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
                 </div>
             </div>
             <div className="middle_part">
-            <Messages messageArray={messageArray} 
-                isMessageSelectionActive={isMessageSelectionActive}
-                selectedMessages={selectedMessages}
-                setIsDialogOpen={setIsDialogOpen}
-                isDeleteForMeClicked={isDeleteForMeClicked}
-                setIsDeleteForMeClicked={setIsDeleteForMeClicked}
-                isDeleteForAllClicked={isDeleteForAllClicked}
-                setIsDeleteForAllClicked={setIsDeleteForAllClicked}
-                
+                <Messages messageArray={messageArray} 
+                    isMessageSelectionActive={isMessageSelectionActive}
+                    selectedMessages={selectedMessages}
+                    setIsDialogOpen={setIsDialogOpen}
+                    isDeleteForMeClicked={isDeleteForMeClicked}
+                    setIsDeleteForMeClicked={setIsDeleteForMeClicked}
+                    isDeleteForAllClicked={isDeleteForAllClicked}
+                    setIsDeleteForAllClicked={setIsDeleteForAllClicked}
+                    
 
-                setMessageArray={setMessageArray}
-                setDialogParent={setDialogParent}
-                selectedNavigation={selectedNavigation}
-                selectedChat={selectedChat}
-            />
+                    setMessageArray={setMessageArray}
+                    setDialogParent={setDialogParent}
+                    selectedNavigation={selectedNavigation}
+                    selectedChat={selectedChat}
+                />
             </div>
             <div className="lower_part">
                 <div className="icon"><FaRegLaughBeam /></div>
-                <div className="icon"><FaPlus /></div>
+                <div className="icon" onClick={() => setIsAttachmentOpen(!isAttachmentOpen)}>
+                    <FaPlus />
+                    <div className="attachment_dialog_menu" style={{zIndex:isAttachmentOpen?"22":"-1"}}>
+                        <div className="attachment_menu_cont" style={{transform:isAttachmentOpen?`scale(1,1)`:`scale(1,0)`}}>
+                            {
+                                [{heading:"Image", ext:".jpg, .jpeg, .png"}, {heading:"Video", ext:"video/*"}, {heading:"Audio", ext:"audio/*"}, {heading:"Doc", ext:".pdf, .doc, .docx, .txt"}, {heading:"Archives", ext:".zip, .rar, .7z"}].map(item => (
+                                    <div className="menu">
+                                        <span className="menu_span">{item.heading}</span>
+                                        <input type="file" accept={item.ext} className="menu_file_input" />
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
                 <div className="search_cont_outer">
                     <MessageInput 
                         refresh={refresh}
