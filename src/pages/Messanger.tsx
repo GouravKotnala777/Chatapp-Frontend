@@ -42,7 +42,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
 }) => {
     const dispatch = useDispatch();
     const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
-    //const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
+
 
 
     return(

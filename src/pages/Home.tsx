@@ -26,7 +26,7 @@ import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
-import { createChat, myProfile, selectedChatMessages } from "../redux/api/api";
+import { createChat, myProfile, selectedChatMessages, sendAttachment } from "../redux/api/api";
 import { setLoginUser } from "../redux/reducers/loginUserReducer";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
@@ -61,7 +61,7 @@ const Home = () => {
     const [isStartChatClicked, setIsStartChatClicked] = useState<boolean>(false);
     const [dialogParent, setDialogParent] = useState<DialogParentTypes>("Delete for me");
     const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
-
+    //const [selectedAttachment, setSelectedAttachment] = useState<File|null>(null);
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -324,7 +324,25 @@ const Home = () => {
                                                         [{heading:"Image", ext:".jpg, .jpeg, .png"}, {heading:"Video", ext:"video/*"}, {heading:"Audio", ext:"audio/*"}, {heading:"Doc", ext:".pdf, .doc, .docx, .txt"}, {heading:"Archives", ext:".zip, .rar, .7z"}].map(item => (
                                                             <div className="menu">
                                                                 <span className="menu_span">{item.heading}</span>
-                                                                <input type="file" accept={item.ext} className="menu_file_input" />
+                                                                <input type="file" accept={item.ext} className="menu_file_input" onChange={(e) => {
+                                                                    const formData = new FormData();
+                                                                    formData.append("messageType", item.heading.toLowerCase());
+                                                                    formData.append("chatID", selectedChat._id);
+                                                                    formData.append("image", e.target.files?.[0] as File);
+
+                                                                    console.log(formData);
+
+                                                                    const sendImage = sendAttachment(formData);
+
+                                                                    sendImage.then((resolve) => {
+                                                                        console.log(resolve);
+                                                                        if (resolve.success === true) {
+                                                                            setMessageArray((prev) => [...prev, (resolve.message as MessageTypesPopulated)]);
+                                                                        }
+                                                                    }).catch((err) => {
+                                                                        console.log(err);
+                                                                    })
+                                                                }} />
                                                             </div>
                                                         ))
                                                     }

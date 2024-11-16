@@ -149,7 +149,7 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                             <div className="outgoing_message_cont_outer" key={msg._id}>
                                 <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
                                 <div className="outgoing_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
-                                    <div className="content">{msg.content.contentMessage}</div>
+                                    <div className="content">{msg?.content?.contentMessage}</div>
                                     <div className="date"
                                     style={{display:selectedMessage === msg._id ? "none" : "block"}}
                                     >{msg.createdAt.toString().split("T")[0]}</div>
@@ -183,10 +183,10 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                             <div className="incomming_message_cont_outer" key={msg._id}>
                                 <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
                                 <div className="incomming_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
-                                    <div className="content">{msg.content.contentMessage}</div>
+                                    <div className="content">{msg?.content?.contentMessage}</div>
                                     <div className="date"
                                     style={{display:selectedMessage === msg._id ? "none" : "block"}}
-                                    >{msg.createdAt.toString().split("T")[0]}</div>
+                                    >{msg.createdAt?.toString().split("T")[0]}</div>
                                     <div className="message_options_cont" 
                                         style={{display:selectedMessage === msg._id ? "block" : "none"}}
                                         >

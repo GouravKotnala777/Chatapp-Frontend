@@ -51,8 +51,8 @@ export interface MessageTypes {
     _id:string;
     sender:string;
     chatID:string;
-    content:string;
-    attachment:string[];
+    content?:string;
+    attachment?:string[];
     messageStatus:MessageStatusType;
     isForwarded:boolean;
     deletedFor:string[];
@@ -63,8 +63,8 @@ export interface MessageTypesPopulated {
     _id:string;
     sender:string;
     chatID:string;
-    content:ContentType;
-    attachment:string[];
+    content?:ContentType;
+    attachment?:ContentType[];
     messageStatus:MessageStatusType;
     isForwarded:boolean;
     deletedFor:string[];

@@ -387,6 +387,27 @@ export const createMessage = async(createMessageFormData:{sender:string; chatID:
         return error as ResponseType<Error>;
     }
 };
+export const sendAttachment = async(formData:FormData) => {
+    try {
+        const sendAttachmentRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/send-attachment`, {
+            method:"POST",
+            credentials:"include",
+            body:formData
+        });
+
+        const sendAttachmentData = await sendAttachmentRes.json();
+
+        console.log("----- sendAttachment api.ts");
+        console.log(sendAttachmentData);        
+        console.log("----- sendAttachment api.ts");
+        return sendAttachmentData as ResponseType<MessageTypesPopulated>;
+    } catch (error) {
+        console.log("----- sendAttachment api.ts");
+        console.log(error);
+        console.log("----- sendAttachment api.ts");
+        return error as ResponseType<Error>;
+    }
+};
 export const deleteMessagesForMe = async(deleteForMeFormData:{messageID:string[]}) => {
     try {
         const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/delete-for-me`, {
