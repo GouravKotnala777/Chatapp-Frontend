@@ -2,7 +2,7 @@ import "../styles/components/contacts.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { UserTypes } from "../types/types";
-import { MiscReducerTypes, setIsMessageSelectionActive, setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { MiscReducerTypes, setIsMessageSelectionActive, setSelectedMessages, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import UserListItem from "./UserLIstItem";
 import { BiRightArrowAlt } from "react-icons/bi";
@@ -66,6 +66,7 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser, setIsStartChatClic
                 console.log(res.message);
                 dispatch(setIsMessageSelectionActive(false));
                 dispatch(setSelectedNavigation("Chats"));
+                dispatch(setSelectedMessages(null));
             }
         } catch (error) {
             console.log(error);

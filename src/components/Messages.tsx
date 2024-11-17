@@ -169,9 +169,9 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                         else{
                             return(
                                 <div className="outgoing_attachment_cont_outer" key={msg._id}>
-                                    <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
+                                    <input type="checkbox" className="include_message_checkbox" name={`includeImageMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
                                     <div className="outgoing_attachment_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
-                                        <div className="content"><img src={`${msg?.attachment?.[0].contentMessage.split("/upload")[0]}/upload/w_200,h_200${msg?.attachment?.[0].contentMessage.split("/upload")[1]}`} alt={`${msg?.attachment?.[0].contentMessage.split("/upload")[0]}/upload/w_100,h_100${msg?.attachment?.[0].contentMessage.split("/upload")[1]}`} /></div>
+                                        <div className="content"><img src={`${msg?.attachment?.[0].contentMessage.split("/upload")[0]}/upload/w_200,h_200${msg?.attachment?.[0].contentMessage.split("/upload")[1]}`} alt={msg?.attachment?.[0].contentMessage} /></div>
                                         <div className="date"
                                         style={{display:selectedMessage === msg._id ? "none" : "block"}}
                                         >{msg.createdAt.toString().split("T")[0]}</div>
