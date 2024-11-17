@@ -458,6 +458,8 @@ export const deleteMessagesForAll = async(deleteForAllFormData:{messageID:string
 };
 export const forwardMessage = async(forwardMessageFormData:{memberIDs:string[]; contentID:string[]; attachment:string[]; messageType:ContentMessageType; messageStatus:MessageStatusType; isForwarded:boolean;}) => {
     try {
+        console.log({forwardMessageFormData});
+        
         const forwardMessageRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/forward`, {
             method:"POST",
             headers:{

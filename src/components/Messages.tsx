@@ -141,7 +141,8 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
 
     return(
         <div className="messages_cont">
-            {/*<pre style={{color:"white"}}>{JSON.stringify(selectedNavigation, null, `\t`)}</pre>*/}
+            {/*<pre style={{color:"white"}}>{JSON.stringify(selectedMessages, null, `\t`)}</pre>
+            <pre style={{color:"white"}}>{JSON.stringify(messageArray?.map(e => ({_id:e._id, contentID:e.content?._id, contentMessage:e.content?.contentMessage})), null, `\t`)}</pre>*/}
             {
                 messageArray&&typeof messageArray === "object"&&messageArray.length!==0&&messageArray.map((msg) => {
                     if (msg.sender === user?._id) {
@@ -151,6 +152,7 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                                     <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
                                     <div className="outgoing_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
                                         <div className="content">{msg?.content?.contentMessage}</div>
+                                        {/*<div className="content">{JSON.stringify(msg, null, `\t`)}</div>*/}
                                         <div className="date"
                                         style={{display:selectedMessage === msg._id ? "none" : "block"}}
                                         >{msg.createdAt.toString().split("T")[0]}</div>

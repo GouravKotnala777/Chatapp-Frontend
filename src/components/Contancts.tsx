@@ -2,8 +2,8 @@ import "../styles/components/contacts.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { UserTypes } from "../types/types";
-import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
-import { useSelector } from "react-redux";
+import { MiscReducerTypes, setIsMessageSelectionActive, setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { useDispatch, useSelector } from "react-redux";
 import UserListItem from "./UserLIstItem";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { forwardMessage, myFriends, updateChat } from "../redux/api/api";
@@ -18,7 +18,7 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser, setIsStartChatClic
     const [myAllFriends, setMyAllFriends] = useState<UserTypes[]>([]);
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const {selectedChat, selectedNavigation, selectedMessages} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
-
+    const dispatch = useDispatch();
 
 
     const onSelectUserHandler = (user:Pick<UserTypes, "_id"|"name"|"email">) => {
@@ -60,10 +60,12 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser, setIsStartChatClic
     const forwardMessageHandler = async() => {
         try {
             
-            const res = await forwardMessage({memberIDs:usersToAddInGroup, contentID:selectedMessages.map((msg) => msg?.content?._id).filter((item) => item !== undefined), attachment:selectedMessages.flatMap((msg) => msg.attachment?.[0]._id).filter((item) => item !== undefined), messageType:"text", messageStatus:"sent", isForwarded:true});
+            const res = await forwardMessage({memberIDs:usersToAddInGroup, contentID:selectedMessages.map((msg) => msg?.content?._id).filter((item) => item !== undefined), attachment:selectedMessages.flatMap((msg) => msg.attachment?.[0]?._id).filter((item) => item !== undefined), messageType:"text", messageStatus:"sent", isForwarded:true});
 
             if (res.success === true) {
                 console.log(res.message);
+                dispatch(setIsMessageSelectionActive(false));
+                dispatch(setSelectedNavigation("Chats"));
             }
         } catch (error) {
             console.log(error);
