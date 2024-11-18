@@ -227,23 +227,69 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                         )
                     }
                     else{
-                        return(
-                            <div className="incomming_message_cont_outer" key={msg._id}>
-                                <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
-                                <div className="incomming_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
-                                    <div className="content">{msg?.content?.contentMessage}</div>
-                                    <div className="date"
-                                    style={{display:selectedMessage === msg._id ? "none" : "block"}}
-                                    >{msg.createdAt?.toString().split("T")[0]}</div>
-                                    <div className="message_options_cont" 
-                                        style={{display:selectedMessage === msg._id ? "block" : "none"}}
-                                        >
-                                        <BiDownArrow className="BiDownArrow" onClick={() => setIsOpen(!isOpen)} />
-                                        <SpreadOptions contentArray={["Add members", "Block", "Archive chat", "Delete message"]} isOpen={isOpen} setIsOpen={setIsOpen} />
+                        if (msg.content) {
+                            return(
+                                <div className="incomming_message_cont_outer" key={msg._id}>
+                                    <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
+                                    <div className="incomming_message_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
+                                        <div className="content">{msg?.content?.contentMessage}</div>
+                                        <div className="date"
+                                        style={{display:selectedMessage === msg._id ? "none" : "block"}}
+                                        >{msg.createdAt?.toString().split("T")[0]}</div>
+                                        <div className="message_options_cont" 
+                                            style={{display:selectedMessage === msg._id ? "block" : "none"}}
+                                            >
+                                            <BiDownArrow className="BiDownArrow" onClick={() => setIsOpen(!isOpen)} />
+                                            <SpreadOptions contentArray={["Add members", "Block", "Archive chat", "Delete message"]} isOpen={isOpen} setIsOpen={setIsOpen} />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
+                            )
+                        }
+                        else{
+                            return(
+                                <div className="incomming_attachment_cont_outer" key={msg._id}>
+                                    <input type="checkbox" className="include_message_checkbox" name={`includeMessage-${msg._id}`} style={{transform:isMessageSelectionActive?"scale(1, 1)":"scale(0, 1)"}} onChange={() => dispatch(setSelectedMessages(msg))} />
+                                    <div className="incomming_attachment_cont" onMouseEnter={() => onMouseEnterHandler(msg._id)}>
+                                        <div className="content">
+                                            {
+                                                msg.attachment?.[0].contentType === "image" &&
+                                                    <ImageWithFallback
+                                                        src={`${msg?.attachment?.[0].contentMessage.split("/upload")[0]}/upload/w_200,h_200${msg?.attachment?.[0].contentMessage.split("/upload")[1]}`}
+                                                        alt={msg?.attachment?.[0].contentMessage}
+                                                        width={170}
+                                                        height={170}
+                                                     />
+                                            }
+                                            {
+                                                msg.attachment?.[0].contentType === "audio" &&
+                                                    <audio controls >
+                                                        <source src={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="audio/mpeg" />
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                            }
+                                            {
+                                                msg.attachment?.[0].contentType === "video" &&
+                                                    <video width={170} height={170} controls >
+                                                        <source src={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="video/mp4" />
+                                                        <source src={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="video/ogg" />
+                                                        Your browser does not support the video element.
+                                                    </video>
+                                            }
+                                        </div>
+                                        <div className="date"
+                                        style={{display:selectedMessage === msg._id ? "none" : "block"}}
+                                        >{msg.createdAt?.toString().split("T")[0]}</div>
+                                        <div className="message_options_cont" 
+                                            style={{display:selectedMessage === msg._id ? "block" : "none"}}
+                                            >
+                                            <BiDownArrow className="BiDownArrow" onClick={() => setIsOpen(!isOpen)} />
+                                            <SpreadOptions contentArray={["Add members", "Block", "Archive chat", "Delete message"]} isOpen={isOpen} setIsOpen={setIsOpen} />
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
                     }
                 })
             }
