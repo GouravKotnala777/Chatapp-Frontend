@@ -196,6 +196,30 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                                                         Your browser does not support the video element.
                                                     </video>
                                             }
+                                            {
+                                                msg.attachment?.[0].contentType === "file" &&
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ?
+                                                        <object data={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="application/pdf" width="100%" height="600px">
+                                                            <p>{msg.attachment?.[0].contentMessage.split("uploads\\")[1]}</p>
+                                                            click &nbsp;
+                                                            <a href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}> here </a>
+                                                            &nbsp; to open
+                                                        </object>
+                                                        :
+                                                        (msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ||
+                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "doc" ||
+                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "docx" ||
+                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xls" ||
+                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xlsx")  ?
+                                                            <object data={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="application/pdf" width="100%" height="600px">
+                                                                <p>{msg.attachment?.[0].contentMessage.split("uploads\\")[1]}</p>
+                                                                click &nbsp;
+                                                                <a href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}> here </a>
+                                                                &nbsp; to download
+                                                            </object>
+                                                            :
+                                                            <p>{`undefined --> ${msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1]} <--`}</p>
+                                            }
                                         </div>
                                         <div className="date"
                                         style={{display:selectedMessage === msg._id ? "none" : "block"}}
@@ -275,6 +299,30 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                                                         <source src={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="video/ogg" />
                                                         Your browser does not support the video element.
                                                     </video>
+                                            }
+                                            {
+                                                msg.attachment?.[0].contentType === "file" &&
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ?
+                                                        <object data={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="application/pdf" width="100%" height="600px">
+                                                            <p>{msg.attachment?.[0].contentMessage.split("uploads\\")[1]}</p>
+                                                            click &nbsp;
+                                                            <a href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}> here </a>
+                                                            &nbsp; to open
+                                                        </object>
+                                                        :
+                                                        (msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ||
+                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "doc" ||
+                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "docx" ||
+                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xls" ||
+                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xlsx")  ?
+                                                            <object data={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="application/pdf" width="100%" height="600px">
+                                                                <p>{msg.attachment?.[0].contentMessage.split("uploads\\")[1]}</p>
+                                                                click &nbsp;
+                                                                <a href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}> here </a>
+                                                                &nbsp; to download
+                                                            </object>
+                                                            :
+                                                            <p>{`undefined --> ${msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1]} <--`}</p>
                                             }
                                         </div>
                                         <div className="date"

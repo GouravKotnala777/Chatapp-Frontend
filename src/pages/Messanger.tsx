@@ -81,7 +81,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
                     <div className="attachment_dialog_menu" style={{zIndex:isAttachmentOpen?"22":"-1"}}>
                         <div className="attachment_menu_cont" style={{transform:isAttachmentOpen?`scale(1,1)`:`scale(1,0)`}}>
                             {
-                                [{heading:"Image", ext:".jpg, .jpeg, .png"}, {heading:"Video", ext:"video/*"}, {heading:"Audio", ext:"audio/*"}, {heading:"Doc", ext:".pdf, .doc, .docx, .txt"}, {heading:"Archives", ext:".zip, .rar, .7z"}].map(item => (
+                                [{heading:"Image", ext:".jpg, .jpeg, .png"}, {heading:"Video", ext:"video/*"}, {heading:"Audio", ext:"audio/*"}, {heading:"File", ext:".pdf, .doc, .docx, .xls, .xlsx, .txt"}, {heading:"Archives", ext:".zip, .rar, .7z"}].map(item => (
                                     <div className="menu" key={item.heading}>
                                         <span className="menu_span">{item.heading}</span>
                                         <input type="file" accept={item.ext} className="menu_file_input"
