@@ -1,10 +1,11 @@
+import "../styles/utils.scss";
+import fallbackImage from "../../public/user_placeholder.png";
 import { BiSearch } from "react-icons/bi";
 import { GRAY_LIGHT } from "../constants/constants";
-import "../styles/utils.scss";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { NaviagationTypes, textAlign } from "../types/types";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
 //import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
 import { useDispatch } from "react-redux";
 import { setIsMessageSelectionActive, setSelectedNavigation } from "../redux/reducers/navigationReducer";
@@ -161,4 +162,14 @@ export const TopBackBtn = ({heading}:{heading?:string;}) => {
             </div>
         </div>
     )
+};
+export const ImageWithFallback = ({src, alt, width, height}:{src:string; alt:string; width:number; height:number;}) => {
+    const imageFallbackHandler = (e:SyntheticEvent<HTMLImageElement>) => {
+        e.currentTarget.onerror = null;
+        e.currentTarget.src = fallbackImage;
+        e.currentTarget.width = width;
+        e.currentTarget.height = height;
+    }
+    
+    return <img src={src} alt={alt} onError={(e) => imageFallbackHandler(e)} />
 };
