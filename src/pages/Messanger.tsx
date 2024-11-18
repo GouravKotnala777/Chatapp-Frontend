@@ -11,6 +11,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import MessageInput from "../components/MessageInput";
 import { useDispatch } from "react-redux";
 import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { sendAttachment } from "../redux/api/api";
 
 
 const Messanger = ({selectedChat, setIsMessangerForMobileActive,
@@ -83,7 +84,27 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
                                 [{heading:"Image", ext:".jpg, .jpeg, .png"}, {heading:"Video", ext:"video/*"}, {heading:"Audio", ext:"audio/*"}, {heading:"Doc", ext:".pdf, .doc, .docx, .txt"}, {heading:"Archives", ext:".zip, .rar, .7z"}].map(item => (
                                     <div className="menu" key={item.heading}>
                                         <span className="menu_span">{item.heading}</span>
-                                        <input type="file" accept={item.ext} className="menu_file_input" />
+                                        <input type="file" accept={item.ext} className="menu_file_input"
+                                            onChange={(e) => {
+                                                const formData = new FormData();
+                                                formData.append("messageType", item.heading.toLowerCase());
+                                                formData.append("chatID", selectedChat._id);
+                                                formData.append("image", e.target.files?.[0] as File);
+
+                                                console.log(formData);
+
+                                                const sendImage = sendAttachment(formData);
+
+                                                sendImage.then((resolve) => {
+                                                    console.log(resolve);
+                                                    if (resolve.success === true) {
+                                                        setMessageArray((prev) => [...prev, (resolve.message as MessageTypesPopulated)]);
+                                                    }
+                                                }).catch((err) => {
+                                                    console.log(err);
+                                                })
+                                            }}
+                                        />
                                     </div>
                                 ))
                             }
