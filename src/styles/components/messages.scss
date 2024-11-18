@@ -135,13 +135,18 @@
             background: $grayDark;
             //position: relative;
             .content{
-                //border: 1px solid violet;
+                //border: 1px solid rgb(255, 82, 255);
                 font-size: 0.7rem;
                 color: $grayLighter;
                 margin-bottom: 5px;
-                width: 88%;
+                //width: 88%;
                 img{
                     border-radius: 4px;
+                }
+                audio{
+                    //border: 2px solid red;
+                    width: 210px;
+                    height: 30px;
                 }
             }
             .date{
