@@ -3,13 +3,14 @@ import "../styles/components/messages.scss";
 import { ChatTypes, ChatTypesPopulated, DialogParentTypes, MessageTypesPopulated, NaviagationTypes } from "../types/types";
 import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { BiDownArrow } from "react-icons/bi";
+import { BiDownArrow, BiDownload } from "react-icons/bi";
 import { ImageWithFallback, SpreadOptions } from "../utils/Utill";
 import { FcCancel } from "react-icons/fc";
 import { CgRemove } from "react-icons/cg";
 import { setIsMessageSelectionActive, setSelectedMessages } from "../redux/reducers/navigationReducer";
 import { deleteMessagesForAll, deleteMessagesForMe } from "../redux/api/api";
 import { BsForward } from "react-icons/bs";
+import { FiFile } from "react-icons/fi";
 //import { Dispatch, SetStateAction } from "react";
 
 const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, selectedMessages, setIsDialogOpen,
@@ -198,27 +199,23 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                                             }
                                             {
                                                 msg.attachment?.[0].contentType === "file" &&
-                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ?
-                                                        <object data={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="application/pdf" width="100%" height="600px">
-                                                            <p>{msg.attachment?.[0].contentMessage.split("uploads\\")[1]}</p>
-                                                            click &nbsp;
-                                                            <a href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}> here </a>
-                                                            &nbsp; to open
-                                                        </object>
-                                                        :
-                                                        (msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ||
-                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "doc" ||
-                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "docx" ||
-                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xls" ||
-                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xlsx")  ?
-                                                            <object data={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="application/pdf" width="100%" height="600px">
-                                                                <p>{msg.attachment?.[0].contentMessage.split("uploads\\")[1]}</p>
-                                                                click &nbsp;
-                                                                <a href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}> here </a>
-                                                                &nbsp; to download
-                                                            </object>
-                                                            :
-                                                            <p>{`undefined --> ${msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1]} <--`}</p>
+                                                    (msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ||
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "doc" ||
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "docx" ||
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xls" ||
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xlsx")  &&
+                                                    <div className="file_cont">
+                                                        <div className="file_icon"><FiFile /></div>
+                                                        <div className="file_name">
+                                                            <div className="name">
+                                                                {msg.attachment?.[0].contentMessage.split("\\")[1]}
+                                                            </div>
+                                                            <div className="ext">
+                                                                {msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1]} file
+                                                            </div>
+                                                        </div>
+                                                            <a className="download_link" href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}><BiDownload className="download_icon" /></a>
+                                                    </div>
                                             }
                                         </div>
                                         <div className="date"
@@ -302,27 +299,25 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                                             }
                                             {
                                                 msg.attachment?.[0].contentType === "file" &&
-                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ?
-                                                        <object data={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="application/pdf" width="100%" height="600px">
-                                                            <p>{msg.attachment?.[0].contentMessage.split("uploads\\")[1]}</p>
-                                                            click &nbsp;
-                                                            <a href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}> here </a>
-                                                            &nbsp; to open
-                                                        </object>
-                                                        :
-                                                        (msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ||
-                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "doc" ||
-                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "docx" ||
-                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xls" ||
-                                                        msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xlsx")  ?
-                                                            <object data={`http://localhost:8000/${msg.attachment[0].contentMessage}`} type="application/pdf" width="100%" height="600px">
-                                                                <p>{msg.attachment?.[0].contentMessage.split("uploads\\")[1]}</p>
-                                                                click &nbsp;
-                                                                <a href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}> here </a>
-                                                                &nbsp; to download
-                                                            </object>
-                                                            :
-                                                            <p>{`undefined --> ${msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1]} <--`}</p>
+                                                    (msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "pdf" ||
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "doc" ||
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "docx" ||
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xls" ||
+                                                    msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1] === "xlsx")  &&
+                                                    <div className="file_cont">
+                                                        <div className="file_icon"><FiFile /></div>
+                                                        <div className="file_name">
+                                                            <div className="name">
+                                                                {msg.attachment?.[0].contentMessage.split("\\")[1]}
+                                                            </div>
+                                                            <div className="ext">
+                                                                {msg.attachment?.[0].contentMessage.split(".")[msg.attachment?.[0].contentMessage.split(".").length-1]} file
+                                                            </div>
+                                                        </div>
+                                                        {/*<div className="download_icon">*/}
+                                                            <a className="download_link" href={`http://localhost:8000/${msg.attachment[0].contentMessage}`}><BiDownload className="download_icon" /></a>
+                                                        {/*</div>*/}
+                                                    </div>
                                             }
                                         </div>
                                         <div className="date"

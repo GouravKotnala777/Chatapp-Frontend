@@ -94,6 +94,58 @@
                     width: 210px;
                     height: 30px;
                 }
+                .file_cont{
+                    //border: 2px solid violet;
+                    display: flex;
+                    width: 210px;
+                    height: 40px;
+                    justify-content: space-between;
+                    align-items: center;
+                    .file_icon{
+                        //border: 2px solid indigo;
+                        font-size: 1rem;   
+                        width: 20%;
+                        height: 100%;
+                        display: grid;
+                        place-items: center;
+                        border-radius: 4px;
+                    }
+                    .file_name{
+                        //border: 2px solid blue;
+                        width: 60%;
+                        margin-left: 5px;
+                        .name{
+                            //border: 1px solid white;
+                            overflow-x: hidden;
+                            text-overflow: ellipsis;
+                            text-wrap: nowrap;
+                        }
+                        .ext{
+                            color: $grayLight;
+                        }
+                    }
+                    .download_link{
+                        //border: 2px solid green;
+                        width: 20%;
+                        height: 100%;
+                        display: grid;
+                        place-items: center;
+                        color: white;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        text-decoration: none;
+                        &:hover{
+                            background-color: $grayHover;
+                        }
+                        .download_icon{
+                            //border: 1px solid coral;
+                            font-size: 1rem;
+                            color: $grayLighter;
+                            width: 60%;
+                            height: 60%;
+                        }
+                    }
+                }
             }
             .date{
                 //border: 1px solid indigo;
@@ -211,6 +263,57 @@
                     //border: 2px solid red;
                     width: 210px;
                     height: 30px;
+                }
+                .file_cont{
+                    //border: 2px solid violet;
+                    display: flex;
+                    width: 210px;
+                    height: 40px;
+                    justify-content: space-between;
+                    align-items: center;
+                    .file_icon{
+                        //border: 2px solid indigo;
+                        font-size: 1rem;   
+                        width: 20%;
+                        height: 100%;
+                        display: grid;
+                        place-items: center;
+                        border-radius: 4px;
+                    }
+                    .file_name{
+                        //border: 2px solid blue;
+                        width: 60%;
+                        margin-left: 5px;
+                        .name{
+                            //border: 1px solid white;
+                            overflow-x: hidden;
+                            text-overflow: ellipsis;
+                            text-wrap: nowrap;
+                        }
+                        .ext{
+                            color: $grayLight;
+                        }
+                    }
+                    .download_link{
+                        //border: 2px solid green;
+                        width: 20%;
+                        height: 100%;
+                        display: grid;
+                        place-items: center;
+                        color: white;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        &:hover{
+                            background-color: $grayHover;
+                        }
+                        .download_icon{
+                            //border: 1px solid coral;
+                            font-size: 1rem;
+                            color: $grayLighter;
+                            width: 60%;
+                            height: 60%;
+                        }
+                    }
                 }
             }
             .date{
