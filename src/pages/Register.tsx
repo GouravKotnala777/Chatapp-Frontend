@@ -1,9 +1,11 @@
+import "../styles/pages/login.scss";
 import { ChangeEvent, useState } from "react";
 import { register } from "../redux/api/api";
 import { useDispatch } from "react-redux";
 import { setLoginUser } from "../redux/reducers/loginUserReducer";
 import { useNavigate } from "react-router-dom";
 import { UserTypes } from "../types/types";
+import { TopBackBtn } from "../utils/Utill";
 
 const Register = () => {
     const [registerFormData, setRegisterFormData] = useState<{name:string; email:string; password:string; gender:string; mobile:string;}>({name:"", email:"", password:"", gender:"", mobile:""});
@@ -32,13 +34,26 @@ const Register = () => {
 
 
     return(
-        <div className="register_bg">
+        <div className="login_bg">
+            <TopBackBtn />
             <input type="text" name="name" placeholder="Name" onChange={(e) => onChangeHandler(e)}/>
             <input type="text" name="email" placeholder="Email" onChange={(e) => onChangeHandler(e)}/>
             <input type="text" name="password" placeholder="Password" onChange={(e) => onChangeHandler(e)}/>
             <input type="text" name="gender" placeholder="Gender" onChange={(e) => onChangeHandler(e)}/>
             <input type="text" name="mobile" placeholder="Mobile" onChange={(e) => onChangeHandler(e)}/>
             <button onClick={onRegisterHandler}>Register</button>
+            <span className="or_cont">
+                <span className="line"></span>
+                <span>or</span>
+                <span className="line"></span>
+            </span>
+            <span className="forget_cont">
+                <div className="left_part">
+                </div>
+                <div className="right_part">
+                    <span className="don_have_acc">already have account?</span><a href="/login"> login</a>
+                </div>
+            </span>
         </div>
     )
 };

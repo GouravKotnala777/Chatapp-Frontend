@@ -9,6 +9,7 @@ import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
 //import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
 import { useDispatch } from "react-redux";
 import { setIsMessageSelectionActive, setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { useNavigate } from "react-router-dom";
 
 export const Heading = ({value, color, fontSize, padding, margin, textAlign}:{value:string; color?:string; fontSize?:string; padding?:string; margin?:string; textAlign?:textAlign;}) => {
     return(
@@ -147,9 +148,11 @@ export const SpreadOptions = ({contentArray, isOpen, setIsOpen,
 }
 export const TopBackBtn = ({heading}:{heading?:string;}) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const goBackHandler = () => {
         dispatch(setSelectedNavigation("Chats"));
+        navigate("/");
     };
 
     return(

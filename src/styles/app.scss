@@ -1,3 +1,4 @@
+@import "./utils.scss";
 #root {
   //border: 2px solid blue;
   max-width: 1280px;
@@ -8,6 +9,7 @@
   font-weight: 400;
   font-family: poppins;
   height: 100vh;
+  background-color: $grayDarker;
 }
 
 *{
