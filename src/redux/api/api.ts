@@ -22,7 +22,7 @@ export const getMyChats = async() => {
         return error as ResponseType<Error>;
     }
 };
-export const register = async(registerFormData:{name:string; email:string; password:string; gender:string; mobile:string;}):Promise<ResponseType<UserTypes|Error>> => {
+export const register = async(registerFormData:{name:string; email:string; password:string; gender:string; mobile:string;}):Promise<ResponseType<string|Error>> => {
     try {
         const loginRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/new`, {
             method:"POST",
@@ -33,12 +33,12 @@ export const register = async(registerFormData:{name:string; email:string; passw
             body:JSON.stringify(registerFormData)
         });
 
-        const registerData:unknown = await loginRes.json();
+        const registerData = await loginRes.json();
 
         console.log("----- register  api.ts");
         console.log(registerData);
         console.log("----- register  api.ts");
-        return registerData as ResponseType<UserTypes>;
+        return registerData as ResponseType<string>;
     } catch (error) {
         console.log("----- register  api.ts");
         console.log(error);
@@ -230,6 +230,31 @@ export const removeFriend = async(removeFriendFormData:{friendUserID:string;}) =
         console.log(error);
         console.log("----- removeFriend  api.ts");
         return error as ResponseType<Error>;        
+    }
+};
+export const verify = async({token, emailType}:{token:string; emailType:"VERIFY_EMAIL"|"RESET_PASSWORD";}) => {
+    try {
+        const verifyRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/verifyemail`, {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            credentials:"include",
+            body:JSON.stringify({token, emailType})
+        });
+
+        const verifyData = await verifyRes.json();
+
+        console.log("----- verify  api.ts");
+        console.log(verifyData);
+        console.log("----- verify  api.ts");
+
+        return verifyData as ResponseType<UserTypes>;
+    } catch (error) {
+        console.log("----- verify  api.ts");
+        console.log(error);
+        console.log("----- verify  api.ts");
+        return error as ResponseType<string>;        
     }
 };
 

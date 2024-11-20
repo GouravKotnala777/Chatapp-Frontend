@@ -1,16 +1,16 @@
 import "../styles/pages/login.scss";
 import { ChangeEvent, useState } from "react";
 import { register } from "../redux/api/api";
-import { useDispatch } from "react-redux";
-import { setLoginUser } from "../redux/reducers/loginUserReducer";
-import { useNavigate } from "react-router-dom";
-import { UserTypes } from "../types/types";
+//import { useDispatch } from "react-redux";
+//import { setLoginUser } from "../redux/reducers/loginUserReducer";
+//import { useNavigate } from "react-router-dom";
+//import { UserTypes } from "../types/types";
 import { TopBackBtn } from "../utils/Utill";
 
 const Register = () => {
     const [registerFormData, setRegisterFormData] = useState<{name:string; email:string; password:string; gender:string; mobile:string;}>({name:"", email:"", password:"", gender:"", mobile:""});
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    //const dispatch = useDispatch();
+    //const navigate = useNavigate();
 
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
         setRegisterFormData({...registerFormData, [e.target.name]:e.target.value});
@@ -20,13 +20,14 @@ const Register = () => {
         try {
             const registerRes = await register(registerFormData);
 
-            if (registerRes.success === true) {
-                dispatch(setLoginUser({isLoading:false, user:registerRes.message as UserTypes, isError:false}));
-                navigate("/");
-            }
-            if (registerRes.success === false) {
-                dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
-            }
+            //if (registerRes.success === true) {
+            //    //navigate("/");
+            //}
+            //if (registerRes.success === false) {
+            //    //dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
+            //}
+            console.log(registerRes);
+            
         } catch (error) {
             console.log(error);
         }
