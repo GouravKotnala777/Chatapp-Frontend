@@ -46,7 +46,7 @@ export const register = async(registerFormData:{name:string; email:string; passw
         return error as ResponseType<Error>;
     }
 };
-export const login = async(loginFormData:{email:string; password:string;}):Promise<ResponseType<UserTypes|Error>> => {
+export const login = async(loginFormData:{email:string; password:string;}) => {
     try {
         const loginRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/login`, {
             method:"POST",
@@ -57,7 +57,7 @@ export const login = async(loginFormData:{email:string; password:string;}):Promi
             body:JSON.stringify(loginFormData)
         });
 
-        const loginData:unknown = await loginRes.json();
+        const loginData = await loginRes.json();
 
         console.log("----- login  api.ts");
         console.log(loginData);

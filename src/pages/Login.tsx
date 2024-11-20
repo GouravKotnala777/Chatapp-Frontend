@@ -22,8 +22,13 @@ const Login = () => {
         console.log({loginData});
 
         if (loginData.success === true) {
-            dispatch(setLoginUser({isLoading:false, user:loginData.message as UserTypes, isError:false}));
-            navigate("/");
+            if (typeof loginData.message === "string") {
+                console.log("Check email for verification link");
+            }
+            else {
+                dispatch(setLoginUser({isLoading:false, user:loginData.message as UserTypes, isError:false}));
+                navigate("/");
+            }
         }
         if (loginData.success === false) {
             dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
