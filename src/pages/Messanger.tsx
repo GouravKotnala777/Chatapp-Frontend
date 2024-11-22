@@ -12,12 +12,14 @@ import MessageInput from "../components/MessageInput";
 import { useDispatch } from "react-redux";
 import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { sendAttachment } from "../redux/api/api";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 
 const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     refresh, setRefresh, messageInp, setMessageInp, messageType, setMessageType, messageArray, setMessageArray, singleMessage, setSingleMessage, singleSelectedUser, setSingleSelectedUser,
     isDeleteForMeClicked, isDeleteForAllClicked, setIsDeleteForMeClicked, setIsDeleteForAllClicked, isMessageSelectionActive,
-    selectedMessages, setIsDialogOpen, setDialogParent, selectedNavigation
+    selectedMessages, setIsDialogOpen, setDialogParent, selectedNavigation, socket
 }:{selectedChat:ChatTypes; setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>;
     singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">;
     setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;
@@ -40,6 +42,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
     setIsDialogOpen:Dispatch<SetStateAction<boolean>>;
     setDialogParent:Dispatch<SetStateAction<DialogParentTypes>>;
     selectedNavigation:NaviagationTypes;
+    socket:Socket<DefaultEventsMap, DefaultEventsMap>;
 }) => {
     const dispatch = useDispatch();
     const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
@@ -72,6 +75,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
                     setDialogParent={setDialogParent}
                     selectedNavigation={selectedNavigation}
                     selectedChat={selectedChat}
+                    socket={socket}
                 />
             </div>
             <div className="lower_part">
@@ -125,6 +129,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
                         setSingleMessage={setSingleMessage}
                         singleSelectedUser={singleSelectedUser}
                         setSingleSelectedUser={setSingleSelectedUser}
+                        socket={socket}
                     />
                 </div>
                 <div className="icon"><MdKeyboardVoice /></div>

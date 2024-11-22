@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/components/messages.scss";
-import { ChatTypes, ChatTypesPopulated, DialogParentTypes, MessageTypesPopulated, NaviagationTypes } from "../types/types";
+import { ChatTypes, ChatTypesPopulated, DialogParentTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
 import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { BiDownArrow, BiDownload } from "react-icons/bi";
@@ -11,11 +11,13 @@ import { setIsMessageSelectionActive, setSelectedMessages } from "../redux/reduc
 import { deleteMessagesForAll, deleteMessagesForMe } from "../redux/api/api";
 import { BsForward } from "react-icons/bs";
 import { FiFile } from "react-icons/fi";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
+import { Socket } from "socket.io-client";
 //import { Dispatch, SetStateAction } from "react";
 
 const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, selectedMessages, setIsDialogOpen,
     isDeleteForMeClicked, isDeleteForAllClicked, setIsDeleteForMeClicked, setIsDeleteForAllClicked, setDialogParent,
-    selectedNavigation
+    selectedNavigation, socket
 }:{messageArray:MessageTypesPopulated[]|[];
     setMessageArray:Dispatch<SetStateAction<MessageTypesPopulated[]>>;
     isMessageSelectionActive:boolean;
@@ -28,6 +30,7 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
     setDialogParent:Dispatch<SetStateAction<DialogParentTypes>>;
     selectedNavigation:NaviagationTypes;
     selectedChat:ChatTypes|ChatTypesPopulated|null;
+    socket:Socket<DefaultEventsMap, DefaultEventsMap>;
 }) => {
     const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
     const [selectedMessage, setSelectedMessage] = useState<string>("");
@@ -139,6 +142,14 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
     useEffect(() => {
         scrollToBottomHandler();
     }, [messageArray]);
+    useEffect(() => {
+        socket.on("messageReceived", ({message, receivers}:{message:MessageTypesPopulated; receivers:UserTypes[];}) => {
+            console.log("sender => "+ message.sender);
+            console.log("receivers => "+ receivers);
+            console.log("message => "+message.content?.contentMessage);
+            setMessageArray((prev) => [...prev, message]);
+        });
+    }, []);
 
     return(
         <div className="messages_cont">

@@ -27,7 +27,7 @@ import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navig
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
 import { createChat, myProfile, selectedChatMessages, sendAttachment } from "../redux/api/api";
-import { setLoginUser } from "../redux/reducers/loginUserReducer";
+import { LoginUserReducerTypes, setLoginUser } from "../redux/reducers/loginUserReducer";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
 import SearchUser from "../components/SearchUser";
@@ -37,10 +37,13 @@ import MessageInput from "../components/MessageInput";
 import ChatInfo from "./ChatInfo";
 import UserInfo from "./UserInfo";
 import DialogWrapper from "../components/DialogWrapper";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
+import { io, Socket } from "socket.io-client";
 
 
 
 
+let socket:Socket<DefaultEventsMap, DefaultEventsMap>;
 
 const Home = () => {
     const [isTooltipActive, setIsTooltipActive] = useState<boolean>(false);
@@ -61,7 +64,9 @@ const Home = () => {
     const [isStartChatClicked, setIsStartChatClicked] = useState<boolean>(false);
     const [dialogParent, setDialogParent] = useState<DialogParentTypes>("Delete for me");
     const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
-    //const [selectedAttachment, setSelectedAttachment] = useState<File|null>(null);
+    const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
+    const [isSelectedUserOnline, setIsSelectedUserOnline] = useState<{success:boolean; socketID?:string; message?:string;}>({success:false, socketID:"", message:""});
+
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -127,6 +132,19 @@ const Home = () => {
         }
         setIsStartChatClicked(false);
     }, [isStartChatClicked]);
+
+    useEffect(() => {
+        socket = io(import.meta.env.VITE_SERVER_URL);
+        socket.emit("registerUser", {userID:user?._id, userName:user?.name});
+
+
+        //const mmbrID = (selectedChat?.members as UserTypes[]).map((item) => item._id ).find((item) => item !== user?._id);
+            console.log("@@@@@@@@@@@@@@@@@@@@@ 1");
+            socket.on("setIsOnline", ({success, socketID}:{success:boolean; socketID:string;}) => {
+                setIsSelectedUserOnline({success, socketID})
+            });
+            console.log("@@@@@@@@@@@@@@@@@@@@@ 2");
+    }, [user]);
 
     return(
         <>
@@ -212,6 +230,7 @@ const Home = () => {
                         setIsDialogOpen={setIsDialogOpen}
                         setDialogParent={setDialogParent}
                         selectedNavigation={selectedNavigation}
+                        socket={socket}
                          />
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
@@ -219,6 +238,9 @@ const Home = () => {
                             setIsMessangerForMobileActive={setIsMessangerForMobileActive}
                             setSelectedNavigation={setSelectedNavigation}
                             messagesArray={messageArray}
+                            socket={socket}
+                            myUserID={user?._id as string}
+                            setIsSelectedUserOnline={setIsSelectedUserOnline}
                          />
                         :
                         selectedNavigation === "Status" ?
@@ -273,6 +295,9 @@ const Home = () => {
                                                                                             setIsMessangerForMobileActive={setIsMessangerForMobileActive}
                                                                                             setSelectedNavigation={setSelectedNavigation}
                                                                                             messagesArray={messageArray}
+                                                                                            socket={socket}
+                                                                                            myUserID={user?._id as string}
+                                                                                            setIsSelectedUserOnline={setIsSelectedUserOnline}
                                                                                         />
                                                                                         //<h1 style={{color:"white"}}>From Home Page...</h1>
             }
@@ -294,7 +319,7 @@ const Home = () => {
                                     }}}
                                     onClick={(e) => {e.stopPropagation(); dispatch(setSelectedNavigation("Chat info"))}}
                                     >
-                                    <ChatListItem chatName={selectedChat.chatName} lastMessage={`last seen today at ${"---selectedChat.date---"} am`} iconsArray={[FaCamera, IoVideocam , BiDotsVertical]} />
+                                    <ChatListItem chatName={selectedChat.chatName} lastMessage={isSelectedUserOnline.success === true ?"online":`last seen today at ${"---selectedChat.date---"} am`} iconsArray={[FaCamera, IoVideocam , BiDotsVertical]} />
                                 </div>
                             </div>
                             <div className="middle_part">
@@ -310,6 +335,7 @@ const Home = () => {
                                     setDialogParent={setDialogParent}
                                     selectedNavigation={selectedNavigation}
                                     selectedChat={selectedChat}
+                                    socket={socket}
                                  />
                             </div>
                             {
@@ -352,7 +378,7 @@ const Home = () => {
                                             </div>
                                         </div>
                                         <div className="search_cont_outer">
-                                            <MessageInput refresh={refresh} setRefresh={setRefresh} singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} messageInp={messageInp} setMessageInp={setMessageInp} messageType={messageType} setMessageType={setMessageType} messageArray={messageArray} setMessageArray={setMessageArray} singleMessage={singleMessage} setSingleMessage={setSingleMessage} />
+                                            <MessageInput socket={socket} refresh={refresh} setRefresh={setRefresh} singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} messageInp={messageInp} setMessageInp={setMessageInp} messageType={messageType} setMessageType={setMessageType} messageArray={messageArray} setMessageArray={setMessageArray} singleMessage={singleMessage} setSingleMessage={setSingleMessage} />
                                         </div>
                                         <div className="icon"><MdKeyboardVoice /></div>
                                     </div>

@@ -5,80 +5,27 @@ import ChatListItem from "./chatListItem";
 import { Input, SpreadOptions } from "../utils/Utill";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
-import { ChatTypes, ChatTypesPopulated, MessageTypesPopulated, NaviagationTypes } from "../types/types";
+import { ChatTypes, ChatTypesPopulated, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { getMyChats } from "../redux/api/api";
 import { MiscReducerTypes, setSelectedChat, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
-//import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
-//const chatListData:{_id:string; chatName:string; lastMessage:string; date:string;}[] = [
-//    {
-//        _id:"1",
-//        chatName:"GMSSS 2020 Reunion Group",
-//        lastMessage:"Only admin can message in this group.",
-//        date:"Yesterday"
-//    },
-//    {
-//        _id:"2",
-//        chatName:"Didi",
-//        lastMessage:"Jj",
-//        date:"Yesterday"
-//    },
-//    {
-//        _id:"3",
-//        chatName:"Gourav group",
-//        lastMessage:"Mammi left",
-//        date:"Yesterday"
-//    },
-//    {
-//        _id:"4",
-//        chatName:"WhatsApp",
-//        lastMessage:"Share updates in real-time with video notes just press and h...",
-//        date:"Yesterday"
-//    },
-//    {
-//        _id:"5",
-//        chatName:"Coca-Cola",
-//        lastMessage:"This bussiness is now using a secure service from Meta to mana...",
-//        date:"Yesterday"
-//    },
-//    {
-//        _id:"6",
-//        chatName:"+91-7830780809",
-//        lastMessage:"Photo",
-//        date:"Yesterday"
-//    },
-//    {
-//        _id:"7",
-//        chatName:"Airtel",
-//        lastMessage:"Photo",
-//        date:"2 days ago"
-//    },
-//    {
-//        _id:"8",
-//        chatName:"ACTC",
-//        lastMessage:"Photo",
-//        date:"3 days ago"
-//    },
-//    {
-//        _id:"9",
-//        chatName:"+91-8882732859",
-//        lastMessage:"Photo",
-//        date:"3 days ago"
-//    },
-//    {
-//        _id:"10",
-//        chatName:"Mammi",
-//        lastMessage:"Photo",
-//        date:"5 days ago"
-//    },
-//];
+
+
 const contentArray:NaviagationTypes[] = ["Search user", "Contacts", "New group", "Friend requests", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
 
-const Chats = ({setIsMessangerForMobileActive, messagesArray}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;
+const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
+    setIsSelectedUserOnline
+
+}:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;
     messagesArray:MessageTypesPopulated[];
+    socket:Socket<DefaultEventsMap, DefaultEventsMap>;
+    myUserID:string;
+    setIsSelectedUserOnline:Dispatch<SetStateAction<{success:boolean; socketID?:string; message?:string;}>>;
 }) => {
     const [isOptionsDialogActive, setIsOptionsDialogActive] = useState<boolean>(false);
     const {selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
@@ -89,9 +36,11 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray}:{setIsMessangerFor
 
     const onSelectChatHandler = (data:ChatTypes|ChatTypesPopulated) => {
         dispatch(setSelectedChat(data));
-        console.log(data._id);
-        console.log(selectedChat);
-        
+        //console.log(data._id);
+        //console.log(selectedChat);   
+        //socket.on("isOnline", ({userID, userName, isOnline}:{userID:string; userName:string; isOnline:boolean;}) => {
+
+        //});
     };
     const onClickThreeDotsHandler = () => {
         setIsOptionsDialogActive(!isOptionsDialogActive);
@@ -116,6 +65,22 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray}:{setIsMessangerFor
             console.log("from Chat.tsx--------------");
         })
     }, []);
+    useEffect(() => {
+        if (selectedChat) {
+            const mmbrID = (selectedChat?.members as UserTypes[]).map((item) => item._id ).find((item) => item !== myUserID);
+            console.log("@@@@@@@@@@@@@@@@@@@@@ 1");
+            socket.emit("isOnline", mmbrID, (response:{success:boolean; socketID?:string; message?:string;}) => {
+                if (response.success) {
+                    console.log(`Socket ID of user ${mmbrID}: ${response?.socketID}`);
+                    setIsSelectedUserOnline({success:true, socketID:response?.socketID, message:""});
+                } else {
+                    console.log(`Error: ${response.message}`);
+                    setIsSelectedUserOnline({success:false, socketID:"", message:response.message});
+                }
+            });
+            console.log("@@@@@@@@@@@@@@@@@@@@@ 2");
+        }
+    }, [selectedChat]);
 
     return(
         <>

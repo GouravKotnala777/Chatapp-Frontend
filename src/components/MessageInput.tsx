@@ -6,10 +6,12 @@ import { useSelector } from "react-redux";
 import { LoginUserReducerTypes } from "../redux/reducers/loginUserReducer";
 import { MiscReducerTypes } from "../redux/reducers/navigationReducer";
 import { BiSend } from "react-icons/bi";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 const MessageInput = ({messageInp, setMessageInp, messageType, setMessageArray,
     // singleSelectedUser, setSingleSelectedUser, setMessageType, messageArray, singleMessage, setSingleMessage,
-    refresh, setRefresh}:{
+    refresh, setRefresh, socket}:{
     singleSelectedUser:Pick<UserTypes, "_id"|"name"|"email">;
     setSingleSelectedUser:Dispatch<SetStateAction<Pick<UserTypes, "_id"|"name"|"email">>>;
     messageType:ContentMessageType;
@@ -21,6 +23,7 @@ const MessageInput = ({messageInp, setMessageInp, messageType, setMessageArray,
     singleMessage:MessageTypes;
     setSingleMessage:Dispatch<SetStateAction<MessageTypes>>;
     refresh:boolean; setRefresh:Dispatch<SetStateAction<boolean>>;
+    socket:Socket<DefaultEventsMap, DefaultEventsMap>;
 }) => {
     const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
     const {selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
@@ -42,6 +45,8 @@ const MessageInput = ({messageInp, setMessageInp, messageType, setMessageArray,
             setMessageArray((prev) => [...prev, (createdMessage.message as MessageTypesPopulated)]);
             setRefresh(!refresh);
             console.log("----- sendMessageHandler MessageInput.tsx");
+
+            socket.emit("messageSent", {message:createdMessage.message as MessageTypesPopulated, receivers:(selectedChat?.members as UserTypes[]).filter((userData => userData._id !== user?._id))})
         }
     };
 
