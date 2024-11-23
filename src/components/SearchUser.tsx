@@ -7,18 +7,21 @@ import { UserTypes } from "../types/types";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { searchUser, sendFriendRequest } from "../redux/api/api";
+import { useDispatch } from "react-redux";
 
 
 const SearchUser = () => {
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [searchedUserResult, setSearchedUserResult] = useState<UserTypes[]>([]);
+    const dispatch = useDispatch();
 
     const addRemoveUserHandler = async() => {
         const selectedUserArray = await sendFriendRequest({searchedUserIDArray:usersToAddInGroup});
 
         if (selectedUserArray.success === true) {
-            setSelectedNavigation("Chats");
+            dispatch(setSelectedNavigation("Chats"));
+            setUsersToAddInGroup([]);
         }
         else{
             console.log("PPATA NAHI USER ADD KYO NAHI HUA");
