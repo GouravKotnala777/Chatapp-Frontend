@@ -6,12 +6,15 @@ import UserListItem from "./UserLIstItem";
 import { CgAdd, CgRemove } from "react-icons/cg";
 import { allReceivedFriendRequests, replyFriendRequest } from "../redux/api/api";
 import { TopBackBtn } from "../utils/Utill";
+import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
+import { useDispatch } from "react-redux";
 
 
 
 const ReceivedFriendRequests = () => {
     const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     const [friendRequests, setFriendRequests] = useState<{_id:string; name:string; email:string; date:Date;}[]>([]);
+    const dispatch = useDispatch();
 
     const replyFriendRequestHandler = async({friendRequestID, status}:{friendRequestID:string; status:FriendRequestStatusType;}) => {
         const reply = await replyFriendRequest({friendRequestID, status});
@@ -20,6 +23,8 @@ const ReceivedFriendRequests = () => {
             console.log("----- replyFriendRequestHandler RequestFriendRequest.tsx");
             console.log(reply);
             console.log("----- replyFriendRequestHandler RequestFriendRequest.tsx");
+            dispatch(setSelectedNavigation("Chats"));
+            setSingleSelectedUser({_id:"", name:"", email:""})
         }
     };
     const onSelectUserHandler = (user:Pick<UserTypes, "_id"|"name"|"email">) => {
