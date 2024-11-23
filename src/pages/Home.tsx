@@ -139,11 +139,20 @@ const Home = () => {
 
 
         //const mmbrID = (selectedChat?.members as UserTypes[]).map((item) => item._id ).find((item) => item !== user?._id);
-            console.log("@@@@@@@@@@@@@@@@@@@@@ 1");
-            socket.on("setIsOnline", ({success, socketID}:{success:boolean; socketID:string;}) => {
-                setIsSelectedUserOnline({success, socketID})
-            });
-            console.log("@@@@@@@@@@@@@@@@@@@@@ 2");
+        console.log("@@@@@@@@@@@@@@@@@@@@@ 1");
+        socket.on("setIsOnline", ({success, socketID}:{success:boolean; socketID:string;}) => {
+            setIsSelectedUserOnline({success, socketID})
+        });
+        console.log("@@@@@@@@@@@@@@@@@@@@@ 2");
+
+        
+
+        socket.on("messageReceived", ({message, receivers}:{message:MessageTypesPopulated; receivers:UserTypes[];}) => {
+            console.log("sender => "+ message.sender);
+            console.log("receivers => "+ receivers);
+            console.log("message => "+message.content?.contentMessage);
+            setMessageArray((prev) => [...prev, message]);
+        });
     }, [user]);
 
     return(
@@ -365,6 +374,7 @@ const Home = () => {
                                                                             console.log(resolve);
                                                                             if (resolve.success === true) {
                                                                                 setMessageArray((prev) => [...prev, (resolve.message as MessageTypesPopulated)]);
+                                                                                socket.emit("messageSent", {message:resolve.message as MessageTypesPopulated, receivers:(selectedChat?.members as UserTypes[]).filter((userData => userData._id !== user?._id))})
                                                                             }
                                                                         }).catch((err) => {
                                                                             console.log(err);
