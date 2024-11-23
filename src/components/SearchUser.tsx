@@ -41,19 +41,21 @@ const SearchUser = () => {
 
     useEffect(() => {
         const searchUserSetTimeOutResult = setTimeout(() => {
-            const searchedUser = searchUser({searchQuery});
-    
-            searchedUser.then((data) => {
-                console.log("------ SearchUser.tsx");
-                console.log(data);
-                setSearchedUserResult(data.message as UserTypes[]);
-                console.log("------ SearchUser.tsx");
-            })
-            .catch((err) => {
-                console.log("------ SearchUser.tsx");
-                console.log(err);
-                console.log("------ SearchUser.tsx");
-            })
+            if (searchQuery) {
+                const searchedUser = searchUser({searchQuery});
+        
+                searchedUser.then((data) => {
+                    console.log("------ SearchUser.tsx");
+                    console.log(data);
+                    setSearchedUserResult(data.message as UserTypes[]);
+                    console.log("------ SearchUser.tsx");
+                })
+                .catch((err) => {
+                    console.log("------ SearchUser.tsx");
+                    console.log(err);
+                    console.log("------ SearchUser.tsx");
+                })
+            }
         }, 2000);
 
         return() => {clearTimeout(searchUserSetTimeOutResult)}
