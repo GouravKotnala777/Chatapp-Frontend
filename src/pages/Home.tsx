@@ -26,7 +26,7 @@ import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
-import { createChat, myProfile, selectedChatMessages, sendAttachment } from "../redux/api/api";
+import { allReceivedFriendRequests, createChat, myProfile, selectedChatMessages, sendAttachment } from "../redux/api/api";
 import { LoginUserReducerTypes, setLoginUser } from "../redux/reducers/loginUserReducer";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
@@ -66,7 +66,7 @@ const Home = () => {
     const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
     const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
     const [isSelectedUserOnline, setIsSelectedUserOnline] = useState<{success:boolean; socketID?:string; message?:string;}>({success:false, socketID:"", message:""});
-
+    const [friendRequests, setFriendRequests] = useState<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>([]);
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -132,6 +132,23 @@ const Home = () => {
         }
         setIsStartChatClicked(false);
     }, [isStartChatClicked]);
+
+    useEffect(() => {
+        const getAllReceivedFriendRequests = allReceivedFriendRequests();
+
+        getAllReceivedFriendRequests.then((data) => {
+            console.log("----- allReceivedFriendRequests");
+            console.log(data);
+            if (data.success === true) {
+                setFriendRequests(data.message as {_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]);
+            }
+            console.log("----- allReceivedFriendRequests");
+        }).catch((err) => {
+            console.log("----- allReceivedFriendRequests");
+            console.log(err);
+            console.log("----- allReceivedFriendRequests");
+        });
+    }, []);
 
     useEffect(() => {
         socket = io(import.meta.env.VITE_SERVER_URL);
@@ -279,11 +296,12 @@ const Home = () => {
                                                         selectedNavigation === "Remove members" ?
                                                             <ChatMembersList />
                                                             :
-                                                            selectedNavigation === "Search user" ?
-                                                                <SearchUser />
+                                                            selectedNavigation === "Search user" ? 
+                                                                            //ISKE LIYE CONTROLLER BANANA HAI
+                                                                <SearchUser friendRequests={friendRequests} user={user} />
                                                                 :
                                                                 selectedNavigation === "Friend requests" ?
-                                                                    <ReceivedFriendRequests />
+                                                                    <ReceivedFriendRequests friendRequests={friendRequests} user={user} />
                                                                     :
                                                                     selectedNavigation === "Delete chat" ?
                                                                         <DeleteChat singleSelectedUser={singleSelectedUser._id} />

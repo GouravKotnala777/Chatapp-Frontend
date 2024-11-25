@@ -149,7 +149,7 @@ export const allReceivedFriendRequests = async() => {
         console.log(allReceivedFriendRequestsData);
         console.log("----- allReceivedFriendRequests  api.ts");
 
-        return allReceivedFriendRequestsData as ResponseType<{_id:string; name:string; email:string; date:Date;}[]>;
+        return allReceivedFriendRequestsData as ResponseType<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>;
     } catch (error) {
         console.log("----- allReceivedFriendRequests  api.ts");
         console.log(error);

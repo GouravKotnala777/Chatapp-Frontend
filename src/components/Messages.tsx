@@ -153,8 +153,8 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
 
     return(
         <div className="messages_cont">
-            {/*<pre style={{color:"white"}}>{JSON.stringify(selectedMessages, null, `\t`)}</pre>
-            <pre style={{color:"white"}}>{JSON.stringify(messageArray?.map(e => ({_id:e._id, contentID:e.content?._id, contentMessage:e.content?.contentMessage})), null, `\t`)}</pre>*/}
+            <pre style={{color:"white"}}>{JSON.stringify(selectedNavigation, null, `\t`)}</pre>
+            {/*<pre style={{color:"white"}}>{JSON.stringify(messageArray?.map(e => ({_id:e._id, contentID:e.content?._id, contentMessage:e.content?.contentMessage})), null, `\t`)}</pre>*/}
             {
                 messageArray&&typeof messageArray === "object"&&messageArray.length!==0&&messageArray.map((msg) => {
                     if (msg.sender === user?._id) {

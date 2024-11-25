@@ -6,9 +6,11 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { SpreadOptions } from "../utils/Utill";
 import { BiCheck, BiSolidDownArrow } from "react-icons/bi";
 import { FriendRequestStatusType, NaviagationTypes } from "../types/types";
+import { RiMailSendLine } from "react-icons/ri";
+import { CgAdd, CgRemove } from "react-icons/cg";
 
 const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMessage, date, replyFriendRequestHandler, imgHeight, imgWidth, optionsArray,
-    setIsStartChatClicked
+    setIsStartChatClicked, isFRAlreadySent
 }:{
     selectedNavigation?:NaviagationTypes;
     isSelected?:boolean;
@@ -19,6 +21,7 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
     replyFriendRequestHandler?:({ friendRequestID, status }: {friendRequestID: string; status: FriendRequestStatusType;}) => Promise<void>; imgHeight?:string; imgWidth?:string;
     optionsArray?:NaviagationTypes[];
     setIsStartChatClicked?:Dispatch<SetStateAction<boolean>>;
+    isFRAlreadySent?:boolean;
 }) => {
     const [isSelectedChatOptionActive, setIsSelectedChatOptionActive] = useState<boolean>(false);
 
@@ -59,8 +62,24 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
                         <div className="icons_cont" style={{gap:"20px"}}>
                             {
                                 date&&typeof date === "object"&&(date as IconType[]).map((Icon) => (
-                                    isSelected && <Icon className={Icon.name === "CgRemove"?"CgRemove icon":"CgAdd icon"} onClick={() => replyFriendRequestHandler&&replyFriendRequestHandler({friendRequestID:userID, status:Icon.name === "CgRemove"?"rejected":"accepted"})} />
+                                    <Icon className={Icon.name === "CgRemove"?"CgRemove icon":Icon.name === "RiMailSendLine"?"RiMailSendLine":"CgAdd icon"} onClick={() => replyFriendRequestHandler&&replyFriendRequestHandler({friendRequestID:userID, status:Icon.name === "CgRemove"?"rejected":"accepted"})} />
                                 ))
+                            }
+                            {
+                                //(date as IconType[])?.map((Icon) => (
+                                //))
+                                typeof isFRAlreadySent === "boolean"&&isFRAlreadySent === false ? 
+                                    <RiMailSendLine color={GRAY_LIGHT} />
+                                    :
+                                    typeof isFRAlreadySent === "boolean"&&isFRAlreadySent === true ? 
+                                        <><CgRemove className="CgRemove"/><CgAdd className="CgAdd"/></>
+                                        :
+                                        typeof isFRAlreadySent === "undefined"&&isFRAlreadySent === undefined ?
+                                            ""
+                                            :
+                                            ""
+                                            
+
                             }
                         </div>
 
