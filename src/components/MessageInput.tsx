@@ -42,11 +42,11 @@ const MessageInput = ({messageInp, setMessageInp, messageType, setMessageArray,
             console.log("----- sendMessageHandler MessageInput.tsx");
             console.log(createdMessage.message);
             setMessageInp("");
-            setMessageArray((prev) => [...prev, (createdMessage.message as MessageTypesPopulated)]);
+            setMessageArray((prev) => [...prev, (createdMessage.jsonData as MessageTypesPopulated)]);
             setRefresh(!refresh);
             console.log("----- sendMessageHandler MessageInput.tsx");
 
-            socket.emit("messageSent", {message:createdMessage.message as MessageTypesPopulated, receivers:(selectedChat?.members as UserTypes[]).filter((userData => userData._id !== user?._id))})
+            socket.emit("messageSent", {message:createdMessage.jsonData as MessageTypesPopulated, receivers:(selectedChat?.members as UserTypes[]).filter((userData => userData._id !== user?._id))})
         }
     };
 

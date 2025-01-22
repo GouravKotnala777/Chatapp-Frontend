@@ -55,7 +55,7 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
 
         fetchMyAllChats.then((data) => {
             console.log("from Chat.tsx ))))))))))");
-            setMyChats(data.message as ChatTypes[]);
+            setMyChats(data.jsonData as ChatTypes[]);
             console.log("from Chat.tsx ))))))))))");
             
         })

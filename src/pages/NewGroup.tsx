@@ -22,12 +22,12 @@ const NewGroup = () => {
 
         if (newGroup.success === true) {
             setSelectedNavigation("Chats");
-            toast.success("New Group created", {
+            toast.success(newGroup.message, {
                 duration:2000,
                 position:"top-center"
             });
         }else{
-            toast.error(newGroup.message.toString(), {
+            toast.error(newGroup.message, {
                 duration:2000,
                 position:"top-center"
             });

@@ -23,13 +23,13 @@ const SearchUser = ({friendRequests, user}:{friendRequests:{_id:string; from:{_i
         if (selectedUserArray.success === true) {
             dispatch(setSelectedNavigation("Chats"));
             setUsersToAddInGroup([]);
-            toast.success("Request has been sended", {
+            toast.success(selectedUserArray.message, {
                 duration:2000,
                 position:"top-center"
             });
         }
         else{
-            toast.error(selectedUserArray.message.toString(), {
+            toast.error(selectedUserArray.message, {
                 duration:2000,
                 position:"top-center"
             });
@@ -84,7 +84,7 @@ const SearchUser = ({friendRequests, user}:{friendRequests:{_id:string; from:{_i
                 searchedUser.then((data) => {
                     console.log("------ SearchUser.tsx");
                     console.log(data);
-                    setSearchedUserResult(data.message as UserTypes[]);
+                    setSearchedUserResult(data.jsonData as UserTypes[]);
                     console.log("------ SearchUser.tsx");
                 })
                 .catch((err) => {

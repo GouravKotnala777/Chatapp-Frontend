@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLoginUser } from "../redux/reducers/loginUserReducer";
 import { UserTypes } from "../types/types";
+import toast from "react-hot-toast";
 
 
 const VerifyEmail = () => {
@@ -26,16 +27,28 @@ const VerifyEmail = () => {
             console.log(res);
 
             if (res.success === true) {
-                setVerifyRes(res.message as UserTypes);
-                dispatch(setLoginUser({isLoading:false, user:res.message as UserTypes, isError:false}));
+                toast.success(res.message, {
+                    duration:2000,
+                    position:"top-center"
+                });
+                setVerifyRes(res.jsonData as UserTypes);
+                dispatch(setLoginUser({isLoading:false, user:res.jsonData as UserTypes, isError:false}));
                 navigate("/");
             }
             else if (res.success === false) {
+                toast.error(res.message, {
+                    duration:2000,
+                    position:"top-center"
+                });
                 dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
                 setVerifyError(res.message as string);
             }
             
         } catch (error) {
+            toast.error("Error occured", {
+                duration:2000,
+                position:"top-center"
+            });
             console.log(error);
             setVerifyError(error as string)
         }

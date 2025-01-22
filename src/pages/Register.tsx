@@ -22,7 +22,7 @@ const Register = () => {
             const registerRes = await register(registerFormData);
 
             if (registerRes.success) {
-                toast.success("Register successful", {
+                toast.success(registerRes.message, {
                     duration:2000,
                     position:"top-center"
                 })

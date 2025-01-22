@@ -101,7 +101,7 @@ const Home = ({user}:{user:UserTypes|null}) => {
         getMessages.then((data) => {
             console.log("----- getMessages Home.tsx");
             console.log(data);
-            setMessageArray(data.message as MessageTypesPopulated[]);
+            setMessageArray(data.jsonData as MessageTypesPopulated[]);
             console.log("----- getMessages Home.tsx");
         })
         .catch((err) => {
@@ -125,7 +125,7 @@ const Home = ({user}:{user:UserTypes|null}) => {
             console.log("----- allReceivedFriendRequests");
             console.log(data);
             if (data.success === true) {
-                setFriendRequests(data.message as {_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]);
+                setFriendRequests(data.jsonData as {_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]);
             }
             console.log("----- allReceivedFriendRequests");
         }).catch((err) => {
@@ -385,8 +385,8 @@ const Home = ({user}:{user:UserTypes|null}) => {
                                                                         sendImage.then((resolve) => {
                                                                             console.log(resolve);
                                                                             if (resolve.success === true) {
-                                                                                setMessageArray((prev) => [...prev, (resolve.message as MessageTypesPopulated)]);
-                                                                                socket.emit("messageSent", {message:resolve.message as MessageTypesPopulated, receivers:(selectedChat?.members as UserTypes[]).filter((userData => userData._id !== user?._id))})
+                                                                                setMessageArray((prev) => [...prev, (resolve.jsonData as MessageTypesPopulated)]);
+                                                                                socket.emit("messageSent", {message:resolve.jsonData as MessageTypesPopulated, receivers:(selectedChat?.members as UserTypes[]).filter((userData => userData._id !== user?._id))})
                                                                             }
                                                                         }).catch((err) => {
                                                                             console.log(err);

@@ -20,7 +20,7 @@ function App() {
 
     fetchMyProfile.then((data) => {
         console.log("from Home.tsx ))))))))))");
-        dispatch(setLoginUser({isLoading:false, user:data.message as UserTypes, isError:false}))
+        dispatch(setLoginUser({isLoading:false, user:data.jsonData as UserTypes, isError:false}))
         console.log("from Home.tsx ))))))))))");
         
     })

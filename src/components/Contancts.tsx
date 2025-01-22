@@ -49,7 +49,7 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser, setIsStartChatClic
         const getAllFriends = await myFriends();
 
         if (getAllFriends.success === true) {
-            setMyAllFriends(getAllFriends.message as UserTypes[]);
+            setMyAllFriends(getAllFriends.jsonData as UserTypes[]);
             console.log("All friends got");
         }
         if (getAllFriends.success === false) {

@@ -102,7 +102,7 @@ const Messanger = ({selectedChat, setIsMessangerForMobileActive,
                                                 sendImage.then((resolve) => {
                                                     console.log(resolve);
                                                     if (resolve.success === true) {
-                                                        setMessageArray((prev) => [...prev, (resolve.message as MessageTypesPopulated)]);
+                                                        setMessageArray((prev) => [...prev, (resolve.jsonData as MessageTypesPopulated)]);
                                                     }
                                                 }).catch((err) => {
                                                     console.log(err);

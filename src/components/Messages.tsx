@@ -58,7 +58,7 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                 dispatch(setIsMessageSelectionActive(false));
                 dispatch(setSelectedMessages(null));
                 setMessageArray(messageArray.filter((array1Item) => !(
-                    res.message as string[]).some((array2Item) => 
+                    res.jsonData as string[]).some((array2Item) => 
                         array2Item === array1Item._id
                     )
                 ))
@@ -82,7 +82,7 @@ const Messages = ({messageArray, setMessageArray, isMessageSelectionActive, sele
                 dispatch(setIsMessageSelectionActive(false));
                 dispatch(setSelectedMessages(null));
                 setMessageArray(messageArray.filter((array1Item) => !(
-                    res.message as string[]).some((array2Item) => 
+                    res.jsonData as string[]).some((array2Item) => 
                         array2Item === array1Item._id
                     )
                 ))

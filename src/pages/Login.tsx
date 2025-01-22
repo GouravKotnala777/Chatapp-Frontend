@@ -24,14 +24,14 @@ const Login = () => {
 
         if (loginData.success === true) {
             if (typeof loginData.message === "string") {
-                toast.success("Check email for verification link", {
+                toast.success(loginData.message, {
                     duration:2000,
                     position:"top-center"
                 });
                 console.log("Check email for verification link");
             }
             else {
-                toast.success("login successfull", {
+                toast.success(loginData.message, {
                     duration:2000,
                     position:"top-center"
                 });
@@ -40,7 +40,7 @@ const Login = () => {
             }
         }
         if (loginData.success === false) {
-            toast.error(loginData.message.toString(), {
+            toast.error(loginData.message, {
                 duration:2000,
                 position:"top-center"
             });
