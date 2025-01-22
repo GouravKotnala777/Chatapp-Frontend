@@ -6,6 +6,7 @@ import { setLoginUser } from "../redux/reducers/loginUserReducer";
 import { useDispatch } from "react-redux";
 import { UserTypes } from "../types/types";
 import { TopBackBtn } from "../utils/Utill";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const Login = () => {
@@ -23,14 +24,26 @@ const Login = () => {
 
         if (loginData.success === true) {
             if (typeof loginData.message === "string") {
+                toast.success("Check email for verification link", {
+                    duration:2000,
+                    position:"top-center"
+                });
                 console.log("Check email for verification link");
             }
             else {
+                toast.success("login successfull", {
+                    duration:2000,
+                    position:"top-center"
+                });
                 dispatch(setLoginUser({isLoading:false, user:loginData.message as UserTypes, isError:false}));
                 navigate("/");
             }
         }
         if (loginData.success === false) {
+            toast.error(loginData.message.toString(), {
+                duration:2000,
+                position:"top-center"
+            });
             dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
         }
     }
@@ -38,6 +51,7 @@ const Login = () => {
     return(
         <div className="login_bg">
             <TopBackBtn />
+            <Toaster />
             <input type="text" className="email" name="email" placeholder="Email" onChange={(e) => onChangeHandler(e)}/>
             <input type="text" className="password" name="password" placeholder="Password" onChange={(e) => onChangeHandler(e)}/>
             <button onClick={loginHandler}>Login</button>

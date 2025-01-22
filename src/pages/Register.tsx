@@ -6,6 +6,7 @@ import { register } from "../redux/api/api";
 //import { useNavigate } from "react-router-dom";
 //import { UserTypes } from "../types/types";
 import { TopBackBtn } from "../utils/Utill";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
     const [registerFormData, setRegisterFormData] = useState<{name:string; email:string; password:string; gender:string; mobile:string;}>({name:"", email:"", password:"", gender:"", mobile:""});
@@ -20,6 +21,12 @@ const Register = () => {
         try {
             const registerRes = await register(registerFormData);
 
+            if (registerRes.success) {
+                toast.success("Register successful", {
+                    duration:2000,
+                    position:"top-center"
+                })
+            }
             //if (registerRes.success === true) {
             //    //navigate("/");
             //}
@@ -37,6 +44,7 @@ const Register = () => {
     return(
         <div className="login_bg">
             <TopBackBtn />
+            <Toaster />
             <input type="text" name="name" placeholder="Name" onChange={(e) => onChangeHandler(e)}/>
             <input type="text" name="email" placeholder="Email" onChange={(e) => onChangeHandler(e)}/>
             <input type="text" name="password" placeholder="Password" onChange={(e) => onChangeHandler(e)}/>

@@ -8,6 +8,7 @@ import { PRIMARY_LIGHT } from "../constants/constants";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { searchUser, sendFriendRequest } from "../redux/api/api";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 
 const SearchUser = ({friendRequests, user}:{friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]; user:UserTypes|null;}) => {
@@ -22,8 +23,16 @@ const SearchUser = ({friendRequests, user}:{friendRequests:{_id:string; from:{_i
         if (selectedUserArray.success === true) {
             dispatch(setSelectedNavigation("Chats"));
             setUsersToAddInGroup([]);
+            toast.success("Request has been sended", {
+                duration:2000,
+                position:"top-center"
+            });
         }
         else{
+            toast.error(selectedUserArray.message.toString(), {
+                duration:2000,
+                position:"top-center"
+            });
             console.log("PPATA NAHI USER ADD KYO NAHI HUA");
         }
     }

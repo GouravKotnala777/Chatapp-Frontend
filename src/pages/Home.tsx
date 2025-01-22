@@ -26,8 +26,7 @@ import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
-import { allReceivedFriendRequests, createChat, myProfile, selectedChatMessages, sendAttachment } from "../redux/api/api";
-import { LoginUserReducerTypes, setLoginUser } from "../redux/reducers/loginUserReducer";
+import { allReceivedFriendRequests, createChat, selectedChatMessages, sendAttachment } from "../redux/api/api";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
 import SearchUser from "../components/SearchUser";
@@ -39,13 +38,14 @@ import UserInfo from "./UserInfo";
 import DialogWrapper from "../components/DialogWrapper";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { io, Socket } from "socket.io-client";
+import { Toaster } from "react-hot-toast";
 
 
 
 
 let socket:Socket<DefaultEventsMap, DefaultEventsMap>;
 
-const Home = () => {
+const Home = ({user}:{user:UserTypes|null}) => {
     const [isTooltipActive, setIsTooltipActive] = useState<boolean>(false);
     const [tooltipPosition, setTooltipPosition] = useState<{x:number; y:number;}>({x:0, y:0});
     const [tooltipContent, setTooltipContent] = useState<string>("");
@@ -64,7 +64,6 @@ const Home = () => {
     const [isStartChatClicked, setIsStartChatClicked] = useState<boolean>(false);
     const [dialogParent, setDialogParent] = useState<DialogParentTypes>("Delete for me");
     const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
-    const {user} = useSelector((state:{loginUserReducer:LoginUserReducerTypes}) => state.loginUserReducer);
     const [isSelectedUserOnline, setIsSelectedUserOnline] = useState<{success:boolean; socketID?:string; message?:string;}>({success:false, socketID:"", message:""});
     const [friendRequests, setFriendRequests] = useState<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>([]);
 
@@ -94,21 +93,7 @@ const Home = () => {
         console.log("------  createNonGroupChatHandler");
     };
 
-    useEffect(() => {
-        const fetchMyProfile = myProfile();
-
-        fetchMyProfile.then((data) => {
-            console.log("from Home.tsx ))))))))))");
-            dispatch(setLoginUser({isLoading:false, user:data.message as UserTypes, isError:false}))
-            console.log("from Home.tsx ))))))))))");
-            
-        })
-        .catch((err) => {
-            console.log("from Home.tsx--------------");
-            console.log(err);
-            console.log("from Home.tsx--------------");
-        })
-    }, []);
+    
 
     useEffect(() => {
         const getMessages = selectedChatMessages({chatID:selectedChat?._id as string});
@@ -172,10 +157,19 @@ const Home = () => {
         });
     }, [user]);
 
+    useEffect(() => {
+        socket.on("sendFriendRequest", (msg) => {
+            console.log("::::::::::::::::::::::::::: (1)");
+            console.log(msg);
+            console.log("::::::::::::::::::::::::::: (2)");
+        })
+    }, []);
+
     return(
         <>
         <DialogWrapper heading="Delete message?" parent={dialogParent} isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} setIsDeleteForMeClicked={setIsDeleteForMeClicked} setIsDeleteForAllClicked={setIsDeleteForAllClicked} />
         <Tooltip content={tooltipContent} position={tooltipPosition} isTooltipActive={isTooltipActive} />
+        <Toaster />
         {/*{JSON.stringify(singleSelectedUser)}*/}
         <div className="home_bg">
             {

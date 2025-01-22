@@ -8,6 +8,7 @@ import UserListItem from "./UserLIstItem";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { removeMembersFromChat } from "../redux/api/api";
 import { TopBackBtn } from "../utils/Utill";
+import toast from "react-hot-toast";
 
 
 const ChatMembersList = () => {
@@ -30,8 +31,16 @@ const ChatMembersList = () => {
 
         if (selectedUserArray.success === true) {
             setSelectedNavigation("Chats");
+            toast.success("Group members updated", {
+                duration:2000,
+                position:"top-center"
+            });
         }
         else{
+            toast.error(selectedUserArray.message.toString(), {
+                duration:2000,
+                position:"top-center"
+            });
             console.log("PPATA NAHI USER ADD KYO NAHI HUA");
         }
     }
