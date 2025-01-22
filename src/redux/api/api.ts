@@ -4,17 +4,17 @@ import { ChatTypes, ContentMessageType, FriendRequestStatusType, MessageStatusTy
 // User APIs
 export const getMyChats = async() => {
     try {
-        const myChatsRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/my_chats`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/my_chats`, {
             method:"GET",
             credentials:"include"
         });
 
-        const myChatsData = await myChatsRes.json();
+        const data = await res.json();
 
         console.log("----- getMyChats  api.ts");
-        console.log(myChatsData);
+        console.log(data);
         console.log("----- getMyChats  api.ts");
-        return myChatsData as ResponseType<ChatTypes[]>;
+        return data as ResponseType<ChatTypes[]>;
     } catch (error) {
         console.log("----- getMyChats  api.ts");
         console.log(error);
@@ -24,7 +24,7 @@ export const getMyChats = async() => {
 };
 export const register = async(registerFormData:{name:string; email:string; password:string; gender:string; mobile:string;}):Promise<ResponseType<string|Error>> => {
     try {
-        const loginRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/new`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/new`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -33,12 +33,12 @@ export const register = async(registerFormData:{name:string; email:string; passw
             body:JSON.stringify(registerFormData)
         });
 
-        const registerData = await loginRes.json();
+        const data = await res.json();
 
         console.log("----- register  api.ts");
-        console.log(registerData);
+        console.log(data);
         console.log("----- register  api.ts");
-        return registerData as ResponseType<string>;
+        return data as ResponseType<typeof data.jsonData>;
     } catch (error) {
         console.log("----- register  api.ts");
         console.log(error);
@@ -48,7 +48,7 @@ export const register = async(registerFormData:{name:string; email:string; passw
 };
 export const login = async(loginFormData:{email:string; password:string;}) => {
     try {
-        const loginRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/login`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/login`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -57,12 +57,12 @@ export const login = async(loginFormData:{email:string; password:string;}) => {
             body:JSON.stringify(loginFormData)
         });
 
-        const loginData = await loginRes.json();
+        const data = await res.json();
 
         console.log("----- login  api.ts");
-        console.log(loginData);
+        console.log(data);
         console.log("----- login  api.ts");
-        return loginData as ResponseType<UserTypes>;
+        return data as ResponseType<UserTypes>;
     } catch (error) {
         console.log("----- login  api.ts");
         console.log(error);
@@ -72,17 +72,17 @@ export const login = async(loginFormData:{email:string; password:string;}) => {
 };
 export const myProfile = async() => {
     try {
-        const myProfileRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/me`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/me`, {
             method:"GET",
             credentials:"include"
         });
 
-        const myProfileData = await myProfileRes.json();
+        const data = await res.json();
 
         console.log("----- getMyProfile  api.ts");
-        console.log(myProfileData);
+        console.log(data);
         console.log("----- getMyProfile  api.ts");
-        return myProfileData as ResponseType<UserTypes>;
+        return data as ResponseType<UserTypes>;
     } catch (error) {
         console.log("----- getMyProfile  api.ts");
         console.log(error);
@@ -92,18 +92,17 @@ export const myProfile = async() => {
 };
 export const myFriends = async() => {
     try {
-        const myFriendsRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends`, {
             method:"GET",
             credentials:"include"
         });
 
-        const myFriendsData = await myFriendsRes.json();
+        const data = await res.json();
 
         console.log("----- myFriends  api.ts");
-        console.log(myFriendsData);
+        console.log(data);
         console.log("----- myFriends  api.ts");
-
-        return myFriendsData as ResponseType<UserTypes[]>;
+        return data as ResponseType<UserTypes[]>;
     } catch (error) {
         console.log("----- myFriends  api.ts");
         console.log(error);
@@ -113,7 +112,7 @@ export const myFriends = async() => {
 };
 export const searchUser = async(searchUserFormData:{searchQuery:string;}) => {
     try {
-        const searchUserRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/search`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/search`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -122,13 +121,12 @@ export const searchUser = async(searchUserFormData:{searchQuery:string;}) => {
             body:JSON.stringify(searchUserFormData)
         });
 
-        const searchUserData = await searchUserRes.json();
+        const data = await res.json();
 
         console.log("----- searchUser  api.ts");
-        console.log(searchUserData);
+        console.log(data);
         console.log("----- searchUser  api.ts");
-
-        return searchUserData as ResponseType<UserTypes[]>;
+        return data as ResponseType<UserTypes[]>;
     } catch (error) {
         console.log("----- searchUser  api.ts");
         console.log(error);
@@ -138,18 +136,17 @@ export const searchUser = async(searchUserFormData:{searchQuery:string;}) => {
 };
 export const allReceivedFriendRequests = async() => {
     try {
-        const allReceivedFriendRequestsRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends_request`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends_request`, {
             method:"GET",
             credentials:"include"
         });
 
-        const allReceivedFriendRequestsData = await allReceivedFriendRequestsRes.json();
+        const data = await res.json();
 
         console.log("----- allReceivedFriendRequests  api.ts");
-        console.log(allReceivedFriendRequestsData);
+        console.log(data);
         console.log("----- allReceivedFriendRequests  api.ts");
-
-        return allReceivedFriendRequestsData as ResponseType<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>;
+        return data as ResponseType<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>;
     } catch (error) {
         console.log("----- allReceivedFriendRequests  api.ts");
         console.log(error);
@@ -159,7 +156,7 @@ export const allReceivedFriendRequests = async() => {
 };
 export const sendFriendRequest = async(sendFriendRequestFormData:{searchedUserIDArray:string[];}) => {
     try {
-        const sendFriendRequestRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends_request`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends_request`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -168,13 +165,12 @@ export const sendFriendRequest = async(sendFriendRequestFormData:{searchedUserID
             body:JSON.stringify(sendFriendRequestFormData)
         });
 
-        const sendFriendRequestData = await sendFriendRequestRes.json();
+        const data = await res.json();
 
         console.log("----- sendFriendRequest  api.ts");
-        console.log(sendFriendRequestData);
+        console.log(data);
         console.log("----- sendFriendRequest  api.ts");
-
-        return sendFriendRequestData as ResponseType<string>;
+        return data as ResponseType<string>;
     } catch (error) {
         console.log("----- sendFriendRequest  api.ts");
         console.log(error);
@@ -184,7 +180,7 @@ export const sendFriendRequest = async(sendFriendRequestFormData:{searchedUserID
 };
 export const replyFriendRequest = async(replyFriendRequestFormData:{friendRequestID:string; status:FriendRequestStatusType;}) => {
     try {
-        const replyFriendRequestRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends_request`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends_request`, {
             method:"PUT",
             headers:{
                 "Content-Type":"application/json"
@@ -193,13 +189,12 @@ export const replyFriendRequest = async(replyFriendRequestFormData:{friendReques
             body:JSON.stringify(replyFriendRequestFormData)
         });
 
-        const replyFriendRequestData = await replyFriendRequestRes.json();
+        const data = await res.json();
 
         console.log("----- replyFriendRequest  api.ts");
-        console.log(replyFriendRequestData);
+        console.log(data);
         console.log("----- replyFriendRequest  api.ts");
-
-        return replyFriendRequestData as ResponseType<string>;
+        return data as ResponseType<string>;
     } catch (error) {
         console.log("----- replyFriendRequest  api.ts");
         console.log(error);
@@ -209,7 +204,7 @@ export const replyFriendRequest = async(replyFriendRequestFormData:{friendReques
 };
 export const removeFriend = async(removeFriendFormData:{friendUserID:string;}) => {
     try {
-        const removeFriendRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/friends`, {
             method:"DELETE",
             headers:{
                 "Content-Type":"application/json"
@@ -218,13 +213,12 @@ export const removeFriend = async(removeFriendFormData:{friendUserID:string;}) =
             body:JSON.stringify(removeFriendFormData)
         });
 
-        const removeFriendData = await removeFriendRes.json();
+        const data = await res.json();
 
         console.log("----- removeFriend  api.ts");
-        console.log(removeFriendData);
+        console.log(data);
         console.log("----- removeFriend  api.ts");
-
-        return removeFriendData as ResponseType<UserTypes[]>;
+        return data as ResponseType<UserTypes[]>;
     } catch (error) {
         console.log("----- removeFriend  api.ts");
         console.log(error);
@@ -234,7 +228,7 @@ export const removeFriend = async(removeFriendFormData:{friendUserID:string;}) =
 };
 export const verify = async({token, emailType}:{token:string; emailType:"VERIFY_EMAIL"|"RESET_PASSWORD";}) => {
     try {
-        const verifyRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/verifyemail`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/verifyemail`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -243,13 +237,12 @@ export const verify = async({token, emailType}:{token:string; emailType:"VERIFY_
             body:JSON.stringify({token, emailType})
         });
 
-        const verifyData = await verifyRes.json();
+        const data = await res.json();
 
         console.log("----- verify  api.ts");
-        console.log(verifyData);
+        console.log(data);
         console.log("----- verify  api.ts");
-
-        return verifyData as ResponseType<UserTypes>;
+        return data as ResponseType<UserTypes>;
     } catch (error) {
         console.log("----- verify  api.ts");
         console.log(error);
@@ -261,7 +254,7 @@ export const verify = async({token, emailType}:{token:string; emailType:"VERIFY_
 // Chat APIs
 export const createChat = async(newChatFormData:{chatName:string; members?:string[]; description:string; isGroupChat:boolean;}) => {
     try {
-        const createChatRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/new`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/new`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -270,12 +263,12 @@ export const createChat = async(newChatFormData:{chatName:string; members?:strin
             body:JSON.stringify(newChatFormData)
         });
 
-        const createChatData = await createChatRes.json();
+        const data = await res.json();
 
         console.log("----- createChat  api.ts");
-        console.log(createChatData);
+        console.log(data);
         console.log("----- createChat  api.ts");
-        return createChatData as ResponseType<ChatTypes>;
+        return data as ResponseType<ChatTypes>;
     } catch (error) {
         console.log("----- createChat  api.ts");
         console.log(error);
@@ -285,7 +278,7 @@ export const createChat = async(newChatFormData:{chatName:string; members?:strin
 };
 export const selectedChatMessages = async(selectedChatMessagesFromData:{chatID:string;}) => {
     try {
-        const selectedChatMessagesRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -294,13 +287,12 @@ export const selectedChatMessages = async(selectedChatMessagesFromData:{chatID:s
             body:JSON.stringify(selectedChatMessagesFromData)
         });
 
-        const selectedChatMessagesData = await selectedChatMessagesRes.json();
+        const data = await res.json();
 
         console.log("----- selectedChatMessages api.ts");
-        console.log(selectedChatMessagesData);
+        console.log(data);
         console.log("----- selectedChatMessages api.ts");
-
-        return selectedChatMessagesData as  ResponseType<MessageTypesPopulated[]>
+        return data as  ResponseType<MessageTypesPopulated[]>
         
     } catch (error) {
         console.log("----- selectedChatMessages api.ts");
@@ -311,7 +303,7 @@ export const selectedChatMessages = async(selectedChatMessagesFromData:{chatID:s
 }
 export const updateChat = async(updateChatFromData:{chatID:string; members:string[];}) => {
     try {
-        const updatedChatRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
             method:"PUT",
             headers:{
                 "Content-Type":"application/json"
@@ -320,13 +312,12 @@ export const updateChat = async(updateChatFromData:{chatID:string; members:strin
             body:JSON.stringify(updateChatFromData)
         });
 
-        const updatedChatData = await updatedChatRes.json();
+        const data = await res.json();
 
         console.log("----- updateChat api.ts");
-        console.log(updatedChatData);
+        console.log(data);
         console.log("----- updateChat api.ts");
-
-        return updatedChatData as  ResponseType<ChatTypes>
+        return data as  ResponseType<ChatTypes>
         
     } catch (error) {
         console.log("----- updateChat api.ts");
@@ -337,7 +328,7 @@ export const updateChat = async(updateChatFromData:{chatID:string; members:strin
 }
 export const removeMembersFromChat = async(removeMembersFromChatFromData:{chatID:string; members:string[];}) => {
     try {
-        const updatedChatRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/remove_members`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/remove_members`, {
             method:"PUT",
             headers:{
                 "Content-Type":"application/json"
@@ -346,13 +337,12 @@ export const removeMembersFromChat = async(removeMembersFromChatFromData:{chatID
             body:JSON.stringify(removeMembersFromChatFromData)
         });
 
-        const updatedChatData = await updatedChatRes.json();
+        const data = await res.json();
 
         console.log("----- removeMembersFromChat api.ts");
-        console.log(updatedChatData);
+        console.log(data);
         console.log("----- removeMembersFromChat api.ts");
-
-        return updatedChatData as  ResponseType<ChatTypes>
+        return data as  ResponseType<ChatTypes>
         
     } catch (error) {
         console.log("----- removeMembersFromChat api.ts");
@@ -363,7 +353,7 @@ export const removeMembersFromChat = async(removeMembersFromChatFromData:{chatID
 }
 export const deleteChat = async(deleteChatFormData:{chatID:string;}) => {
     try {
-        const deleteChatRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/chat/selected_chat`, {
             method:"DELETE",
             headers:{
                 "Content-Type":"application/json"
@@ -372,13 +362,12 @@ export const deleteChat = async(deleteChatFormData:{chatID:string;}) => {
             body:JSON.stringify(deleteChatFormData)
         });
 
-        const deleteChatData = await deleteChatRes.json();
+        const data = await res.json();
 
         console.log("----- deleteChat api.ts");
-        console.log(deleteChatData);
+        console.log(data);
         console.log("----- deleteChat api.ts");
-
-        return deleteChatData as  ResponseType<ChatTypes>
+        return data as  ResponseType<ChatTypes>
     } catch (error) {
         console.log("----- deleteChat api.ts");
         console.log(error);
@@ -390,7 +379,7 @@ export const deleteChat = async(deleteChatFormData:{chatID:string;}) => {
 // Message APIs
 export const createMessage = async(createMessageFormData:{sender:string; chatID:string; content:string; attachment:string[]; messageType:ContentMessageType; messageStatus:MessageStatusType;}) => {
     try {
-        const createMessageRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/new`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/new`, {
             method:"POST",
             headers:{
                 "content-type":"application/json"
@@ -399,12 +388,12 @@ export const createMessage = async(createMessageFormData:{sender:string; chatID:
             body:JSON.stringify(createMessageFormData)
         });
 
-        const createMessageData = await createMessageRes.json();
+        const data = await res.json();
 
         console.log("----- createMessage api.ts");
-        console.log(createMessageData);        
+        console.log(data);        
         console.log("----- createMessage api.ts");
-        return createMessageData as ResponseType<MessageTypesPopulated>;
+        return data as ResponseType<MessageTypesPopulated>;
     } catch (error) {
         console.log("----- createMessage api.ts");
         console.log(error);
@@ -414,18 +403,18 @@ export const createMessage = async(createMessageFormData:{sender:string; chatID:
 };
 export const sendAttachment = async(formData:FormData) => {
     try {
-        const sendAttachmentRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/send-attachment`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/send-attachment`, {
             method:"POST",
             credentials:"include",
             body:formData
         });
 
-        const sendAttachmentData = await sendAttachmentRes.json();
+        const data = await res.json();
 
         console.log("----- sendAttachment api.ts");
-        console.log(sendAttachmentData);        
+        console.log(data);        
         console.log("----- sendAttachment api.ts");
-        return sendAttachmentData as ResponseType<MessageTypesPopulated>;
+        return data as ResponseType<MessageTypesPopulated>;
     } catch (error) {
         console.log("----- sendAttachment api.ts");
         console.log(error);
@@ -444,12 +433,12 @@ export const deleteMessagesForMe = async(deleteForMeFormData:{messageID:string[]
             body:JSON.stringify(deleteForMeFormData)
         });
 
-        const resolved = await res.json();
+        const data = await res.json();
 
         console.log("----- deleteMessagesForMe api.ts");
-        console.log(resolved);        
+        console.log(data);        
         console.log("----- deleteMessagesForMe api.ts");
-        return resolved as ResponseType<string[]>;
+        return data as ResponseType<string[]>;
     } catch (error) {
         console.log("----- deleteMessagesForMe api.ts");
         console.log(error);
@@ -468,12 +457,12 @@ export const deleteMessagesForAll = async(deleteForAllFormData:{messageID:string
             body:JSON.stringify(deleteForAllFormData)
         });
 
-        const resolved = await res.json();
+        const data = await res.json();
 
         console.log("----- deleteMessagesForAll api.ts");
-        console.log(resolved);        
+        console.log(data);        
         console.log("----- deleteMessagesForAll api.ts");
-        return resolved as ResponseType<string[]>;
+        return data as ResponseType<string[]>;
     } catch (error) {
         console.log("----- deleteMessagesForAll api.ts");
         console.log(error);
@@ -483,9 +472,7 @@ export const deleteMessagesForAll = async(deleteForAllFormData:{messageID:string
 };
 export const forwardMessage = async(forwardMessageFormData:{memberIDs:string[]; contentID:string[]; attachment:string[]; messageType:ContentMessageType; messageStatus:MessageStatusType; isForwarded:boolean;}) => {
     try {
-        console.log({forwardMessageFormData});
-        
-        const forwardMessageRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/forward`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/v1/message/forward`, {
             method:"POST",
             headers:{
                 "content-type":"application/json"
@@ -494,12 +481,12 @@ export const forwardMessage = async(forwardMessageFormData:{memberIDs:string[]; 
             body:JSON.stringify(forwardMessageFormData)
         });
 
-        const forwardMessageData = await forwardMessageRes.json();
+        const data = await res.json();
 
         console.log("----- forwardMessage api.ts");
-        console.log(forwardMessageData);        
+        console.log(data);        
         console.log("----- forwardMessage api.ts");
-        return forwardMessageData as ResponseType<string>;
+        return data as ResponseType<string>;
     } catch (error) {
         console.log("----- forwardMessage api.ts");
         console.log(error);

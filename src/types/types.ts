@@ -2,7 +2,7 @@ export type textAlign = 'left' | 'right' | 'center' | 'justify';
 
 export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "Chat info" | "User info" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Add members" | "Contacts" | "Remove members" | "Friend requests" | "Search user" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block" | "Start chat" | "Delete freind" | "Forward" | "Delete message";
 export type DialogParentTypes = "Delete for me" | "Delete for all";
-export type ResponseType<T> = {success:boolean; message:T};
+export type ResponseType<T> = {success:boolean; message:string; jsonData:T};
 
 export type FriendRequestStatusType = "pending"|"accepted"|"rejected";
 export interface UserTypes {
