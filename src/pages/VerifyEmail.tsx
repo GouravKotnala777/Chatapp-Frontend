@@ -24,16 +24,16 @@ const VerifyEmail = () => {
         try {
             const res = await verify({token:token as string, emailType:emailType as "VERIFY_EMAIL"|"RESET_PASSWORD"});
 
-            console.log(res);
-
             if (res.success === true) {
                 toast.success(res.message, {
                     duration:2000,
                     position:"top-center"
                 });
                 setVerifyRes(res.jsonData as UserTypes);
-                dispatch(setLoginUser({isLoading:false, user:res.jsonData as UserTypes, isError:false}));
-                navigate("/");
+                setTimeout(() => {
+                    dispatch(setLoginUser({isLoading:false, user:res.jsonData as UserTypes, isError:false}));
+                    navigate("/");
+                }, 2100)
             }
             else if (res.success === false) {
                 toast.error(res.message, {

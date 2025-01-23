@@ -1,38 +1,18 @@
 import "../styles/pages/login.scss";
 import { ChangeEvent, useState } from "react";
 import { register } from "../redux/api/api";
-//import { useDispatch } from "react-redux";
-//import { setLoginUser } from "../redux/reducers/loginUserReducer";
-//import { useNavigate } from "react-router-dom";
-//import { UserTypes } from "../types/types";
 import { TopBackBtn } from "../utils/Utill";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const Register = () => {
     const [registerFormData, setRegisterFormData] = useState<{name:string; email:string; password:string; gender:string; mobile:string;}>({name:"", email:"", password:"", gender:"", mobile:""});
-    //const dispatch = useDispatch();
-    //const navigate = useNavigate();
 
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
         setRegisterFormData({...registerFormData, [e.target.name]:e.target.value});
     };
 
     const onRegisterHandler = async() => {
-        const registerRes = await register(registerFormData);
-
-        if (registerRes.success) {
-            toast.success(registerRes.message, {
-                duration:2000,
-                position:"top-center"
-            })
-        }
-        //if (registerRes.success === true) {
-        //    //navigate("/");
-        //}
-        //if (registerRes.success === false) {
-        //    //dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
-        //}
-        console.log(registerRes);
+        await register(registerFormData);
     };
 
 

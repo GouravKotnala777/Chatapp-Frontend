@@ -23,20 +23,15 @@ const Login = () => {
         console.log({loginData});
 
         if (loginData.success === true) {
-            if (typeof loginData.message === "string") {
-                toast.success(loginData.message, {
-                    duration:2000,
-                    position:"top-center"
-                });
-                console.log("Check email for verification link");
+            if (loginData.message === "Login successful") {
+                setTimeout(() => {
+                    dispatch(setLoginUser({isLoading:false, user:loginData.jsonData as UserTypes, isError:false}));
+                    navigate("/");
+                }, 2100);
+                console.log("AAAAAAAAAAAAAAAAAAAA");
             }
             else {
-                toast.success(loginData.message, {
-                    duration:2000,
-                    position:"top-center"
-                });
-                dispatch(setLoginUser({isLoading:false, user:loginData.message as UserTypes, isError:false}));
-                navigate("/");
+                console.log("BBBBBBBBBBBBBBBBBBBB");
             }
         }
         if (loginData.success === false) {
