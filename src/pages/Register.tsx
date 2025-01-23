@@ -18,26 +18,21 @@ const Register = () => {
     };
 
     const onRegisterHandler = async() => {
-        try {
-            const registerRes = await register(registerFormData);
+        const registerRes = await register(registerFormData);
 
-            if (registerRes.success) {
-                toast.success(registerRes.message, {
-                    duration:2000,
-                    position:"top-center"
-                })
-            }
-            //if (registerRes.success === true) {
-            //    //navigate("/");
-            //}
-            //if (registerRes.success === false) {
-            //    //dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
-            //}
-            console.log(registerRes);
-            
-        } catch (error) {
-            console.log(error);
+        if (registerRes.success) {
+            toast.success(registerRes.message, {
+                duration:2000,
+                position:"top-center"
+            })
         }
+        //if (registerRes.success === true) {
+        //    //navigate("/");
+        //}
+        //if (registerRes.success === false) {
+        //    //dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
+        //}
+        console.log(registerRes);
     };
 
 

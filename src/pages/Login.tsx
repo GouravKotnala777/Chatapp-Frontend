@@ -46,7 +46,7 @@ const Login = () => {
             });
             dispatch(setLoginUser({isLoading:false, user:null, isError:true}));
         }
-    }
+    };
 
     return(
         <div className="login_bg">
