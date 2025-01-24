@@ -38,7 +38,7 @@ import UserInfo from "./UserInfo";
 import DialogWrapper from "../components/DialogWrapper";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { io, Socket } from "socket.io-client";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 
 
@@ -155,15 +155,45 @@ const Home = ({user}:{user:UserTypes|null}) => {
             console.log("message => "+message.content?.contentMessage);
             setMessageArray((prev) => [...prev, message]);
         });
-    }, [user]);
 
-    useEffect(() => {
-        socket.on("sendFriendRequest", (msg) => {
+
+        socket.on("sendFriendRequest", (request:{
+            _id: string;
+            from: {
+                _id: string;
+                name: string;
+                email: string;
+            };
+            to: {
+                _id: string;
+                name: string;
+                email: string;
+            };
+            date: Date;
+        }) => {
             console.log("::::::::::::::::::::::::::: (1)");
-            console.log(msg);
+            console.log(request);
+            setFriendRequests((prev) => [...prev, request]);
             console.log("::::::::::::::::::::::::::: (2)");
-        })
-    }, []);
+
+            toast.success(`${request.from.name} sended you friend request`, {
+                duration:2000,
+                position:"top-center"
+            });
+        });
+
+
+        socket.on("replyFriendRequest", (request) => {
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!! (1)");
+            console.log(request);
+            setFriendRequests((prev) => prev.filter((item) => item._id !== request.requestID));
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!! (2)");
+            toast.success(`${request.requestReceiverName} accepted your friend request`, {
+                duration:2000,
+                position:"top-center"
+            })
+        });
+    }, [user]);
 
     return(
         <>
@@ -292,10 +322,10 @@ const Home = ({user}:{user:UserTypes|null}) => {
                                                             :
                                                             selectedNavigation === "Search user" ? 
                                                                             //ISKE LIYE CONTROLLER BANANA HAI
-                                                                <SearchUser friendRequests={friendRequests} user={user} />
+                                                                <SearchUser friendRequests={friendRequests} setFriendRequests={setFriendRequests} user={user} />
                                                                 :
                                                                 selectedNavigation === "Friend requests" ?
-                                                                    <ReceivedFriendRequests friendRequests={friendRequests} user={user} />
+                                                                    <ReceivedFriendRequests friendRequests={friendRequests} setFriendRequests={setFriendRequests} user={user} />
                                                                     :
                                                                     selectedNavigation === "Delete chat" ?
                                                                         <DeleteChat singleSelectedUser={singleSelectedUser._id} />

@@ -2,7 +2,7 @@ import "../styles/components/search_user.scss";
 import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { Input, TopBackBtn } from "../utils/Utill";
 import UserListItem from "./UserLIstItem";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { UserTypes } from "../types/types";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { BiRightArrowAlt } from "react-icons/bi";
@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
 
-const SearchUser = ({friendRequests, user}:{friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]; user:UserTypes|null;}) => {
+const SearchUser = ({friendRequests, setFriendRequests, user}:{friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]; setFriendRequests:Dispatch<SetStateAction<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>>; user:UserTypes|null;}) => {
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [searchedUserResult, setSearchedUserResult] = useState<UserTypes[]>([]);
@@ -23,6 +23,21 @@ const SearchUser = ({friendRequests, user}:{friendRequests:{_id:string; from:{_i
         if (selectedUserArray.success === true) {
             dispatch(setSelectedNavigation("Chats"));
             setUsersToAddInGroup([]);
+            setFriendRequests((prev) => [...prev, ...(selectedUserArray.jsonData as {
+                _id: string;
+                from: {
+                    _id: string;
+                    name: string;
+                    email: string;
+                };
+                to: {
+                    _id: string;
+                    name: string;
+                    email: string;
+                };
+                date: Date;
+            }[])]);
+            
             toast.success(selectedUserArray.message, {
                 duration:2000,
                 position:"top-center"

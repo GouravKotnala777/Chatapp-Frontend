@@ -51,7 +51,7 @@ const apiHandler = async<T, U = undefined>(
     } catch (error) {
         const errorMessage = (error as {message:string;}).message || "An unknown error occured";
 
-        if (!errorMessage) {
+        if (errorMessage && errorMessage !== "Token not found") {
             toast.error(errorMessage, {
                 duration:2000,
                 position:"top-center"
@@ -165,7 +165,7 @@ export const replyFriendRequest = async(formData:{friendRequestID:string; status
         body:formData,
         toastMessageArray:[
             {condition:!formData.friendRequestID, toastMessage:"No user selected"},
-            {condition:(formData.status === "accepted" || formData.status === "rejected"), toastMessage:"Already answered request"}
+            {condition:(formData.status === "pending"), toastMessage:"You can either accept or reject request"}
         ],
         options:{requiresAuth:true}
     })
