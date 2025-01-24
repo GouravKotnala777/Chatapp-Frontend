@@ -84,7 +84,7 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
 
     return(
         <>
-        {/*<pre style={{color:"white"}}>{JSON.stringify(selectedChat, null, `\t`)}</pre>*/}
+        {/*<pre style={{color:"white"}}>{JSON.stringify(messagesArray, null, `\t`)}</pre>*/}
             <div className="chat_cont">
                 <div className="chat_section_header">
                     <div className="heading">Chats</div>
@@ -115,6 +115,7 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
                 </div>
                 <div className="chat_section">
                     <div className="chat_section_scrollable">
+                        {/*<pre style={{color:"white"}}>{JSON.stringify(messagesArray, null, `\t`)}</pre>*/}
                         {
                             myChats?.map((chat) => (
                                 <div key={chat._id} className="single_chat_outer" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && onSelectChatHandler(chat)} onClick={() => onSelectChatHandler(chat)} style={{
@@ -123,9 +124,8 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
                                         :
                                         "unset"
                                 }}>
-                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray[messagesArray?.length-1]?.content?.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray?.[messagesArray?.length-1]?.content?.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
                                 </div>
-                                //<pre>{JSON.stringify(, null, `\t`)}</pre>
                             ))
                         }
                     </div>
@@ -166,16 +166,8 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
                                         :
                                         "unset"
                                 }}>
-                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray[messagesArray?.length-1]?.content?.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
+                                    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={messagesArray?.[messagesArray?.length-1]?.content?.contentMessage} date={chat.createdAt.toString().split("T")[0]} />
                                 </div>
-                                //<Link to="/chat/single" className="single_chat_outer" onClick={() => onSelectChatHandler(chat)} style={{
-                                //    background:selectedChat?._id === chat._id ?
-                                //        PRIMARY_LIGHT
-                                //        :
-                                //        "unset"
-                                //}}>
-                                //    <ChatListItem isSelected={selectedChat?._id === chat._id} chatName={chat.chatName} lastMessage={chat.lastMessage} date={chat.date} />
-                                //</Link>
                             ))
                         }
                     </div>

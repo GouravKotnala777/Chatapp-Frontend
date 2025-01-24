@@ -4,37 +4,22 @@ import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { createChat } from "../redux/api/api";
 import { ChangeEvent, useState } from "react";
 import { TopBackBtn } from "../utils/Utill";
-import toast from "react-hot-toast";
-
+import { useDispatch } from "react-redux";
 const NewGroup = () => {
-    const [newGroupFormData, setNewGroupFormData] = useState<{chatName:string; description:string; isGroupChat:boolean;}>({chatName:"", description:"", isGroupChat:false})
-
-
+    const [newGroupFormData, setNewGroupFormData] = useState<{chatName:string; description:string; isGroupChat:boolean;}>({chatName:"", description:"", isGroupChat:false});
+    const dispatch = useDispatch();
 
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
         setNewGroupFormData({...newGroupFormData, [e.target.name]:e.target.value});
     };
 
-    const createNewGroupHandler = async() => {
-        console.log(newGroupFormData);
-        
+    const createNewGroupHandler = async() => {        
         const newGroup = await createChat({...newGroupFormData, isGroupChat:true});
-
         if (newGroup.success === true) {
-            setSelectedNavigation("Chats");
-            toast.success(newGroup.message, {
-                duration:2000,
-                position:"top-center"
-            });
-        }else{
-            toast.error(newGroup.message, {
-                duration:2000,
-                position:"top-center"
-            });
+            setTimeout(() => {
+                dispatch(setSelectedNavigation("Chats"));
+            }, 2100);
         }
-        //if (newGroup.success === false) {
-            
-        //}
     };
 
 

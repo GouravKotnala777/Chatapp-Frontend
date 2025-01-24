@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { ChatTypesPopulated, UserTypes } from "../types/types";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserListItem from "./UserLIstItem";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { removeMembersFromChat } from "../redux/api/api";
@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 const ChatMembersList = () => {
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const {selectedChat, selectedNavigation} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
+    const dispatch = useDispatch();
 
     const onSelectUserHandler = (user:Pick<UserTypes, "_id"|"name"|"email">) => {
         if (usersToAddInGroup.includes(user._id)) {
@@ -30,7 +31,7 @@ const ChatMembersList = () => {
         const selectedUserArray = await removeMembersFromChat({chatID:selectedChat?._id as string, members:usersToAddInGroup});
 
         if (selectedUserArray.success === true) {
-            setSelectedNavigation("Chats");
+            dispatch(setSelectedNavigation("Chats"));
             toast.success("Group members updated", {
                 duration:2000,
                 position:"top-center"

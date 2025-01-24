@@ -38,7 +38,7 @@ const Contacts = ({singleSelectedUser, setSingleSelectedUser, setIsStartChatClic
         const selectedUserArray = await updateChat({chatID:selectedChat?._id as string, members:usersToAddInGroup});
 
         if (selectedUserArray.success === true) {
-            setSelectedNavigation("Chats");
+            dispatch(setSelectedNavigation("Chats"));
         }
         else{
             console.log("PPATA NAHI USER ADD KYO NAHI HUA");
