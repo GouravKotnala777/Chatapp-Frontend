@@ -66,6 +66,7 @@ const Home = ({user}:{user:UserTypes|null}) => {
     const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
     const [isSelectedUserOnline, setIsSelectedUserOnline] = useState<{success:boolean; socketID?:string; message?:string;}>({success:false, socketID:"", message:""});
     const [friendRequests, setFriendRequests] = useState<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>([]);
+    //const [totalReceivedFriendRequests, setTotalReceivedFriendRequests] = useState<number>(0);
 
 
     const showTooltipHandler = (e:MouseEvent<HTMLButtonElement>) => {
@@ -126,6 +127,7 @@ const Home = ({user}:{user:UserTypes|null}) => {
             console.log(data);
             if (data.success === true) {
                 setFriendRequests(data.jsonData as {_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]);
+                //setTotalReceivedFriendRequests((data.jsonData as {_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]).length);
             }
             console.log("----- allReceivedFriendRequests");
         }).catch((err) => {
@@ -284,7 +286,8 @@ const Home = ({user}:{user:UserTypes|null}) => {
                          />
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
-                        <Chats 
+                        <Chats
+                            totalReceivedFriendRequests={friendRequests.filter((rqst) => rqst.to._id === user?._id).length}
                             setIsMessangerForMobileActive={setIsMessangerForMobileActive}
                             setSelectedNavigation={setSelectedNavigation}
                             messagesArray={messageArray}
@@ -343,6 +346,7 @@ const Home = ({user}:{user:UserTypes|null}) => {
                                                                                         <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} setIsStartChatClicked={setIsStartChatClicked} />
                                                                                         :
                                                                                         <Chats
+                                                                                            totalReceivedFriendRequests={friendRequests.filter((rqst) => rqst.to._id === user?._id).length}
                                                                                             setIsMessangerForMobileActive={setIsMessangerForMobileActive}
                                                                                             setSelectedNavigation={setSelectedNavigation}
                                                                                             messagesArray={messageArray}

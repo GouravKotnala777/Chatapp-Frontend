@@ -19,13 +19,14 @@ import { DefaultEventsMap } from "@socket.io/component-emitter";
 const contentArray:NaviagationTypes[] = ["Search user", "Contacts", "New group", "Friend requests", "New broadcast", "Linked devices", "Starred messages", "Payments", "Settings"];
 
 const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
-    setIsSelectedUserOnline
+    setIsSelectedUserOnline, totalReceivedFriendRequests
 
 }:{setIsMessangerForMobileActive:Dispatch<SetStateAction<boolean>>; setSelectedNavigation:ActionCreatorWithPayload<NaviagationTypes>;
     messagesArray:MessageTypesPopulated[];
     socket:Socket<DefaultEventsMap, DefaultEventsMap>;
     myUserID:string;
     setIsSelectedUserOnline:Dispatch<SetStateAction<{success:boolean; socketID?:string; message?:string;}>>;
+    totalReceivedFriendRequests?:number;
 }) => {
     const [isOptionsDialogActive, setIsOptionsDialogActive] = useState<boolean>(false);
     const {selectedChat} = useSelector((state:{miscReducer:MiscReducerTypes}) => state.miscReducer);
@@ -105,7 +106,7 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
                     </div>
                     <div className="search_tags_cont">
                         {
-                            ["All", "Unread", "Favorites", "Groups"].map((tag) => (
+                            ["All", "Unread", "Favorites", "Groups", "Notifications"].map((tag) => (
                                 <button key={tag} className="tag">
                                     {tag}
                                 </button>
@@ -151,6 +152,13 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
                             ["All", "Unread", "Favorites", "Groups"].map((tag) => (
                                 <button key={tag} className="tag">
                                     {tag}
+                                </button>
+                            ))
+                        }
+                        {
+                            (["Friend requests"] as NaviagationTypes[]).map((tag) => (
+                                <button key={tag} className="tag" onClick={() => dispatch(setSelectedNavigation(tag))}>
+                                    {tag} {!!totalReceivedFriendRequests&&<span style={{border:"1px solid red", color:"white", fontWeight:"600", backgroundColor:"#aa0000", display:"inline-block", textAlign:"center", alignContent:"center", width:"18px", height:"18px", borderRadius:"10px"}}>{totalReceivedFriendRequests}</span>}
                                 </button>
                             ))
                         }
