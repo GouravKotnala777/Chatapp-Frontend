@@ -4,7 +4,7 @@ import { ContentMessageType, FriendRequestStatusType, MessageStatusType, Respons
 
 
 const apiHandler = async<T, U = undefined>(
-    {endpoint, method, options, toastMessageArray, body, contentType, disableErrorToast, disableSuccessToast, handlerName}:
+    {endpoint, method, options, toastMessageArray, body, contentType, handlerName}:
     {
         endpoint:string,
         method:"GET"|"POST"|"PUT"|"DELETE",
@@ -12,8 +12,6 @@ const apiHandler = async<T, U = undefined>(
         toastMessageArray:{condition:boolean; toastMessage:string;}[],
         options:{requiresAuth?:boolean;},
         contentType?:"FormType",
-        disableErrorToast?:boolean;
-        disableSuccessToast?:boolean;
         handlerName:string;
     }
 ):Promise<ResponseType<T>> => {
@@ -37,7 +35,8 @@ const apiHandler = async<T, U = undefined>(
 
         if (!res.ok) throw new Error(data.message || "Something went wrong");
 
-        if (!disableSuccessToast) {
+        
+        if (data.message) {
             toast.success(data.message, {
                 duration:2000,
                 position:"top-center"
@@ -52,14 +51,14 @@ const apiHandler = async<T, U = undefined>(
     } catch (error) {
         const errorMessage = (error as {message:string;}).message || "An unknown error occured";
 
-        if (!disableErrorToast) {
+        if (!errorMessage) {
             toast.error(errorMessage, {
                 duration:2000,
                 position:"top-center"
             });
         }
         console.log("API Error", error);
-        throw error;
+        return error as ResponseType<T>;
     }
 }
 
@@ -73,8 +72,8 @@ export const getMyChats = async() =>(
         body:null,
         toastMessageArray:[],
         options:{requiresAuth:true},
-        disableSuccessToast:true,
-        disableErrorToast:true
+        //disableSuccessToast:true,
+        //disableErrorToast:true
     })
 );
 export const register = async(formData:{name:string; email:string; password:string; gender:string; mobile:string;}):Promise<ResponseType<string|Error>> => (
@@ -114,8 +113,8 @@ export const myProfile = async() =>(
         body:null,
         toastMessageArray:[],
         options:{requiresAuth:true},
-        disableSuccessToast:true,
-        disableErrorToast:true
+        //disableSuccessToast:true,
+        //disableErrorToast:true
     })
 );
 export const myFriends = async() =>(
@@ -145,9 +144,7 @@ export const allReceivedFriendRequests = async() =>(
         method:"GET",
         body:null,
         toastMessageArray:[],
-        options:{requiresAuth:true},
-        disableSuccessToast:true,
-        disableErrorToast:true
+        options:{requiresAuth:true}
     })
 );
 export const sendFriendRequest = async(formData:{searchedUserIDArray:string[];}) =>(
@@ -222,9 +219,7 @@ export const selectedChatMessages = async(formData:{chatID:string;}) =>(
         toastMessageArray:[
             {condition:!formData.chatID, toastMessage:"chatID not found"}
         ],
-        options:{requiresAuth:true},
-        disableSuccessToast:true,
-        disableErrorToast:true
+        options:{requiresAuth:true}
     })
 );
 export const updateChat = async(formData:{chatID:string; members:string[];}) =>(
