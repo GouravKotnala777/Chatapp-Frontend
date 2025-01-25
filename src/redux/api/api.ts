@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { ContentMessageType, FriendRequestStatusType, MessageStatusType, ResponseType } from "../../types/types";
+import { ContentMessageType, FriendRequestStatusType, MessageStatusType, NotificationStatusTypes, NotificationTypeTypes, ResponseType } from "../../types/types";
 
 
 
@@ -322,6 +322,41 @@ export const forwardMessage = async(formData:{memberIDs:string[]; contentID:stri
             {condition:(formData.contentID.length === 0 && formData.attachment.length === 0), toastMessage:"Null content and attachment array"},
             {condition:formData.messageStatus !== "read", toastMessage:"Message has not read yet"},
             {condition:!formData.messageType, toastMessage:"messageType not found"}
+        ],
+        options:{requiresAuth:true}
+    })
+);
+
+// Notification APIs
+export const createNotification = async(formData:{
+    toUserID:string;
+    notificationType:NotificationTypeTypes;
+    status:NotificationStatusTypes;
+    content:string;
+    redirectedURL?:string;
+}) =>(
+    await apiHandler({
+        handlerName:"createNotification",
+        endpoint:"/api/v1/notification/create",
+        method:"POST",
+        body:formData,
+        toastMessageArray:[
+            {condition:(!formData.toUserID || !formData.notificationType || !formData.status || !formData.content), toastMessage:"All fields are required"}
+        ],
+        options:{requiresAuth:true}
+    })
+);
+export const updateNotificationStatus = async(formData:{
+    notificationID:string;
+    status:NotificationStatusTypes;
+}) =>(
+    await apiHandler({
+        handlerName:"updateNotificationStatus",
+        endpoint:"/api/v1/notification/update",
+        method:"PUT",
+        body:formData,
+        toastMessageArray:[
+            {condition:(!formData.notificationID || !formData.status), toastMessage:"All fields are required"}
         ],
         options:{requiresAuth:true}
     })

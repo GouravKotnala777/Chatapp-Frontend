@@ -82,3 +82,14 @@ export interface ContentType {
     createdAt:Date;
     updatedAt:Date;
 };
+
+export type NotificationTypeTypes = "info"|"alert"|"warning";
+export type NotificationStatusTypes = "pending"|"received"|"viewed"|"archived";
+export interface NotificationTypes{
+    receiverID:string;
+    notificationType:NotificationTypeTypes;
+    status:NotificationStatusTypes;
+    content:string;
+    redirectedURL?:string;
+    createdAt:Date;
+}
