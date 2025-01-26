@@ -1,0 +1,58 @@
+@import "../utils.scss";
+
+.notifications_cont{
+    //border: 2px solid red;
+    //height: 100vh;
+    background: $grayDarker;
+    flex:1;
+    padding: 10px;
+    .notifications{
+        //border: 2px solid green;
+        height: 85%;
+        overflow-y: scroll;
+        .scrollable_cont{
+            //border: 2px solid blue;
+            .notification{
+                padding: 10px 0;
+                border-radius: 8px;
+                border: 1px solid $grayLight;
+                margin: 10px auto;
+                //border: 2px solid orange;
+                .info_cont{
+                    display: flex;
+                    align-items: center;
+                    .image_cont{
+                        //border: 1px solid red;
+                        width: 30%;
+                        max-width: 60px;
+                        //height: 35px;
+                        img{
+    
+                        }
+                    }
+                    .content{
+                        //border: 1px solid orange;
+                        color: $grayLight;
+                        font-size: 0.9rem;
+                        flex: 1;
+                    }
+                    .date{
+                        //border: 1px solid greenyellow;
+                        color: $grayLight;
+                        font-size: 0.6rem;
+                        width: 20%;
+                        max-width: 40px;
+                    }
+                }
+                .button_cont{
+                    //border: 1px solid red;
+                    text-align: right;
+                    padding: 10px 20px 10px 0;
+                    button{
+                        margin: 0 10px;
+                    }
+                }
+            }
+        }
+    }
+}

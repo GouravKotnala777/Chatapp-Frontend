@@ -328,8 +328,18 @@ export const forwardMessage = async(formData:{memberIDs:string[]; contentID:stri
 );
 
 // Notification APIs
+export const myNotifications = async() =>(
+    await apiHandler({
+        handlerName:"myNotifications",
+        endpoint:"/api/v1/notification/all",
+        method:"GET",
+        body:null,
+        toastMessageArray:[],
+        options:{requiresAuth:true}
+    })
+);
 export const createNotification = async(formData:{
-    toUserID:string;
+    toUserIDs:string[];
     notificationType:NotificationTypeTypes;
     status:NotificationStatusTypes;
     content:string;
@@ -341,7 +351,35 @@ export const createNotification = async(formData:{
         method:"POST",
         body:formData,
         toastMessageArray:[
-            {condition:(!formData.toUserID || !formData.notificationType || !formData.status || !formData.content), toastMessage:"All fields are required"}
+            {condition:(formData.toUserIDs.length === 0 || !formData.notificationType || !formData.status || !formData.content), toastMessage:"All fields are required"}
+        ],
+        options:{requiresAuth:true}
+    })
+);
+export const watchNotification = async(formData:{
+    notificationID:string;
+}) =>(
+    await apiHandler({
+        handlerName:"watchNotification",
+        endpoint:"/api/v1/notification/watch",
+        method:"PUT",
+        body:formData,
+        toastMessageArray:[
+            {condition:(!formData.notificationID), toastMessage:"notificationID not found"}
+        ],
+        options:{requiresAuth:true}
+    })
+);
+export const removeNotification = async(formData:{
+    notificationID:string;
+}) =>(
+    await apiHandler({
+        handlerName:"removeNotification",
+        endpoint:"/api/v1/notification/remove",
+        method:"DELETE",
+        body:formData,
+        toastMessageArray:[
+            {condition:(!formData.notificationID), toastMessage:"notificationID not found"}
         ],
         options:{requiresAuth:true}
     })

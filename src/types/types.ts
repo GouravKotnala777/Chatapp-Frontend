@@ -1,6 +1,6 @@
 export type textAlign = 'left' | 'right' | 'center' | 'justify';
 
-export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "Chat info" | "User info" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Add members" | "Contacts" | "Remove members" | "Friend requests" | "Search user" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block" | "Start chat" | "Delete freind" | "Forward" | "Delete message";
+export type NaviagationTypes = "Chats" | "Status" | "Communities" | "Channels" | "Settings" | "Profile" | "New group" | "Chat info" | "User info" | "New broadcast" | "Linked devices" | "Starred messages" | "Payments" | "Settings" | "Add members" | "Contacts" | "Remove members" | "Friend requests" | "Search user" | "Archive chat" | "Mute notifications" | "Delete chat" | "Pin chat" | "Mark as unread" | "Block" | "Start chat" | "Delete freind" | "Forward" | "Delete message" | "Notifications";
 export type DialogParentTypes = "Delete for me" | "Delete for all";
 export type ResponseType<T> = {success:boolean; message:string; jsonData:T};
 
@@ -86,10 +86,13 @@ export interface ContentType {
 export type NotificationTypeTypes = "info"|"alert"|"warning";
 export type NotificationStatusTypes = "pending"|"received"|"viewed"|"archived";
 export interface NotificationTypes{
+    _id:string;
     receiverID:string;
     notificationType:NotificationTypeTypes;
     status:NotificationStatusTypes;
     content:string;
     redirectedURL?:string;
+    newFor:string[];
+    visibleFor:string[];
     createdAt:Date;
 }

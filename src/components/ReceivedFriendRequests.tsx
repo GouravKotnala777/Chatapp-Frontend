@@ -1,20 +1,45 @@
 import "../styles/components/received_friend_requests.scss";
-import { FriendRequestStatusType, UserTypes } from "../types/types";
+import { FriendRequestStatusType, NotificationStatusTypes, NotificationTypeTypes, UserTypes } from "../types/types";
 import { Dispatch, SetStateAction, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import UserListItem from "./UserLIstItem";
 import { CgAdd, CgRemove } from "react-icons/cg";
-import { replyFriendRequest } from "../redux/api/api";
+import { createNotification, replyFriendRequest } from "../redux/api/api";
 import { TopBackBtn } from "../utils/Utill";
 //import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 //import { useDispatch } from "react-redux";
 import { RiMailSendLine } from "react-icons/ri";
 
 
+interface ReceivedFriendRequestsPropTypes {
+    friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[];
+    setFriendRequests:Dispatch<SetStateAction<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>>;
+    notifications:{
+        _id:string;
+        receiverID:string;
+        notificationType:NotificationTypeTypes;
+        status:NotificationStatusTypes;
+        content:string;
+        redirectedURL?:string;
+        newFor:string[];
+        visibleFor:string[];
+        createdAt:Date;
+    }[];
+    setNotifications:Dispatch<SetStateAction<{
+        _id:string;
+        receiverID:string;
+        notificationType:NotificationTypeTypes;
+        status:NotificationStatusTypes;
+        content:string;
+        redirectedURL?:string;
+        newFor:string[];
+        visibleFor:string[];
+        createdAt:Date;
+    }[]>>;
+    user:UserTypes|null;
+};
 
-const ReceivedFriendRequests = ({friendRequests, setFriendRequests, user}:{friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[];
-    setFriendRequests:Dispatch<SetStateAction<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>>; user:UserTypes|null
-}) => {
+const ReceivedFriendRequests = ({friendRequests, setFriendRequests, notifications, setNotifications, user}:ReceivedFriendRequestsPropTypes) => {
     const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     
     //const dispatch = useDispatch();
@@ -28,7 +53,20 @@ const ReceivedFriendRequests = ({friendRequests, setFriendRequests, user}:{frien
                 console.log("----- replyFriendRequestHandler RequestFriendRequest.tsx");
                 //dispatch(setSelectedNavigation("Chats"));
                 setFriendRequests((prev) => prev.filter((item) => item._id !== friendRequestID));
-                setSingleSelectedUser({_id:"", name:"", email:""})
+
+
+                const createNotificationRes = await createNotification({
+                    toUserIDs:[singleSelectedUser._id],
+                    notificationType:"info",
+                    status:"received",
+                    content:"accepted friend request of"
+                });
+                setSingleSelectedUser({_id:"", name:"", email:""});
+    
+                if (createNotificationRes.success) {
+                    setNotifications((prev) => [...prev, ...(createNotificationRes.jsonData) as []])
+                }
+                    
             }
         //}
 

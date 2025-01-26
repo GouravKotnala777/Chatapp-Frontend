@@ -3,15 +3,42 @@ import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { Input, TopBackBtn } from "../utils/Utill";
 import UserListItem from "./UserLIstItem";
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
-import { UserTypes } from "../types/types";
+import { NotificationStatusTypes, NotificationTypeTypes, UserTypes } from "../types/types";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { BiRightArrowAlt } from "react-icons/bi";
-import { searchUser, sendFriendRequest } from "../redux/api/api";
+import { createNotification, searchUser, sendFriendRequest } from "../redux/api/api";
 import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
 
 
-const SearchUser = ({friendRequests, setFriendRequests, user}:{friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]; setFriendRequests:Dispatch<SetStateAction<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>>; user:UserTypes|null;}) => {
+interface SearchUserPropTypes {
+    friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[];
+    setFriendRequests:Dispatch<SetStateAction<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>>;
+    notifications:{
+        _id:string;
+        receiverID:string;
+        notificationType:NotificationTypeTypes;
+        status:NotificationStatusTypes;
+        content:string;
+        redirectedURL?:string;
+        newFor:string[];
+        visibleFor:string[];
+        createdAt:Date;
+    }[];
+    setNotifications:Dispatch<SetStateAction<{
+        _id:string;
+        receiverID:string;
+        notificationType:NotificationTypeTypes;
+        status:NotificationStatusTypes;
+        content:string;
+        redirectedURL?:string;
+        newFor:string[];
+        visibleFor:string[];
+        createdAt:Date;
+    }[]>>;
+    user:UserTypes|null;
+};
+
+const SearchUser = ({friendRequests, setFriendRequests, notifications, setNotifications, user}:SearchUserPropTypes) => {
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [searchedUserResult, setSearchedUserResult] = useState<UserTypes[]>([]);
@@ -37,17 +64,29 @@ const SearchUser = ({friendRequests, setFriendRequests, user}:{friendRequests:{_
                 };
                 date: Date;
             }[])]);
-            
-            toast.success(selectedUserArray.message, {
-                duration:2000,
-                position:"top-center"
+
+            const createNotificationRes = await createNotification({
+                toUserIDs:usersToAddInGroup,
+                notificationType:"info",
+                status:"received",
+                content:"sended friend request to"
             });
+
+            if (createNotificationRes.success) {
+                setNotifications((prev) => [...prev, ...(createNotificationRes.jsonData) as []])
+            }
+             
+            
+            //toast.success(selectedUserArray.message, {
+            //    duration:2000,
+            //    position:"top-center"
+            //});
         }
         else{
-            toast.error(selectedUserArray.message, {
-                duration:2000,
-                position:"top-center"
-            });
+            //toast.error(selectedUserArray.message, {
+            //    duration:2000,
+            //    position:"top-center"
+            //});
             console.log("PPATA NAHI USER ADD KYO NAHI HUA");
         }
     }

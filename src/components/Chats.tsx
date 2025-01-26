@@ -106,9 +106,16 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
                     </div>
                     <div className="search_tags_cont">
                         {
-                            ["All", "Unread", "Favorites", "Groups", "Notifications"].map((tag) => (
+                            ["All", "Unread", "Favorites", "Groups"].map((tag) => (
                                 <button key={tag} className="tag">
                                     {tag}
+                                </button>
+                            ))
+                        }
+                        {
+                            (["Notifications"] as NaviagationTypes[]).map((tag) => (
+                                <button key={tag} className="tag" onClick={() => dispatch(setSelectedNavigation(tag))}>
+                                    {tag} {!!totalReceivedFriendRequests&&<span style={{border:"1px solid red", color:"white", fontWeight:"600", backgroundColor:"#aa0000", display:"inline-block", textAlign:"center", alignContent:"center", width:"18px", height:"18px", borderRadius:"10px"}}>{totalReceivedFriendRequests}</span>}
                                 </button>
                             ))
                         }
@@ -156,7 +163,7 @@ const Chats = ({setIsMessangerForMobileActive, messagesArray, socket, myUserID,
                             ))
                         }
                         {
-                            (["Friend requests"] as NaviagationTypes[]).map((tag) => (
+                            (["Notifications"] as NaviagationTypes[]).map((tag) => (
                                 <button key={tag} className="tag" onClick={() => dispatch(setSelectedNavigation(tag))}>
                                     {tag} {!!totalReceivedFriendRequests&&<span style={{border:"1px solid red", color:"white", fontWeight:"600", backgroundColor:"#aa0000", display:"inline-block", textAlign:"center", alignContent:"center", width:"18px", height:"18px", borderRadius:"10px"}}>{totalReceivedFriendRequests}</span>}
                                 </button>

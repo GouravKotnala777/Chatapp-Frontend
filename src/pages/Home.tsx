@@ -21,12 +21,12 @@ import { FaRegLaughBeam } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaCamera, FaPlus } from "react-icons/fa6";
 import Messages from "../components/Messages";
-import { ChatTypes, ChatTypesPopulated, ContentMessageType, DialogParentTypes, MessageTypes, MessageTypesPopulated, NaviagationTypes, UserTypes } from "../types/types";
+import { ChatTypes, ChatTypesPopulated, ContentMessageType, DialogParentTypes, MessageTypes, MessageTypesPopulated, NaviagationTypes, NotificationStatusTypes, NotificationTypeTypes, UserTypes } from "../types/types";
 import Messanger from "./Messanger";
 import { MiscReducerTypes, setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NewGroup from "./NewGroup";
-import { allReceivedFriendRequests, createChat, selectedChatMessages, sendAttachment } from "../redux/api/api";
+import { allReceivedFriendRequests, createChat, myNotifications, selectedChatMessages, sendAttachment } from "../redux/api/api";
 import Contacts from "../components/Contancts";
 import ChatMembersList from "../components/ChatMembersList";
 import SearchUser from "../components/SearchUser";
@@ -38,7 +38,8 @@ import UserInfo from "./UserInfo";
 import DialogWrapper from "../components/DialogWrapper";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { io, Socket } from "socket.io-client";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import Notifications from "../components/Notifications";
 
 
 
@@ -66,6 +67,17 @@ const Home = ({user}:{user:UserTypes|null}) => {
     const [isAttachmentOpen, setIsAttachmentOpen] = useState<boolean>(false);
     const [isSelectedUserOnline, setIsSelectedUserOnline] = useState<{success:boolean; socketID?:string; message?:string;}>({success:false, socketID:"", message:""});
     const [friendRequests, setFriendRequests] = useState<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>([]);
+    const [notifications, setNotifications] = useState<{
+        _id:string;
+        receiverID:string;
+        notificationType:NotificationTypeTypes;
+        status:NotificationStatusTypes;
+        content:string;
+        redirectedURL?:string;
+        newFor:string[];
+        visibleFor:string[];
+        createdAt:Date;
+    }[]>([]);
     //const [totalReceivedFriendRequests, setTotalReceivedFriendRequests] = useState<number>(0);
 
 
@@ -138,6 +150,20 @@ const Home = ({user}:{user:UserTypes|null}) => {
     }, []);
 
     useEffect(() => {
+        const myNotificationsRes = myNotifications();
+
+        myNotificationsRes.then((data) => {
+            if (data.success === true) {
+                console.log({myNotificationsRes});
+                
+                setNotifications(data.jsonData as []);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }, []);
+
+    useEffect(() => {
         socket = io(import.meta.env.VITE_SERVER_URL);
         socket.emit("registerUser", {userID:user?._id, userName:user?.name});
 
@@ -178,10 +204,10 @@ const Home = ({user}:{user:UserTypes|null}) => {
             setFriendRequests((prev) => [...prev, request]);
             console.log("::::::::::::::::::::::::::: (2)");
 
-            toast.success(`${request.from.name} sended you friend request`, {
-                duration:2000,
-                position:"top-center"
-            });
+            //toast.success(`${request.from.name} sended you friend request`, {
+            //    duration:2000,
+            //    position:"top-center"
+            //});
         });
 
 
@@ -190,10 +216,22 @@ const Home = ({user}:{user:UserTypes|null}) => {
             console.log(request);
             setFriendRequests((prev) => prev.filter((item) => item._id !== request.requestID));
             console.log("!!!!!!!!!!!!!!!!!!!!!!!! (2)");
-            toast.success(`${request.requestReceiverName} accepted your friend request`, {
-                duration:2000,
-                position:"top-center"
-            })
+            //toast.success(`${request.requestReceiverName} accepted your friend request`, {
+            //    duration:2000,
+            //    position:"top-center"
+            //});
+        });
+
+
+        socket.on("newNotification", (noti) => {
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!! (1)");
+            console.log(noti);
+            setNotifications((prev) => [...prev, noti]);
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!! (2)");
+            //toast.success(`${request.requestReceiverName} accepted your friend request`, {
+            //    duration:2000,
+            //    position:"top-center"
+            //});
         });
     }, [user]);
 
@@ -202,7 +240,7 @@ const Home = ({user}:{user:UserTypes|null}) => {
         <DialogWrapper heading="Delete message?" parent={dialogParent} isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} setIsDeleteForMeClicked={setIsDeleteForMeClicked} setIsDeleteForAllClicked={setIsDeleteForAllClicked} />
         <Tooltip content={tooltipContent} position={tooltipPosition} isTooltipActive={isTooltipActive} />
         <Toaster />
-        {/*{JSON.stringify(singleSelectedUser)}*/}
+        {/*<pre>{JSON.stringify(notifications)}</pre>*/}
         <div className="home_bg">
             {
                 !isMessangerForMobileActive &&
@@ -287,7 +325,7 @@ const Home = ({user}:{user:UserTypes|null}) => {
                     :
                     selectedNavigation === "Chats" && !isMessangerForMobileActive ?
                         <Chats
-                            totalReceivedFriendRequests={friendRequests.filter((rqst) => rqst.to._id === user?._id).length}
+                            totalReceivedFriendRequests={notifications.filter((noti) => noti.visibleFor.includes(user?._id as string)).length}
                             setIsMessangerForMobileActive={setIsMessangerForMobileActive}
                             setSelectedNavigation={setSelectedNavigation}
                             messagesArray={messageArray}
@@ -325,10 +363,13 @@ const Home = ({user}:{user:UserTypes|null}) => {
                                                             :
                                                             selectedNavigation === "Search user" ? 
                                                                             //ISKE LIYE CONTROLLER BANANA HAI
-                                                                <SearchUser friendRequests={friendRequests} setFriendRequests={setFriendRequests} user={user} />
+                                                                <SearchUser friendRequests={friendRequests} setFriendRequests={setFriendRequests} user={user}
+                                                                    notifications={notifications} setNotifications={setNotifications}
+                                                                />
                                                                 :
                                                                 selectedNavigation === "Friend requests" ?
-                                                                    <ReceivedFriendRequests friendRequests={friendRequests} setFriendRequests={setFriendRequests} user={user} />
+                                                                    <ReceivedFriendRequests friendRequests={friendRequests} setFriendRequests={setFriendRequests}
+                                                                        notifications={notifications} setNotifications={setNotifications} user={user} />
                                                                     :
                                                                     selectedNavigation === "Delete chat" ?
                                                                         <DeleteChat singleSelectedUser={singleSelectedUser._id} />
@@ -345,15 +386,18 @@ const Home = ({user}:{user:UserTypes|null}) => {
                                                                                     selectedNavigation === "Forward" ?
                                                                                         <Contacts singleSelectedUser={singleSelectedUser} setSingleSelectedUser={setSingleSelectedUser} setIsStartChatClicked={setIsStartChatClicked} />
                                                                                         :
-                                                                                        <Chats
-                                                                                            totalReceivedFriendRequests={friendRequests.filter((rqst) => rqst.to._id === user?._id).length}
-                                                                                            setIsMessangerForMobileActive={setIsMessangerForMobileActive}
-                                                                                            setSelectedNavigation={setSelectedNavigation}
-                                                                                            messagesArray={messageArray}
-                                                                                            socket={socket}
-                                                                                            myUserID={user?._id as string}
-                                                                                            setIsSelectedUserOnline={setIsSelectedUserOnline}
-                                                                                        />
+                                                                                        selectedNavigation === "Notifications" ?
+                                                                                            <Notifications notifications={notifications} setNotifications={setNotifications} />
+                                                                                            :
+                                                                                            <Chats
+                                                                                                totalReceivedFriendRequests={notifications.filter((noti) => noti.visibleFor.includes(user?._id as string)).length}
+                                                                                                setIsMessangerForMobileActive={setIsMessangerForMobileActive}
+                                                                                                setSelectedNavigation={setSelectedNavigation}
+                                                                                                messagesArray={messageArray}
+                                                                                                socket={socket}
+                                                                                                myUserID={user?._id as string}
+                                                                                                setIsSelectedUserOnline={setIsSelectedUserOnline}
+                                                                                            />
                                                                                         //<h1 style={{color:"white"}}>From Home Page...</h1>
             }
 
