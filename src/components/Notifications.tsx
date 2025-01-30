@@ -1,36 +1,19 @@
 import "../styles/components/notifications.scss";
 import photo from "../../public/vite.svg";
-import { Dispatch, SetStateAction } from "react";
-import { NotificationStatusTypes, NotificationTypeTypes } from "../types/types";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { NaviagationTypes, NotificationTypes } from "../types/types";
 import { TopBackBtn } from "../utils/Utill";
-import { removeNotification } from "../redux/api/api";
+import { removeNotification, watchNotification } from "../redux/api/api";
 
 interface NotificationsPropTypes{
-    notifications:{
-        _id:string;
-        receiverID:string;
-        notificationType:NotificationTypeTypes;
-        status:NotificationStatusTypes;
-        content:string;
-        redirectedURL?:string;
-        newFor:string[];
-        visibleFor:string[];
-        createdAt:Date;
-    }[];
-    setNotifications:Dispatch<SetStateAction<{
-        _id:string;
-        receiverID:string;
-        notificationType:NotificationTypeTypes;
-        status:NotificationStatusTypes;
-        content:string;
-        redirectedURL?:string;
-        newFor:string[];
-        visibleFor:string[];
-        createdAt:Date;
-    }[]>>;
+    notifications:NotificationTypes[];
+    setNotifications:Dispatch<SetStateAction<NotificationTypes[]>>;
+    newNotifications:NotificationTypes[];
+    setNewNotifications:Dispatch<SetStateAction<NotificationTypes[]>>;
+    selectedNavigation:NaviagationTypes;
 }
 
-const Notifications = ({notifications, setNotifications}:NotificationsPropTypes) => {
+const Notifications = ({notifications, setNotifications, newNotifications, setNewNotifications, selectedNavigation}:NotificationsPropTypes) => {
 
     const removeNotificationHandler = async(notificationID:string) => {
         const removeNotificationRes = await removeNotification({
@@ -41,6 +24,22 @@ const Notifications = ({notifications, setNotifications}:NotificationsPropTypes)
             setNotifications((prev) => prev.filter((noti) => noti._id !== removeNotificationRes.jsonData));
         }
     };
+
+    useEffect(() => {
+        if(selectedNavigation === "Notifications"){
+            watchNotification()
+            .then((data) => {
+                if (data.success) {
+                    console.log(data);
+                    setNotifications((prev) => [...newNotifications, ...prev]);
+                    setNewNotifications([]);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    }, [selectedNavigation]);
 
     return(
         <div className="notifications_cont">

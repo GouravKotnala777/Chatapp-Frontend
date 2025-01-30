@@ -87,12 +87,29 @@ export type NotificationTypeTypes = "info"|"alert"|"warning";
 export type NotificationStatusTypes = "pending"|"received"|"viewed"|"archived";
 export interface NotificationTypes{
     _id:string;
-    receiverID:string;
+    fromUserID:string;
+    toUserID:string;
     notificationType:NotificationTypeTypes;
     status:NotificationStatusTypes;
     content:string;
+    isRemoved:boolean;
+    isUnreaded:boolean;
     redirectedURL?:string;
-    newFor:string[];
-    visibleFor:string[];
     createdAt:Date;
-}
+};
+export interface NotificationContainerTypes{
+    _id:string;
+    userID:string;
+    newNotificationsCount:number;
+    lastSeenAt:Date;
+    createdAt:Date;
+    updatedAt:Date;
+};
+export interface NotificationContainerTypesPopulated{
+    _id:string;
+    userID:UserTypes;
+    newNotificationsCount:number;
+    lastSeenAt:Date;
+    createdAt:Date;
+    updatedAt:Date;
+};

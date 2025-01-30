@@ -3,7 +3,7 @@ import { setSelectedNavigation } from "../redux/reducers/navigationReducer";
 import { Input, TopBackBtn } from "../utils/Utill";
 import UserListItem from "./UserLIstItem";
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
-import { NotificationStatusTypes, NotificationTypeTypes, UserTypes } from "../types/types";
+import { UserTypes } from "../types/types";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { createNotification, searchUser, sendFriendRequest } from "../redux/api/api";
@@ -13,32 +13,12 @@ import { useDispatch } from "react-redux";
 interface SearchUserPropTypes {
     friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[];
     setFriendRequests:Dispatch<SetStateAction<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>>;
-    notifications:{
-        _id:string;
-        receiverID:string;
-        notificationType:NotificationTypeTypes;
-        status:NotificationStatusTypes;
-        content:string;
-        redirectedURL?:string;
-        newFor:string[];
-        visibleFor:string[];
-        createdAt:Date;
-    }[];
-    setNotifications:Dispatch<SetStateAction<{
-        _id:string;
-        receiverID:string;
-        notificationType:NotificationTypeTypes;
-        status:NotificationStatusTypes;
-        content:string;
-        redirectedURL?:string;
-        newFor:string[];
-        visibleFor:string[];
-        createdAt:Date;
-    }[]>>;
+    //notifications:NotificationTypes[];
+    //setNotifications:Dispatch<SetStateAction<NotificationTypes[]>>;
     user:UserTypes|null;
 };
 
-const SearchUser = ({friendRequests, setFriendRequests, notifications, setNotifications, user}:SearchUserPropTypes) => {
+const SearchUser = ({friendRequests, setFriendRequests, user}:SearchUserPropTypes) => {
     const [usersToAddInGroup, setUsersToAddInGroup] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [searchedUserResult, setSearchedUserResult] = useState<UserTypes[]>([]);
@@ -69,11 +49,13 @@ const SearchUser = ({friendRequests, setFriendRequests, notifications, setNotifi
                 toUserIDs:usersToAddInGroup,
                 notificationType:"info",
                 status:"received",
-                content:"sended friend request to"
+                content:"sended friend request to",
+                isRemoved:false,
+                isUnreaded:true
             });
 
             if (createNotificationRes.success) {
-                setNotifications((prev) => [...prev, ...(createNotificationRes.jsonData) as []])
+                //setNotifications((prev) => [...prev, ...(createNotificationRes.jsonData) as []])
             }
              
             

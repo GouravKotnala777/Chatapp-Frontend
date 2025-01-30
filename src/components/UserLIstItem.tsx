@@ -52,7 +52,9 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
                                     (selectedNavigation === "Add members" ?
                                         <BiCheck style={{fontSize:"1.3rem", marginRight:"10px", color:GRAY_DARKER}} />
                                         :
-                                        <BiSolidDownArrow className="BiSolidDownArrow" style={{fontSize:"1.3rem", marginRight:"10px"}} onClick={(e) => {e.stopPropagation(); setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}}  />)
+                                        <BiSolidDownArrow className="BiSolidDownArrow" style={{fontSize:"1.3rem", marginRight:"10px"}} onClick={(e) => {
+                                            e.stopPropagation();
+                                            setIsSelectedChatOptionActive(!isSelectedChatOptionActive);}}  />)
                             }
                             <SpreadOptions contentArray={optionsArray as NaviagationTypes[]} isOpen={isSelectedChatOptionActive} setIsOpen={setIsSelectedChatOptionActive}
                                 setIsStartChatClicked={setIsStartChatClicked}
@@ -61,7 +63,7 @@ const UserListItem = ({selectedNavigation, isSelected, userID, userName, lastMes
                         :
                         <div className="icons_cont" style={{gap:"20px"}}>
                             {
-                                date&&typeof date === "object"&&(date as IconType[]).map((Icon) => (
+                                isSelected&&date&&typeof date === "object"&&(date as IconType[]).map((Icon) => (
                                     <Icon className={Icon.name === "CgRemove"?"CgRemove icon":Icon.name === "RiMailSendLine"?"RiMailSendLine":"CgAdd icon"} onClick={() => replyFriendRequestHandler&&replyFriendRequestHandler({friendRequestID:userID, status:Icon.name === "CgRemove"?"rejected":"accepted"})} />
                                 ))
                             }

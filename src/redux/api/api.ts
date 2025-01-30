@@ -213,12 +213,10 @@ export const createChat = async(formData:{chatName:string; members?:string[]; de
 export const selectedChatMessages = async(formData:{chatID:string;}) =>(
     await apiHandler({
         handlerName:"selectedChatMessages",
-        endpoint:"/api/v1/chat/selected_chat",
-        method:"POST",
-        body:formData,
-        toastMessageArray:[
-            {condition:!formData.chatID, toastMessage:"chatID not found"}
-        ],
+        endpoint:`/api/v1/chat/selected_chat?chatID=${formData.chatID}`,
+        method:"GET",
+        body:null,
+        toastMessageArray:[],
         options:{requiresAuth:true}
     })
 );
@@ -343,6 +341,8 @@ export const createNotification = async(formData:{
     notificationType:NotificationTypeTypes;
     status:NotificationStatusTypes;
     content:string;
+    isRemoved:boolean;
+    isUnreaded:boolean;
     redirectedURL?:string;
 }) =>(
     await apiHandler({
@@ -356,17 +356,13 @@ export const createNotification = async(formData:{
         options:{requiresAuth:true}
     })
 );
-export const watchNotification = async(formData:{
-    notificationID:string;
-}) =>(
+export const watchNotification = async() =>(
     await apiHandler({
         handlerName:"watchNotification",
         endpoint:"/api/v1/notification/watch",
-        method:"PUT",
-        body:formData,
-        toastMessageArray:[
-            {condition:(!formData.notificationID), toastMessage:"notificationID not found"}
-        ],
+        method:"GET",
+        body:null,
+        toastMessageArray:[],
         options:{requiresAuth:true}
     })
 );

@@ -1,5 +1,5 @@
 import "../styles/components/received_friend_requests.scss";
-import { FriendRequestStatusType, NotificationStatusTypes, NotificationTypeTypes, UserTypes } from "../types/types";
+import { FriendRequestStatusType, UserTypes } from "../types/types";
 import { Dispatch, SetStateAction, useState } from "react";
 import { PRIMARY_LIGHT } from "../constants/constants";
 import UserListItem from "./UserLIstItem";
@@ -14,32 +14,12 @@ import { RiMailSendLine } from "react-icons/ri";
 interface ReceivedFriendRequestsPropTypes {
     friendRequests:{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[];
     setFriendRequests:Dispatch<SetStateAction<{_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]>>;
-    notifications:{
-        _id:string;
-        receiverID:string;
-        notificationType:NotificationTypeTypes;
-        status:NotificationStatusTypes;
-        content:string;
-        redirectedURL?:string;
-        newFor:string[];
-        visibleFor:string[];
-        createdAt:Date;
-    }[];
-    setNotifications:Dispatch<SetStateAction<{
-        _id:string;
-        receiverID:string;
-        notificationType:NotificationTypeTypes;
-        status:NotificationStatusTypes;
-        content:string;
-        redirectedURL?:string;
-        newFor:string[];
-        visibleFor:string[];
-        createdAt:Date;
-    }[]>>;
+    //notifications:NotificationTypes[];
+    //setNotifications:Dispatch<SetStateAction<NotificationTypes[]>>;
     user:UserTypes|null;
 };
 
-const ReceivedFriendRequests = ({friendRequests, setFriendRequests, notifications, setNotifications, user}:ReceivedFriendRequestsPropTypes) => {
+const ReceivedFriendRequests = ({friendRequests, setFriendRequests, user}:ReceivedFriendRequestsPropTypes) => {
     const [singleSelectedUser, setSingleSelectedUser] = useState<Pick<UserTypes, "_id"|"name"|"email">>({_id:"", name:"", email:""});
     
     //const dispatch = useDispatch();
@@ -48,23 +28,27 @@ const ReceivedFriendRequests = ({friendRequests, setFriendRequests, notification
         //if (isIncoming === true) {
             const reply = await replyFriendRequest({friendRequestID, status});
             if (reply.success === true) {
-                console.log("----- replyFriendRequestHandler RequestFriendRequest.tsx");
-                console.log(reply);
-                console.log("----- replyFriendRequestHandler RequestFriendRequest.tsx");
+                //console.log("----- replyFriendRequestHandler RequestFriendRequest.tsx");
+                //console.log(reply);
+                //console.log("----- replyFriendRequestHandler RequestFriendRequest.tsx");
                 //dispatch(setSelectedNavigation("Chats"));
                 setFriendRequests((prev) => prev.filter((item) => item._id !== friendRequestID));
 
 
+                console.log({singleSelectedUser});
+                
                 const createNotificationRes = await createNotification({
                     toUserIDs:[singleSelectedUser._id],
                     notificationType:"info",
                     status:"received",
-                    content:"accepted friend request of"
+                    content:"accepted friend request of",
+                    isRemoved:false,
+                    isUnreaded:true
                 });
                 setSingleSelectedUser({_id:"", name:"", email:""});
     
                 if (createNotificationRes.success) {
-                    setNotifications((prev) => [...prev, ...(createNotificationRes.jsonData) as []])
+                    //setNotifications((prev) => [...prev, ...(createNotificationRes.jsonData) as []])
                 }
                     
             }
@@ -74,23 +58,6 @@ const ReceivedFriendRequests = ({friendRequests, setFriendRequests, notification
     const onSelectUserHandler = (user:Pick<UserTypes, "_id"|"name"|"email">) => {
         setSingleSelectedUser(user);
     };
-
-    //useEffect(() => {
-    //    const getAllReceivedFriendRequests = allReceivedFriendRequests();
-
-    //    getAllReceivedFriendRequests.then((data) => {
-    //        console.log("----- allReceivedFriendRequests");
-    //        console.log(data);
-    //        if (data.success === true) {
-    //            setFriendRequests(data.message as {_id:string; from:{_id:string; name:string; email:string;}; to:{_id:string; name:string; email:string;}; date:Date;}[]);
-    //        }
-    //        console.log("----- allReceivedFriendRequests");
-    //    }).catch((err) => {
-    //        console.log("----- allReceivedFriendRequests");
-    //        console.log(err);
-    //        console.log("----- allReceivedFriendRequests");
-    //    });
-    //}, []);
 
     return(
         <div className="received_friend_requests_cont">
